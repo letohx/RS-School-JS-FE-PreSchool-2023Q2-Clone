@@ -33,7 +33,7 @@ body {
   font-family: 'Inter';
   font-style: normal;
   font-size: 20px;
-  background-color: rgb(242, 242, 242);
+  background-color: rgb(230, 230, 230);
 }
 
 *,
@@ -72,6 +72,18 @@ h1 {
   font-weight: 400;
   line-height: 50px;
   letter-spacing: 0.6px;
+}
+
+h2 {
+  margin: 0;
+  color: #0C0C0E;
+  font-family: Forum;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px; /* 100% */
+  letter-spacing: 2px;
+  text-transform: capitalize; 
 }
 
 .header-wrapper {
@@ -132,7 +144,7 @@ h1 {
 .welcome-text {
   position: absolute;
   width: 600px;
-  height: 220px;
+  min-height: 220px;
   margin-top: 220px;
   color: #FFF;
   text-align: center;
@@ -146,4 +158,98 @@ h1 {
   background: #0C0C0E;
 }
 
+.welcome-text-content {
+  margin: 36px auto 0;
+}
+
 /* welcome styles end */
+
+/* about styles start */
+
+.about {
+  padding: 20px;
+  height: 837px;
+  background: #FFF;
+}
+
+.about-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 106px;
+  height: 61px;
+  margin: 0 auto;
+}
+
+.title-bottom-line {
+  width: 50px;
+  border-bottom: 1px solid #0C0C0E;
+}
+
+.about-text {
+  margin-top: 40px;
+  color: #000;
+  text-align: center;
+  text-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px;
+}
+
+.about-img-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.about-img {
+  cursor: pointer;
+  max-width: 100%;
+}
+
+.delimiter {
+  width: 20px;
+}
+
+.carousel-pagination {
+  margin: 30px auto 0;
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pagination-item {
+  background: #0C0C0E;
+  border-radius: 50%;
+  height: 26px;
+  width: 26px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 5px solid rgb(255, 255, 255)
+}
+
+.pagination-item:hover,
+.pagination-item:focus {
+  background: #BB945F;
+}
+
+.pagination-item:active {
+  background: #9d7d51;
+}
+
+.pagination-item-active {
+  background: #BB945F;
+  ;
+}
+
+
+
+
+
+
+
+
+
+/* about styles end */
