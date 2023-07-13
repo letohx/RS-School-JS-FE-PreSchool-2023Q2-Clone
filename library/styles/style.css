@@ -47,14 +47,20 @@ body {
   margin: 0 auto;
 }
 
+/* header styles start */
+
 .header {
-  height-min: 90px;
   background: #0C0C0E;
   padding: 0 20px;
 }
 
 a {
   text-decoration: none;
+}
+
+ul,
+li {
+  list-style-type: none;
 }
 
 h1 {
@@ -66,11 +72,6 @@ h1 {
   font-weight: 400;
   line-height: 50px;
   letter-spacing: 0.6px;
-}
-
-ul,
-li {
-  list-style-type: none;
 }
 
 .header-wrapper {
@@ -117,3 +118,32 @@ li {
   margin-left: 10px;
   cursor: pointer;
 }
+
+/* header styles end */
+
+/* welcome styles start */
+
+.welcome {
+  height: 600px;
+  background: linear-gradient(180deg, #0C0C0E 0%, rgba(18, 18, 21, 0.10) 50%), url(/letohx-JSFEPRESCHOOL2023Q2/library/img/welcome-bg.jpg) no-repeat center;
+  background-size: cover;
+}
+
+.welcome-text {
+  position: absolute;
+  width: 600px;
+  height: 220px;
+  margin-top: 220px;
+  color: #FFF;
+  text-align: center;
+  font-family: Forum;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 50px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  background: #0C0C0E;
+}
+
+/* welcome styles end */
