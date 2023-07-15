@@ -619,7 +619,7 @@ h2 {
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
-  line-height: 40px; /* 200% */
+  line-height: 40px;
   letter-spacing: 2px;
   text-transform: capitalize;
   width: 215px;
@@ -638,9 +638,79 @@ h2 {
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
-  line-height: 40px; /* 200% */
+  line-height: 40px;
   letter-spacing: 2px;
   text-transform: capitalize;
 }
 
 /* coffee shop styles end */
+
+/* contacts styles start */
+
+.contacts {
+  display: flex;
+  width: 1440px;
+  padding: 20px 20px 40px;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  min-height: 575px;
+  background: #FFF;
+}
+
+.contacts-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.map-img {
+  display: block;
+}
+
+.contacts-text {
+  color: #000;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px;
+  letter-spacing: 2px;
+  text-transform: capitalize;
+  margin: 0;
+  transition: 1s ease-in;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.phones {
+  display: flex;
+  flex-direction: column;
+  margin: 40px 0;
+  gap: 20px;
+}
+
+.phone {
+  height: 40px;
+}
+
+.director {
+  margin-top: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* contacts styles end */
