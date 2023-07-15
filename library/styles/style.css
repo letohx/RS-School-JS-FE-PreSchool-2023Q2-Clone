@@ -181,7 +181,7 @@ h2 {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 106px;
+  width: auto;
   height: 61px;
   margin: 0 auto;
 }
@@ -292,6 +292,12 @@ h2 {
   padding-left: 25px;
 }
 
+.input:hover,
+.input:focus,
+.input:active {
+  text-shadow: 1px 5px 5px #aba8a8;
+}
+
 .radio-circle {
   position: absolute;
   height: 1px;
@@ -352,13 +358,6 @@ h2 {
   font-weight: 700;
 } */
 
-.input-text:hover,
-.input-text:focus,
-.input-text:active {
-  text-shadow: 1px 5px 5px #aba8a8;
-
-}
-
 .favorites-items-wrapper {
 	display: flex;
 	flex-direction: row;
@@ -366,7 +365,7 @@ h2 {
 	justify-content: space-between;
 	align-items: center;
 	align-content: space-between;
-  margin: 30px 0;
+  margin: 30px 0 0;
 }
 
 .favorites-item-wrapper {
@@ -526,3 +525,122 @@ h2 {
 }
 
 /* favorites styles end */
+
+/* coffee shop styles start */
+
+.coffee-shop {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  min-height: 841px;
+  padding: 20px 20px 40px;
+  background: #FFF;
+  margin: 0;
+}
+
+.coffee-shop-text {
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px;
+  letter-spacing: 2px;
+}
+
+.menu-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.coffee-tea {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  width: 438px;
+  height: 100%;
+  margin: 0;
+}
+
+.desserts-cakes {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 40px;
+  width: 465px;
+  margin: 0;
+}
+
+.menu-title {
+  color: #BB945F;
+  font-family: Forum;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px;
+  letter-spacing: 2px;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.menu-title-text {
+  margin: 0;
+}
+
+.menu-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.product-name {
+  color: #000;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px;
+  letter-spacing: 2px;
+  text-transform: capitalize;
+  width: 200px;
+}
+
+.product-name-desserts{
+  color: #000;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px; /* 200% */
+  letter-spacing: 2px;
+  text-transform: capitalize;
+  width: 215px;
+  text-align: right;
+}
+
+.center-line {
+  width: 100px;
+  height: 1px;
+  background: #BB945F;
+}
+
+.price-menu {
+  color: #000;
+  font-family: Forum;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px; /* 200% */
+  letter-spacing: 2px;
+  text-transform: capitalize;
+}
+
+/* coffee shop styles end */
