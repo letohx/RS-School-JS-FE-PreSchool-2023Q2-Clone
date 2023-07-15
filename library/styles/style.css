@@ -25,6 +25,7 @@
 
 html {
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -81,7 +82,7 @@ h2 {
   font-size: 40px;
   font-style: normal;
   font-weight: 400;
-  line-height: 40px; /* 100% */
+  line-height: 40px;
   letter-spacing: 2px;
   text-transform: capitalize; 
 }
@@ -461,7 +462,7 @@ h2 {
   font-size: 15px;
   font-style: normal;
   font-weight: 400;
-  line-height: 40px; /* 266.667% */
+  line-height: 40px;
   letter-spacing: 2px;
   text-transform: capitalize;
   margin: 0;
@@ -670,6 +671,7 @@ h2 {
 }
 
 .contacts-text {
+  display: inline;
   color: #000;
   font-family: Inter;
   font-size: 20px;
@@ -680,6 +682,12 @@ h2 {
   text-transform: capitalize;
   margin: 0;
   transition: 1s ease-in;
+}
+
+.contacts-link:hover,
+.contacts-link:focus,
+.contacts-link:active {
+  text-decoration: underline;
 }
 
 .font-bold {
@@ -701,16 +709,175 @@ h2 {
   margin-top: 20px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 /* contacts styles end */
+
+/* library card styles start */
+
+.library-card {
+  min-height: 614px;
+  padding: 20px 20px 40px;
+  background: #FFF;
+  margin: 0;
+}
+
+.library-cards-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  margin: 40px 0 0;
+}
+
+.library-card-wrapper {
+  width: 600px;
+  height: 453px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.library-card-title {
+  color: #000;
+  font-family: Inter;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.6px;
+  margin: 0;
+  text-align: center;
+}
+
+.form-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 600px;
+  height: 386px;
+  border: 3px solid #BB945F;
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.form-inputs-wrapper {
+  position: relative;
+  width: 560px;
+  height: 272px;
+  margin: 17px 17px 20px;
+  background: #BB945F;
+}
+
+.form-title {
+  display: inline;
+  color: #000;
+  font-family: Forum;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 90px;
+  letter-spacing: 0.6px;
+  margin: 0 0 0 20px;
+}
+
+.input-form {
+  width: 520px;
+  height: 66px;
+  border: 0;
+  padding: 20px;
+  border-radius: 10px;
+  background: #FFF;
+  margin-bottom: 25px;
+  margin-left: 20px;
+  color: #8E8E8E;
+  font-family: Forum;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 50px;
+  letter-spacing: 0.6px;
+}
+
+.submit-button {
+  width: 242px;
+  height: 44px;
+  flex-shrink: 0;
+  color: #0C0C0E;
+  text-align: center;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 1px;
+  transition: 0.2s ease-out;
+}
+
+.submit-button:hover,
+.submit-button:focus {
+  border-radius: 2px;
+  border: 1px solid #BB945F;
+  background: #BB945F;
+}
+
+.submit-button:active {
+  background: #aa8756;
+}
+
+.get-card-wrapper {
+  max-width: 456px;
+  text-align: right;
+
+}
+
+.get-card-title {
+  color: #000;
+  font-family: Forum;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.6px;
+  margin: 0 0 35px;
+}
+
+.get-card-text {
+  color: #000;
+  text-align: right;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px;
+  letter-spacing: 0.4px;
+}
+
+
+.get-card-button {
+  width: 75px;
+  height: 30px;
+  margin-top: 15px;
+  margin-left: 15px;
+  flex-shrink: 0;
+  color: #0C0C0E;
+  text-align: center;
+  font-family: Inter;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 1px;
+  transition: 0.2s ease-out
+}
+
+.get-card-button:hover,
+.get-card-button:focus {
+  border-radius: 2px;
+  border: 1px solid #BB945F;
+  background: #BB945F;
+}
+
+.get-card-button:active {
+  background: #aa8756;
+}
+
+/* library card styles end */

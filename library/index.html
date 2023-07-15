@@ -6,6 +6,10 @@
   <title>Brooklyn Public Library</title>
   <link rel="stylesheet" href="./styles/normalize.сss">
   <link rel="stylesheet" href="./styles/style.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="/letohx-JSFEPRESCHOOL2023Q2/library/img/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/letohx-JSFEPRESCHOOL2023Q2/library/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/letohx-JSFEPRESCHOOL2023Q2/library/img/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/letohx-JSFEPRESCHOOL2023Q2/library/img/favicon/site.webmanifest">
 </head>
 <body>
   <div class="page-wrapper">
@@ -575,18 +579,18 @@
             <p class="contacts-text"><span class="font-bold">For all Library inquiries:</span></p>
             <div class="phones">
               <div class="phone">
-                <a href="tel:6177302370" class="contacts-text">Please call (617) 730-2370</a>
+                <p class="contacts-text">Please call </p><a href="tel:6177302370" class="contacts-text contacts-link">(617) 730-2370</a>
               </div>
               <div class="phone">
-                <a href="tel:6177302370" class="contacts-text">For TTY service, please call (617) 730-2370</a>
+                <p class="contacts-text">For TTY service, please call </p><a href="tel:6177302370" class="contacts-text contacts-link">(617) 730-2370</a>
               </div>
               <div class="phone">
-                <a href="tel:6177302385" class="contacts-text">Putterham Library: (617) 730-2385</a>
+                <p class="contacts-text">Putterham Library: </p><a href="tel:6177302385" class="contacts-text contacts-link">(617) 730-2385</a>
               </div>
             </div>
             <p class="contacts-text"><span class="font-bold">Senior Staff</span></p>
             <div class="email director">
-              <a href="mailto:amandahirst@gmail.com" class="contacts-text">Library Director: <span class="font-bold">Amanda Hirst</span></a>
+              <p class="contacts-text">Library Director: </p><a href="mailto:amandahirst@gmail.com" class="contacts-text contacts-link"><span class="font-bold">Amanda Hirst</span></a>
             </div>
           </div>
           <div class="map">
@@ -595,7 +599,34 @@
         </div>
       </section> 
 
-      <section class="library-card"></section> 
+      <section class="library-card">
+        <div class="title">
+          <h2>Digital Library Cards</h2>
+          <div class="title-bottom-line"></div>
+        </div>
+        <div class="library-cards-wrapper">
+          <div class="library-card-wrapper">
+            <p class="library-card-title">Find your Library card</p>
+            <form class="form-card">
+              <div class="form-inputs-wrapper">
+                <p class="form-title">Brooklyn Public Library</p>
+                <input type="text" id="name" class="input-form" placeholder="Reader's name">
+                <input type="text" id="number-card" class="input-form" placeholder="Card number">
+              </div>
+              <button type="submit" class="button submit-button">Check the card</button>
+            </form>
+          </div>
+
+          <div class="get-card-wrapper">
+            <p class="get-card-title">Get a reader card</p>
+            <p class="get-card-text">You will be able to see a reader card after logging into account or you can register a new account</p>
+            <div class="buttons">
+              <button class="button get-card-button">Sign Up</button>
+              <button class="button get-card-button">Log in</button>
+            </div>
+          </div>
+        </div>
+      </section> 
     </main>
 
   </div>
