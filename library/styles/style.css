@@ -122,7 +122,6 @@ h2 {
 .header-link:hover,
 .header-link:focus{
   color: #BB945F;
-  border-bottom: 1px solid #BB945F;
 }
 
 .header-link:active {
