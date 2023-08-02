@@ -44,7 +44,7 @@ body {
 }
 
 .page-wrapper {
-  width: 1440px;
+  max-width: 1440px;
   margin: 0 auto;
 }
 
@@ -181,7 +181,7 @@ h2 {
 
 .about {
   padding: 20px;
-  height: 837px;
+  padding-bottom: 35px;
   background: #FFF;
 }
 
@@ -660,7 +660,6 @@ h2 {
 
 .contacts {
   display: flex;
-  width: 1440px;
   padding: 20px 20px 40px;
   flex-direction: column;
   align-items: center;
@@ -1059,3 +1058,29 @@ h2 {
 }
 
 /* footer styles end */
+
+
+
+/* Media start */
+
+@media screen and (max-width: 1256px) {
+  .favorites-items-wrapper {
+    flex-direction: column;
+    align-content: center;
+  }
+  .contacts-wrapper {
+    flex-direction: column;
+    align-content: center;
+  }
+  .map{
+    margin-top: 100px;
+  }
+
+}
+
+
+
+
+
+
+/* Media end */
