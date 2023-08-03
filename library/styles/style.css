@@ -939,7 +939,7 @@ h2 {
 .get-card-wrapper {
   max-width: 456px;
   text-align: right;
-
+  margin-left: 20px;
 }
 
 .get-card-title {
@@ -1210,6 +1210,57 @@ h2 {
     row-gap: 30px;
     transform: translate(-5px, -10px);
   }
+}
+
+@media screen and (max-width: 950px) {
+  .menu-wrapper {
+    flex-direction: column;
+  }
+  .library-cards-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .library-card-wrapper {
+    margin-bottom: 20px;
+  }
+  .get-card-wrapper {
+    text-align: center;
+    margin-left: 0;
+    max-width: 550px;
+  }
+  .get-card-title {
+    margin: 0 0 40px;
+  }
+  .get-card-text {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .get-card-button {
+    margin-top: 0;
+  }
+  .buttons {
+    transform: translateX(-8px);
+  }
+  .coffee-shop-title {
+    margin-bottom: 20px;
+  }
+  .coffee-shop-text {
+    letter-spacing: 1.9px;
+    margin-bottom: 20px;
+  }
+  .coffee-tea {
+    margin-bottom: 40px;
+  }
+  .desserts-cakes {
+    align-self: flex-end;
+  }
+  .contacts-info {
+    align-self: start;
+  }
+  .contacts-wrapper:first-child {
+    align-self: flex-start;
+  }
+
 }
 
 
