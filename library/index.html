@@ -13,6 +13,9 @@
 <body>
   <div class="page-wrapper">
 
+    <div class="open-burger-bg"></div>
+    <div class="open-burger-bg2"></div>
+
     <header class="header">
       <div class="header-wrapper">
         <div class="header-logo">
@@ -45,6 +48,12 @@
           <div class="icon-profile">
             <img src="/letohx-JSFEPRESCHOOL2023Q2/library/img/svg/icon-profile.svg" alt="Icon profile" class="icon-profile-pic">
           </div>
+
+          <div class="header-burger burger">
+            <span class="burger-line burger-line-first"></span>
+            <span class="burger-line burger-line-second"></span>
+            <span class="burger-line burger-line-third"></span>
+          </div>
         </div>  
         
       </div>
@@ -65,17 +74,40 @@
         <div class="about-text">
           <p>The Brooklyn Library is a free workspace, a large number of books and a cozy coffee shop inside</p>
         </div>
+
+
         <div class="about-img-wrapper">
-          <div class="about-img-item">
-            <img src="/letohx-JSFEPRESCHOOL2023Q2/library/img/slider-image-1-min.jpg" alt="Slider image" class="about-img">
+          <div class="slider-button-prev slider-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+              <path d="M15 7.5L9 12.5L15 17.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </div>
-          <div class="about-img-item">
-            <img src="/letohx-JSFEPRESCHOOL2023Q2/library/img/slider-image-2-min.jpg" alt="Slider image" class="about-img">
+          <div class="slider-wrapper">
+            <div class="slider-track">
+              <div class="about-img-item slider-img1">
+                <img src="/letohx-JSFEPRESCHOOL2023Q2/library/img/slider-image-1-min.jpg" alt="Slider image" class="about-img">
+              </div>
+              <div class="about-img-item slider-img2">
+                <img src="/letohx-JSFEPRESCHOOL2023Q2/library/img/slider-image-2-min.jpg" alt="Slider image" class="about-img">
+              </div>
+              <div class="about-img-item slider-img3">
+                <img src="/letohx-JSFEPRESCHOOL2023Q2/library/img/slider-image-3-min.jpg" alt="Slider image" class="about-img">
+              </div>
+              <div class="about-img-item slider-img4 hidden">
+                <img src="/letohx-JSFEPRESCHOOL2023Q2/library/img/slider-image-4-min.jpg" alt="Slider image" class="about-img">
+              </div>
+              <div class="about-img-item slider-img5 hidden">
+                <img src="/letohx-JSFEPRESCHOOL2023Q2/library/img/slider-image-5-min.jpg" alt="Slider image" class="about-img">
+              </div>
+            </div>
           </div>
-          <div class="about-img-item">
-            <img src="/letohx-JSFEPRESCHOOL2023Q2/library/img/slider-image-3-min.jpg" alt="Slider image" class="about-img">
+          <div class="slider-button-next slider-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+              <path d="M9 17.5L15 12.5L9 7.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </div>
         </div>
+
         <div class="carousel-pagination">
           <div class="pagination-item pagination-item-active">
             <div class="pagination-circle"></div>
@@ -84,6 +116,12 @@
             <div class="pagination-circle"></div>
           </div>
           <div class="pagination-item">
+            <div class="pagination-circle"></div>
+          </div>
+          <div class="pagination-item pagination-item-five-element">
+            <div class="pagination-circle"></div>
+          </div>
+          <div class="pagination-item pagination-item-five-element">
             <div class="pagination-circle"></div>
           </div>
         </div>
@@ -487,7 +525,7 @@
       </section> 
      
       <section id="coffee-shop" class="coffee-shop">
-        <div class="title">
+        <div class="title coffee-shop-title">
           <h2>Coffee shop</h2>
           <div class="title-bottom-line"></div>
         </div>
