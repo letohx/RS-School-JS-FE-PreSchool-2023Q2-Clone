@@ -44,9 +44,9 @@ body {
 }
 
 .page-wrapper {
-  /* overflow-x: hidden; */
+  overflow-x: hidden;
   position: relative;
-  background: #000;
+  background: #ffffff00;
   max-width: 1440px;
   margin: 0 auto;
 }
@@ -198,7 +198,8 @@ h2 {
 }
 
 .open-burger-bg {
-  display: none;
+  /* display: none; */
+  opacity: 0;
   position: absolute;
   z-index: 9;
   margin: 0;
@@ -208,11 +209,13 @@ h2 {
   height: calc(100% - 90px);
   background: rgba(255, 255, 255, 0.071);
   backdrop-filter: blur(3px); 
+  transform: translate(-100%);
   transition: 0.2s ease-in-out;
 }
 
 .open-burger-bg2 {
-  display: none;
+  /* display: none; */
+  opacity: 0;
   position: absolute;
   margin: 0;
   padding: 0;
@@ -223,16 +226,21 @@ h2 {
   background: rgba(255, 255, 255, 0.071);
   backdrop-filter: blur(3px);
   z-index: 9;
+  transform: translate(-100%);
   transition: 0.2s ease-in-out;
 }
 
 .open-burger-bg-active {
-  display: block;
+  /* display: block; */
+  opacity: 1;
+  transform: translate(0);
   transition: 0.2s ease-in-out;
 }
 
 .open-burger-bg2-active {
-  display: block;
+  /* display: block; */
+  opacity: 1;
+  transform: translate(0);
   transition: 0.2s ease-in-out;
 }
 
@@ -314,13 +322,33 @@ h2 {
 
 .about-img-wrapper {
   display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  overflow: hidden;
+}
+
+.slider-wrapper {
+  display: flex;
+}
+
+.slider-track {
+  display: flex;
   justify-content: space-between;
   gap: 20px;
+}
+
+.slider-button {
+  display: none;
+  transition: 0.2s ease-in-out;
 }
 
 .about-img {
   cursor: pointer;
   max-width: 100%;
+}
+
+.hidden {
+  display: none;
 }
 
 .delimiter {
@@ -342,6 +370,10 @@ h2 {
   cursor: pointer;
   transition: 0.2s ease-in-out;
   border: 5px solid rgb(255, 255, 255);
+}
+
+.pagination-item-five-element {
+  display: none;
 }
 
 /* .pagination-circle {
@@ -1260,12 +1292,43 @@ h2 {
   .contacts-wrapper:first-child {
     align-self: flex-start;
   }
-
 }
 
-
-
-
-
+@media screen and (max-width: 770px) {
+  .contacts-wrapper {
+    align-content: flex-start;
+  }
+  .map {
+    margin-left: 17px;
+  }
+  .pagination-item-five-element {
+    display: block;
+  }
+  .slider-button {
+    display: block;
+    transform: translateY(20px);
+  }
+  .slider-img2 {
+    display: none;
+  }
+  .slider-img3 {
+    display: none;
+  }
+  .carousel-pagination {
+    margin: 15px auto 0;
+  }
+  .user-link {
+    width: 120px;
+  }
+  .footer-bottom-text {
+    text-align: right;
+  }
+  .buy-button {
+    display: block;
+  }
+  .own-button {
+    display: none;
+  }
+}
 
 /* Media end */
