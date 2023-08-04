@@ -44,9 +44,9 @@ body {
 }
 
 .page-wrapper {
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   position: relative;
-  background: #ffffff00;
+  background: #000000;
   max-width: 1440px;
   margin: 0 auto;
 }
@@ -148,6 +148,7 @@ h2 {
   display: none;
   width: 45px;
   height: 22px;
+  z-index: 11;
   margin-left: 40px;
   transition: 0.2s ease-in-out;
 }
@@ -156,6 +157,7 @@ h2 {
   margin-left: 27px;
   height: 32px;
   transform: translate(6px, 0);
+  z-index: 11;
 }
 
 .burger-line {
@@ -164,6 +166,7 @@ h2 {
   display: block;
   width: 100%;
   height: 2px;
+  z-index: 11;
   background-color: #fff;
   transition: 0.2s ease-in-out;
 }
@@ -201,28 +204,12 @@ h2 {
   /* display: none; */
   opacity: 0;
   position: absolute;
-  z-index: 9;
-  margin: 0;
-  margin-top: 90px;
-  padding: 0;
-  width: 100%;
-  height: calc(100% - 90px);
-  background: rgba(255, 255, 255, 0.071);
-  backdrop-filter: blur(3px); 
-  transform: translate(-100%);
-  transition: 0.2s ease-in-out;
-}
-
-.open-burger-bg2 {
-  /* display: none; */
-  opacity: 0;
-  position: absolute;
   margin: 0;
   padding: 0;
   top: 0;
   left: 0;
-  width: calc(100% - 332px);
-  height: 90px;
+  width: 100%;
+  height: 100%;
   background: rgba(255, 255, 255, 0.071);
   backdrop-filter: blur(3px);
   z-index: 9;
@@ -231,13 +218,6 @@ h2 {
 }
 
 .open-burger-bg-active {
-  /* display: block; */
-  opacity: 1;
-  transform: translate(0);
-  transition: 0.2s ease-in-out;
-}
-
-.open-burger-bg2-active {
   /* display: block; */
   opacity: 1;
   transform: translate(0);
@@ -334,7 +314,7 @@ h2 {
 .slider-track {
   display: flex;
   justify-content: space-between;
-  gap: 20px;
+  gap: 25px;
 }
 
 .slider-button {
@@ -1220,9 +1200,9 @@ h2 {
     display: flex;
     position: absolute;
     right: 0;
-    top: 90px;
+    top: 0;
     width: 332px;
-    height: 480px;
+    height: 570px;
     background: #0C0C0E;
     z-index: 10;
     justify-content: center;
@@ -1230,17 +1210,19 @@ h2 {
     transform: translateX(332px);
     transition: 0.2s;
   }
-
   .header-nav-active {
     transform: translateX(0);
   }
-
   .header-list {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     row-gap: 30px;
+    padding-top: 90px;
     transform: translate(-5px, -10px);
+  }
+  .icon-profile {
+    z-index: 11;
   }
 }
 
