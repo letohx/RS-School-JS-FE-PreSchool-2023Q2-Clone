@@ -44,8 +44,8 @@ body {
 }
 
 .page-wrapper {
-  /* overflow-x: hidden; */
   position: relative;
+  overflow-x: hidden;
   background: #000000;
   max-width: 1440px;
   margin: 0 auto;
@@ -96,14 +96,14 @@ h2 {
 
 .header-wrapper {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
 }
 
 .header-nav-icon-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
 }
 
@@ -507,11 +507,14 @@ h2 {
   right: 0px;
   bottom: 0px;
   margin: 0;
+  max-width: 35%;
   border: 0;
 }
 
 .book-img {
   display: block;  
+  min-width: 30%;
+  width: 100%;
   border: 0;
 }
 
@@ -689,7 +692,8 @@ h2 {
   justify-content: center;
   align-items: flex-start;
   gap: 40px;
-  width: 438px;
+  max-width: 438px;
+  width: 100%;
   height: 100%;
   margin: 0;
 }
@@ -700,7 +704,8 @@ h2 {
   justify-content: center;
   align-items: flex-end;
   gap: 40px;
-  width: 465px;
+  max-width: 465px;
+  width: 100%;
   margin: 0;
 }
 
@@ -756,6 +761,7 @@ h2 {
 .center-line {
   width: 100px;
   height: 1px;
+  margin: 0 10px;
   background: #BB945F;
 }
 
@@ -880,6 +886,7 @@ h2 {
 .form-card {
   display: flex;
   flex-direction: column;
+  padding: 0 20px;
   align-items: center;
   width: 600px;
   height: 386px;
@@ -890,7 +897,9 @@ h2 {
 
 .form-inputs-wrapper {
   position: relative;
-  width: 560px;
+  max-width: 560px;
+  width: 101%;
+  padding-right: 40px;
   height: 272px;
   margin: 17px 17px 20px;
   background: #BB945F;
@@ -909,7 +918,8 @@ h2 {
 }
 
 .input-form {
-  width: 520px;
+  max-width: 520px;
+  width: 100%;
   height: 66px;
   border: 0;
   padding: 20px;
@@ -927,7 +937,9 @@ h2 {
 }
 
 .submit-button {
-  width: 242px;
+  max-width: 242px;
+  width: 100%;
+  margin: 0 20px;
   height: 44px;
   flex-shrink: 0;
   color: #0C0C0E;
@@ -1278,6 +1290,14 @@ h2 {
   .contacts-wrapper:first-child {
     align-self: flex-start;
   }
+  .library-card-wrapper {
+    max-width: 600px;
+    width: 100%;
+  }
+  .form-card {
+    max-width: 600px;
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 770px) {
@@ -1328,9 +1348,57 @@ h2 {
   }
 }
 
+@media screen and (max-width: 639px) {
+  .book-description {
+    max-width: 65%;
+  }
+  .book-description-text {
+    font-size: 14px;
+    line-height: 30px;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+  .user-link {
+    width: auto;
+  }
+  .footer-bottom-link {
+    font-size: 17px;
+  }
+  .footer-bottom-text {
+    font-size: 17px;
+  }
+}
+
 @media screen and (max-width: 460px) {
   .header-logo-link-text {
     font-size: 20px;
+  }
+  .favorites-item-wrapper {
+    height: auto;
+  }
+  .book-title {
+    height: auto;
+  }
+  .book-name {
+    line-height: 20px;
+    letter-spacing: 1px;
+  }
+  .book-description-text {
+    font-size: 13px;
+    line-height: 20px;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+  .form-title {
+    display: block;
+    line-height: 30px;
+    padding: 10px 0;
+  }
+  .footer-bottom-link {
+    font-size: 14px;
+  }
+  .footer-bottom-text {
+    font-size: 14px;
   }
 }
 
