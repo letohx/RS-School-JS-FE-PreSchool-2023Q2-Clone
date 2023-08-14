@@ -634,7 +634,8 @@ h2 {
   font-weight: 700;
   line-height: normal;
   letter-spacing: 1px;
-  transition: 0.2s ease-out
+  transition: 0.2s ease-out;
+  border: 1px solid #BB945F;
 }
 
 .hide {
