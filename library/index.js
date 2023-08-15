@@ -7,12 +7,13 @@ console.log("пожалуйста, учитывайте изменения в з
     const burgerItem = document.querySelector('.burger');
     const menu = document.querySelector('.header-nav');
     const burgerBg = document.querySelector('.open-burger-bg');
+    const profileIcon = document.querySelector('.icon-profile');
     const burgerIcon = document.querySelector('.header-burger');
     const burgerLine1 = document.querySelector('.burger-line-first');
     const burgerLine2 = document.querySelector('.burger-line-second');
     const burgerLine3 = document.querySelector('.burger-line-third');
     const burgerItems = document.querySelectorAll('.header-item');
-
+  
     const toggleBurger = () =>{
         menu.classList.toggle('header-nav-active');
         burgerBg.classList.toggle('open-burger-bg-active');
@@ -20,18 +21,22 @@ console.log("пожалуйста, учитывайте изменения в з
         burgerLine1.classList.toggle('burger-line-first-active');
         burgerLine2.classList.toggle('burger-line-second-active');
         burgerLine3.classList.toggle('burger-line-third-active');
+        document.body.classList.toggle("body-scroll-stop");
     };
+
+    const removeBurger = () =>{
+        menu.classList.remove('header-nav-active');
+        burgerBg.classList.remove('open-burger-bg-active');
+        burgerIcon.classList.remove('header-burger-active');
+        burgerLine1.classList.remove('burger-line-first-active');
+        burgerLine2.classList.remove('burger-line-second-active');
+        burgerLine3.classList.remove('burger-line-third-active');
+        document.body.classList.remove("body-scroll-stop");
+    };
+
    
     burgerItem.addEventListener('click', () => toggleBurger());
     burgerBg.addEventListener('click', () => toggleBurger());
-    burgerItems.forEach((item) => {
-        item.addEventListener('click', () => {
-            menu.classList.remove('header-nav-active');
-            burgerBg.classList.remove('open-burger-bg-active');
-            burgerIcon.classList.remove('header-burger-active');
-            burgerLine1.classList.remove('burger-line-first-active');
-            burgerLine2.classList.remove('burger-line-second-active');
-            burgerLine3.classList.remove('burger-line-third-active');
-        });
-    });
+    profileIcon.addEventListener('click', () => removeBurger());
+    burgerItems.forEach((item) => item.addEventListener('click', () => removeBurger()));
 }());
