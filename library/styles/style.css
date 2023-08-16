@@ -54,7 +54,6 @@ body {
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  background: #0C0C0E;
 }
 
 .page-wrapper-header {
@@ -269,6 +268,7 @@ h2 {
 
 .welcome {
   margin-top: -1px;
+  margin-bottom: 1px;
   height: 600px;
   background: linear-gradient(180deg, #0C0C0E 0%, rgba(18, 18, 21, 0.10) 50%), url(/letohx-JSFEPRESCHOOL2023Q2/library/img/welcome-bg-min.jpg) no-repeat center;
   background-size: cover;
@@ -346,17 +346,19 @@ h2 {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  overflow: hidden;
 }
 
 .slider-wrapper {
   display: flex;
+  overflow: hidden;
+  height: 100%;
 }
 
 .slider-track {
   display: flex;
   justify-content: space-between;
   gap: 25px;
+  transition: 0.2s ease-in-out
 }
 
 .slider-button {
@@ -366,7 +368,6 @@ h2 {
 
 .about-img {
   cursor: pointer;
-  max-width: 100%;
 }
 
 .hidden {
@@ -390,29 +391,25 @@ h2 {
   height: 26px;
   width: 26px;
   cursor: pointer;
-  transition: 0.2s ease-in-out;
+  transition: 0.5s ease-in-out;
   border: 5px solid rgb(255, 255, 255);
 }
 
-.pagination-item-five-element {
-  display: none;
-}
-
-/* .pagination-circle {
-
-} */
-
-.pagination-item:hover,
-.pagination-item:focus {
-  background: #BB945F;
+.pagination-item:hover {
+  background: #9b7b4f;
+  transition: 0.5s ease-in-out; 
 }
 
 .pagination-item:active {
-  background: #9d7d51;
+  transform: scale(1.1);
+  transition: 0.1s ease-in-out; 
 }
 
-.pagination-item-active {
+.pagination-item-clicked {
+  transform: none;
   background: #BB945F;
+  cursor: default;
+  transition: 0.5s ease-in-out;
 }
 
 /* about styles end */
@@ -1349,18 +1346,10 @@ h2 {
   .map {
     margin-left: 17px;
   }
-  .pagination-item-five-element {
-    display: block;
-  }
+
   .slider-button {
     display: block;
     transform: translateY(20px);
-  }
-  .slider-img2 {
-    display: none;
-  }
-  .slider-img3 {
-    display: none;
   }
   .user-link {
     width: 120px;
