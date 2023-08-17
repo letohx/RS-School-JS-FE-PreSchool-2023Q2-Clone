@@ -41,6 +41,7 @@ console.log('\n\n');
 }());
 
 
+
 // Slider
 
 (function () {
@@ -62,10 +63,19 @@ console.log('\n\n');
             if (activeIndex === 0) activeIndex = 1;
             if (activeIndex === 4) activeIndex = 3;
         }
-        
-        console.log(activeIndex);   
+         
         const slideWidth = slides[0].offsetWidth;
         
+        if (activeIndex === 0) {
+            btnPrev.classList.add('slider-button-hide')
+            btnNext.classList.remove('slider-button-hide')
+        } else if (activeIndex === 4) {
+            btnNext.classList.add('slider-button-hide')
+            btnPrev.classList.remove('slider-button-hide')
+        } else {
+            btnPrev.classList.remove('slider-button-hide')
+            btnNext.classList.remove('slider-button-hide')
+        }
         
         if (windowWidth >= 770) {
             return (-activeIndex + 1) * (slideWidth + 25);
@@ -135,3 +145,45 @@ console.log('\n\n');
         setPosition();
     });
 }());
+
+
+
+// favorites slider
+
+(function () {
+    let radioBtn = document.querySelectorAll('.favorites-label');
+    let favoritesItem = document.querySelectorAll('.favorites-items-wrapper');
+    
+    radioBtn.forEach(function(item, index){
+        item.addEventListener('click', function(elem){
+      
+          radioBtn.forEach(function(btn){ btn.classList.remove('selected')});
+          elem.currentTarget.classList.add('selected');
+      
+        favoritesItem.forEach(function(item){item.classList.add('favorites-hide')});
+        setTimeout(function () {
+          favoritesItem[index].classList.remove('favorites-hide');
+        }, 500); 
+      })
+    })
+}());
+
+
+
+// profile menu
+
+const profileIcon = document.querySelector('.icon-profile');
+const profileMenu = document.querySelector('.profile-menu');
+const burgerItem = document.querySelector('.burger');
+
+const toggleProfileMenu = () =>{
+    profileMenu.classList.toggle('profile-menu-active');    
+};
+
+profileIcon.addEventListener('click', () => toggleProfileMenu());
+
+profileMenu.addEventListener('click', (e) => {
+    if (!e.target) {
+        profileMenu.classList.remove('profile-menu-active'); 
+    };
+  });
