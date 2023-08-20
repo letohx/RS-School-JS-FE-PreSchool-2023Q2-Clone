@@ -170,6 +170,19 @@ console.log('\n\n');
 
 
 
+// before registration
+
+document.querySelector('.form-card').addEventListener('submit', function(event) {
+    event.preventDefault();
+  });
+    
+  
+  
+  
+  
+  
+
+
 // profile menu
 
 const profileIcon = document.querySelector('.icon-profile');

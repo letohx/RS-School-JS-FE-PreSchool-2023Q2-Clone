@@ -50,7 +50,7 @@ body {
 
 .page-wrapper {
   position: relative;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
@@ -75,7 +75,7 @@ body {
 
 .page-wrapper-mine {
   position: relative;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   width: 100%;
   margin: 0 auto;
   background: #ffffff;
@@ -83,7 +83,7 @@ body {
 
 .page-wrapper-footer {
   position: relative;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
@@ -432,6 +432,7 @@ c
 
 .slider-button-hide {
   cursor: default;
+  pointer-events: none;
   transition: 0.2s ease-in-out;
 }
 
@@ -474,6 +475,7 @@ c
   transform: none;
   background: #BB945F;
   cursor: default;
+  pointer-events: none;
   transition: 0.5s ease-in-out;
 }
 
@@ -771,7 +773,6 @@ c
   margin: 30px 0 0;
   top: auto;
   opacity: 1;
-  
   transition: 0.5s ease-in-out;
   position: absolute;
   opacity: 0;
@@ -1331,6 +1332,7 @@ c
   .favorites-items-wrapper {
     flex-direction: column;
     align-content: center;
+    /* height: 2380px; */
   }
   .contacts-wrapper {
     flex-direction: column;
@@ -1338,6 +1340,15 @@ c
   }
   .map {
     margin-top: 100px;
+  }
+  .favorites-text {
+    margin: 40px 0 30px;
+  }
+  .radio-buttons-wrapper {
+    padding-top: 10px;
+  }
+  .favorites {
+    min-height: 2629px;
   }
 }
 
@@ -1460,6 +1471,9 @@ c
   .radio-buttons-wrapper {
     position: sticky;  
     top: 0;
+    z-index: 2;
+    background: rgb(255 255 255 / 60%);
+    backdrop-filter: blur(15px);
   }
 }
 
