@@ -217,7 +217,7 @@ const btnProfileMenuRegister = document.querySelector('.button-profile-menu-regi
 const btnSingUp = document.querySelector('.get-card-button-sing-up');
 const btnLoginModalRegister = document.querySelector('.register-info-button-login');
 const modalRegisterCloseBtn = document.querySelector('.register-modal-close');
-const modalOverlay = document.querySelector('.modal-overlay');
+const modalRegisterOverlay = document.querySelector('.modal-register-overlay');
 
 function registerModalOpen() {
     const modalRegister = document.querySelector('.modal-register');
@@ -234,10 +234,43 @@ function registerModalClose() {
 btnProfileMenuRegister.addEventListener('click', (e) => registerModalOpen());
 btnSingUp.addEventListener('click', (e) => registerModalOpen());
 modalRegisterCloseBtn.addEventListener('click', (e) => registerModalClose());
-modalOverlay.addEventListener('click', (e) => {
+modalRegisterOverlay.addEventListener('click', (e) => {
     if (!e.target.closest('.register-content')) registerModalClose()});
 
 btnLoginModalRegister.addEventListener('click', (e) => {
     registerModalClose();
+    loginModalOpen();
 });
 
+
+// Modal window LOGIN
+
+
+const btnProfileMenuLogin = document.querySelector('.button-profile-menu-login');
+const btnLogin = document.querySelector('.get-card-button-login');
+const btnRegisterModalLogin = document.querySelector('.login-info-button-register');
+const modalLoginCloseBtn = document.querySelector('.login-modal-close');
+const modalLoginOverlay = document.querySelector('.modal-login-overlay');
+
+function loginModalOpen() {
+    const modalLogin = document.querySelector('.modal-login');
+    modalLogin.classList.add('modal-login-active');
+    document.body.classList.add("body-scroll-stop");
+}
+
+function loginModalClose() {
+    const modalLogin = document.querySelector('.modal-login');
+    modalLogin.classList.remove('modal-login-active');
+    document.body.classList.remove("body-scroll-stop");
+}
+
+btnProfileMenuLogin.addEventListener('click', (e) => loginModalOpen());
+btnLogin.addEventListener('click', (e) => loginModalOpen());
+modalLoginCloseBtn.addEventListener('click', (e) => loginModalClose());
+modalLoginOverlay.addEventListener('click', (e) => {
+    if (!e.target.closest('.login-content')) loginModalClose()});
+
+btnRegisterModalLogin.addEventListener('click', (e) => {
+    loginModalClose();
+    registerModalOpen();
+});
