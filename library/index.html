@@ -50,8 +50,8 @@
             <div class="profile-menu">
               <p class="profile-menu-text">Profile</p>
               <hr class="profile-menu-line">
-              <button class="button-profile-menu">Log In</button>
-              <button class="button-profile-menu">Register</button>
+              <button class="button-profile-menu button-profile-menu-login">Log In</button>
+              <button class="button-profile-menu button-profile-menu-register">Register</button>
             </div>
           </div>
   
@@ -667,7 +667,7 @@
               <p class="get-card-title">Get a reader card</p>
               <p class="get-card-text">You will be able to see a reader card after logging into account or you can register a new account</p>
               <div class="buttons">
-                <button class="button get-card-button">Sign Up</button>
+                <button class="button get-card-button get-card-button-sing-up">Sign Up</button>
                 <button class="button get-card-button">Log in</button>
               </div>
             </div>
@@ -729,6 +729,44 @@
       </div>
     </div>
   </footer>
+
+  <div class="modal-register">
+    <div class="modal-overlay">
+      <div class="register-content">
+        <p class="register-modal-title">Register</p>
+        <form action="" class="register-modal-form">
+          <label class="register-modal-label">
+            <p class="register-modal-name">First name</p>
+            <input type="text" class="register-modal-input register-modal-first-name-input">
+          </label>
+          <label class="register-modal-label">
+            <p class="register-modal-name">Last name</p>
+            <input type="text" class="register-modal-input register-modal-last-name-input">
+          </label>
+          <label class="register-modal-label">
+            <p class="register-modal-name">E-mail</p>
+            <input type="email" class="register-modal-input register-modal-email-input">
+          </label>
+          <label class="register-modal-label">
+            <p class="register-modal-name">Password</p>
+            <input type="password" class="register-modal-input register-modal-password-input">
+          </label>
+          <button class="register-modal-submit-button" type="submit">Sign Up</button>
+        </form>
+        <div class="register-info">
+          <p class="register-info-text">Already have an account?</p>
+          <button class="register-info-button-login">Login</button>
+        </div>
+        <button class="register-modal-close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none" class="register-modal-close-svg">
+            <path d="M2 16.8507L17 2.00003" stroke="#0C0C0E" stroke-width="3"/>
+            <path d="M2 2.14926L17 17" stroke="#0C0C0E" stroke-width="3"/>
+            </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  
   <script src="./index.js"></script>
 </body>
 </html>
