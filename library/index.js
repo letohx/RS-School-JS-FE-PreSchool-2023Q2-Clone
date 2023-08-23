@@ -175,6 +175,10 @@ console.log('\n\n');
 document.querySelector('.form-card').addEventListener('submit', function(event) {
     event.preventDefault();
   });
+
+
+
+// at the registration stage
     
   
   
@@ -188,6 +192,7 @@ document.querySelector('.form-card').addEventListener('submit', function(event) 
 const profileIcon = document.querySelector('.icon-profile');
 const profileMenu = document.querySelector('.profile-menu');
 const burgerItem = document.querySelector('.burger');
+const profileMenuButtons = document.querySelectorAll('.button-profile-menu');
 
 const toggleProfileMenu = () =>{
     profileMenu.classList.toggle('profile-menu-active');    
@@ -195,8 +200,44 @@ const toggleProfileMenu = () =>{
 
 profileIcon.addEventListener('click', () => toggleProfileMenu());
 
-profileMenu.addEventListener('click', (e) => {
-    if (!e.target) {
-        profileMenu.classList.remove('profile-menu-active'); 
-    };
+document.addEventListener('click', (e) => {
+    if (!profileMenu.contains(e.target) && !profileIcon.contains(e.target)) {
+      profileMenu.classList.remove('profile-menu-active');
+    }
   });
+
+profileMenuButtons.forEach((item) => item.addEventListener('click', () => profileMenu.classList.remove('profile-menu-active')));
+  
+
+
+// Modal window REGISTER
+
+
+const btnProfileMenuRegister = document.querySelector('.button-profile-menu-register');
+const btnSingUp = document.querySelector('.get-card-button-sing-up');
+const btnLoginModalRegister = document.querySelector('.register-info-button-login');
+const modalRegisterCloseBtn = document.querySelector('.register-modal-close');
+const modalOverlay = document.querySelector('.modal-overlay');
+
+function registerModalOpen() {
+    const modalRegister = document.querySelector('.modal-register');
+    modalRegister.classList.add('modal-register-active');
+    document.body.classList.add("body-scroll-stop");
+}
+
+function registerModalClose() {
+    const modalRegister = document.querySelector('.modal-register');
+    modalRegister.classList.remove('modal-register-active');
+    document.body.classList.remove("body-scroll-stop");
+}
+
+btnProfileMenuRegister.addEventListener('click', (e) => registerModalOpen());
+btnSingUp.addEventListener('click', (e) => registerModalOpen());
+modalRegisterCloseBtn.addEventListener('click', (e) => registerModalClose());
+modalOverlay.addEventListener('click', (e) => {
+    if (!e.target.closest('.register-content')) registerModalClose()});
+
+btnLoginModalRegister.addEventListener('click', (e) => {
+    registerModalClose();
+});
+
