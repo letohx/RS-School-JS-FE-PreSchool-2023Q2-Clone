@@ -737,7 +737,7 @@
         <form action="" class="register-modal-form">
           <label class="register-modal-label">
             <p class="register-modal-name">First name</p>
-            <input type="text" class="register-modal-input register-modal-first-name-input">
+            <input type="text" class="register-modal-input register-modal-first-name-input" autofocus="1">
           </label>
           <label class="register-modal-label">
             <p class="register-modal-name">Last name</p>
@@ -745,11 +745,11 @@
           </label>
           <label class="register-modal-label">
             <p class="register-modal-name">E-mail</p>
-            <input type="email" class="register-modal-input register-modal-email-input">
+            <input type="email" class="register-modal-input register-modal-email-input" autocomplete="email">
           </label>
-          <label class="register-modal-label">
+          <label class="register-modal-label" title="Enter a password of 8 characters or more">
             <p class="register-modal-name">Password</p>
-            <input type="password" class="register-modal-input register-modal-password-input">
+            <input type="password" class="register-modal-input register-modal-password-input" autocomplete="current-password">
           </label>
           <button class="register-modal-submit-button" type="submit">Sign Up</button>
         </form>

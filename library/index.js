@@ -216,6 +216,7 @@ profileMenuButtons.forEach((item) => item.addEventListener('click', () => profil
 const btnProfileMenuRegister = document.querySelector('.button-profile-menu-register');
 const btnSingUp = document.querySelector('.get-card-button-sing-up');
 const btnLoginModalRegister = document.querySelector('.register-info-button-login');
+const btnSubmitRegisterModal = document.querySelector('.register-modal-submit-button');
 const modalRegisterCloseBtn = document.querySelector('.register-modal-close');
 const modalRegisterOverlay = document.querySelector('.modal-register-overlay');
 
@@ -239,8 +240,115 @@ modalRegisterOverlay.addEventListener('click', (e) => {
 
 btnLoginModalRegister.addEventListener('click', (e) => {
     registerModalClose();
-    loginModalOpen();
+    document.body.classList.add("body-scroll-stop");
+    setTimeout(function () {loginModalOpen()}, 100); 
 });
+
+
+btnSubmitRegisterModal.addEventListener('submit', function(event) {
+    event.preventDefault();
+  });
+
+
+
+const firstNameRegisterModal = document.querySelector('.register-modal-first-name-input');
+const lastNameRegisterModal = document.querySelector('.register-modal-last-name-input');
+const emailRegisterModal = document.querySelector('.register-modal-email-input');
+const passwordRegisterModal = document.querySelector('.register-modal-password-input');
+const registerModalInputs = document.querySelectorAll('.register-modal-input');
+const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
+   
+
+
+function checkRegisterModalInputs() {
+    const firstNameRegisterValue = firstNameRegisterModal.value;
+    const lastNameRegisterValue = lastNameRegisterModal.value;
+    const emailNameRegisterValue = emailRegisterModal.value;
+    const passwordRegisterValue = passwordRegisterModal.value;
+
+    const conditionFirstNameRegisterValue = firstNameRegisterValue.length > 0;
+    const conditionLastNameRegisterValue = lastNameRegisterValue.length > 0;
+    const conditionEmailRegisterValue = EMAIL_REGEXP.test(emailNameRegisterValue);
+    //  && !(localStorage.getItem(`arrUsers${delimiter}`).includes(emailNameRegisterValue));
+    const conditionPasswordRegisterValue = passwordRegisterValue.length > 7;
+
+    function setInputBorderColor(condition, modalInput) {
+        condition ? modalInput.style.borderColor = 'green' : modalInput.style.borderColor = 'red';
+    }
+
+    firstNameRegisterModal.addEventListener('input', setInputBorderColor(conditionFirstNameRegisterValue, firstNameRegisterModal));
+    lastNameRegisterModal.addEventListener('input', setInputBorderColor(conditionLastNameRegisterValue, lastNameRegisterModal));
+    emailRegisterModal.addEventListener('input', setInputBorderColor(conditionEmailRegisterValue, emailRegisterModal));
+    passwordRegisterModal.addEventListener('input', setInputBorderColor(conditionPasswordRegisterValue, passwordRegisterModal));
+};
+registerModalInputs.forEach((item) => item.addEventListener('blur', () => checkRegisterModalInputs()));
+
+
+const delimiter = '_ʕ ᵔᴥᵔ ʔ_'
+let arrUsers = JSON.parse(localStorage.getItem(`arrUsers${delimiter}`)) || [];
+
+
+btnSubmitRegisterModal.addEventListener('click', (e)=>{
+    e.preventDefault();
+    checkRegisterModalInputs();
+
+    const emailUser = emailRegisterModal.value;
+
+    if (arrUsers.includes(emailUser)) {
+        return;
+    }
+    
+    if (firstNameRegisterModal.value.length > 0 &&
+        lastNameRegisterModal.value.length > 0 &&
+        EMAIL_REGEXP.test(emailRegisterModal.value) &&
+        passwordRegisterModal.value.length > 7 ) {
+            arrUsers.push(emailUser);
+            localStorage.setItem(`arrUsers${delimiter}`, arrUsers);
+            localStorage.setItem(`${emailRegisterModal.value}${delimiter}firstName`, `${firstNameRegisterModal.value}`);
+            localStorage.setItem(`${emailRegisterModal.value}${delimiter}lastName`, `${lastNameRegisterModal.value}`);
+            localStorage.setItem(`${emailRegisterModal.value}${delimiter}email`, `${emailRegisterModal.value}`);
+            localStorage.setItem(`${emailRegisterModal.value}${delimiter}password`, `${passwordRegisterModal.value}`);
+            localStorage.setItem(`${emailRegisterModal.value}${delimiter}registered`, true);
+            localStorage.setItem(`${emailRegisterModal.value}${delimiter}authorized`, true);
+
+
+            setUserInitial();
+            registerModalClose();
+        }
+});
+
+
+
+function setUserInitial() {
+    let authorizedUser;
+    arrUsers.forEach((user) => {
+        if (localStorage.getItem(`${user}${delimiter}authorized`) === 'true') {
+            authorizedUser = user;
+        }
+    });
+    console.log(authorizedUser);
+    if (localStorage.getItem(`${authorizedUser}${delimiter}authorized`) === 'true') {
+        const userFirstNameInitial = localStorage.getItem(`${authorizedUser}${delimiter}firstName`);
+        const userLastNameInitial = localStorage.getItem(`${authorizedUser}${delimiter}lastName`);
+        const userInitials = `${userFirstNameInitial[0].toUpperCase()}${userLastNameInitial[0].toUpperCase()}`;
+
+        let profileIcon = document.querySelector('.icon-profile');
+        profileIcon.innerHTML = `<p class="icon-profile-initials">${userInitials}</p>`;
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Modal window LOGIN
@@ -272,5 +380,7 @@ modalLoginOverlay.addEventListener('click', (e) => {
 
 btnRegisterModalLogin.addEventListener('click', (e) => {
     loginModalClose();
-    registerModalOpen();
+    document.body.classList.add("body-scroll-stop");
+    setTimeout(function () {registerModalOpen()}, 100); 
 });
+
