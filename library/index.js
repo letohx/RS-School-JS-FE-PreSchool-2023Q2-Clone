@@ -189,10 +189,11 @@ document.querySelector('.form-card').addEventListener('submit', function(event) 
 
 // profile menu
 
-const profileIcon = document.querySelector('.icon-profile');
-const profileMenu = document.querySelector('.profile-menu');
+
+let profileIcon = document.querySelector('.icon-profile');
+let profileMenu = document.querySelector('.profile-menu');
 const burgerItem = document.querySelector('.burger');
-const profileMenuButtons = document.querySelectorAll('.button-profile-menu');
+let profileMenuButtons = document.querySelectorAll('.button-profile-menu');
 
 const toggleProfileMenu = () =>{
     profileMenu.classList.toggle('profile-menu-active');    
@@ -213,7 +214,7 @@ profileMenuButtons.forEach((item) => item.addEventListener('click', () => profil
 // Modal window REGISTER
 
 
-const btnProfileMenuRegister = document.querySelector('.button-profile-menu-register');
+let btnProfileMenuRegister = document.querySelector('.button-profile-menu-register');
 const btnSingUp = document.querySelector('.get-card-button-sing-up');
 const btnLoginModalRegister = document.querySelector('.register-info-button-login');
 const btnSubmitRegisterModal = document.querySelector('.register-modal-submit-button');
@@ -285,7 +286,15 @@ registerModalInputs.forEach((item) => item.addEventListener('blur', () => checkR
 
 
 const delimiter = '_ʕ ᵔᴥᵔ ʔ_'
-let arrUsers = JSON.parse(localStorage.getItem(`arrUsers${delimiter}`)) || [];
+let registeredUsers = JSON.parse(localStorage.getItem(`registeredUsers${delimiter}`)) || [];
+
+console.log(registeredUsers);
+
+
+window.addEventListener('load', function() {
+    setUserInitial();
+    changeProfileMenu();
+});
 
 
 btnSubmitRegisterModal.addEventListener('click', (e)=>{
@@ -294,7 +303,7 @@ btnSubmitRegisterModal.addEventListener('click', (e)=>{
 
     const emailUser = emailRegisterModal.value;
 
-    if (arrUsers.includes(emailUser)) {
+    if (registeredUsers.includes(emailUser)) {
         return;
     }
     
@@ -302,18 +311,22 @@ btnSubmitRegisterModal.addEventListener('click', (e)=>{
         lastNameRegisterModal.value.length > 0 &&
         EMAIL_REGEXP.test(emailRegisterModal.value) &&
         passwordRegisterModal.value.length > 7 ) {
-            arrUsers.push(emailUser);
-            localStorage.setItem(`arrUsers${delimiter}`, arrUsers);
-            localStorage.setItem(`${emailRegisterModal.value}${delimiter}firstName`, `${firstNameRegisterModal.value}`);
-            localStorage.setItem(`${emailRegisterModal.value}${delimiter}lastName`, `${lastNameRegisterModal.value}`);
+            registeredUsers.push(emailUser);
+            localStorage.setItem(`registeredUsers${delimiter}`, JSON.stringify(registeredUsers));
+            localStorage.setItem(`${emailRegisterModal.value}${delimiter}firstName`, `${firstNameRegisterModal.value.charAt(0).toUpperCase() + firstNameRegisterModal.value.slice(1)}`);
+            localStorage.setItem(`${emailRegisterModal.value}${delimiter}lastName`, `${lastNameRegisterModal.value.charAt(0).toUpperCase() + lastNameRegisterModal.value.slice(1)}`);
             localStorage.setItem(`${emailRegisterModal.value}${delimiter}email`, `${emailRegisterModal.value}`);
             localStorage.setItem(`${emailRegisterModal.value}${delimiter}password`, `${passwordRegisterModal.value}`);
+            localStorage.setItem(`${emailRegisterModal.value}${delimiter}cardNumber`, generateRandomHexNumber());
             localStorage.setItem(`${emailRegisterModal.value}${delimiter}registered`, true);
             localStorage.setItem(`${emailRegisterModal.value}${delimiter}authorized`, true);
 
+            
 
             setUserInitial();
+            changeProfileMenu();
             registerModalClose();
+            location.reload();
         }
 });
 
@@ -321,21 +334,66 @@ btnSubmitRegisterModal.addEventListener('click', (e)=>{
 
 function setUserInitial() {
     let authorizedUser;
-    arrUsers.forEach((user) => {
+    registeredUsers.forEach((user) => {
         if (localStorage.getItem(`${user}${delimiter}authorized`) === 'true') {
             authorizedUser = user;
         }
     });
     console.log(authorizedUser);
+    let profileIcon = document.querySelector('.icon-profile');
     if (localStorage.getItem(`${authorizedUser}${delimiter}authorized`) === 'true') {
-        const userFirstNameInitial = localStorage.getItem(`${authorizedUser}${delimiter}firstName`);
-        const userLastNameInitial = localStorage.getItem(`${authorizedUser}${delimiter}lastName`);
-        const userInitials = `${userFirstNameInitial[0].toUpperCase()}${userLastNameInitial[0].toUpperCase()}`;
-
-        let profileIcon = document.querySelector('.icon-profile');
-        profileIcon.innerHTML = `<p class="icon-profile-initials">${userInitials}</p>`;
-    }
+        const userFirstName = localStorage.getItem(`${authorizedUser}${delimiter}firstName`);
+        const userLastName = localStorage.getItem(`${authorizedUser}${delimiter}lastName`);
+        const userInitials = `${userFirstName[0].toUpperCase()}${userLastName[0].toUpperCase()}`;
+        
+        profileIcon.innerHTML = `<p class="icon-profile-initials" title="${userFirstName} ${userLastName}">${userInitials}</p>`;
+    } else {
+        profileIcon.innerHTML = `<img src="/letohx-JSFEPRESCHOOL2023Q2/library/img/svg/icon-profile.svg" alt="Icon profile" class="icon-profile-pic">`
+    };
 };
+
+
+function generateRandomHexNumber() {
+    const min = 0x100000000;
+    const max = 0xFFFFFFFFF; 
+    const randomHexNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    return randomHexNumber.toString(16).toUpperCase();
+};
+
+
+function changeProfileMenu() {
+    let authorizedUser;
+    let profileMenu = document.querySelector('.profile-menu');
+    registeredUsers.forEach((user) => {
+        if (localStorage.getItem(`${user}${delimiter}authorized`) === 'true') {
+            authorizedUser = user;
+        }
+    });
+    if (localStorage.getItem(`${authorizedUser}${delimiter}authorized`) === 'true') {
+        const cardNumber = localStorage.getItem(`${authorizedUser}${delimiter}cardNumber`);
+        profileMenu.innerHTML  = `
+        <p class="profile-menu-text">${cardNumber}</p>
+        <hr class="profile-menu-line">
+        <button class="button-profile-menu button-profile-menu-my-profile">My profile</button>
+        <button class="button-profile-menu button-profile-menu-log-out">Log Out</button>
+        `;
+
+        let profileMenuHex = document.querySelector('.profile-menu-text');
+        profileMenuHex.classList.add('profile-menu-text-hex')
+    } 
+    
+    // else {
+    //     profileMenu.innerHTML  = `
+    //     <p class="profile-menu-text">Profile</p>
+    //     <hr class="profile-menu-line">
+    //     <button class="button-profile-menu button-profile-menu-login">Log In</button>
+    //     <button class="button-profile-menu button-profile-menu-register">Register</button>
+    //     `;
+    // };
+};
+
+
+  
 
 
 
@@ -354,7 +412,7 @@ function setUserInitial() {
 // Modal window LOGIN
 
 
-const btnProfileMenuLogin = document.querySelector('.button-profile-menu-login');
+let btnProfileMenuLogin = document.querySelector('.button-profile-menu-login');
 const btnLogin = document.querySelector('.get-card-button-login');
 const btnRegisterModalLogin = document.querySelector('.login-info-button-register');
 const modalLoginCloseBtn = document.querySelector('.login-modal-close');
