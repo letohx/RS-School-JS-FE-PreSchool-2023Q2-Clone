@@ -267,7 +267,7 @@ h2 {
 .profile-menu-text-hex {
   font-weight: 700;
   margin: 0;
-  font-size: 13px;
+  font-size: 12px;
   margin-top: -5px;
 }
 
@@ -459,10 +459,6 @@ h2 {
   cursor: default;
   pointer-events: none;
   transition: 0.2s ease-in-out;
-}
-
-.hidden {
-  display: none;
 }
 
 .delimiter {
@@ -776,6 +772,10 @@ h2 {
   border: 1px solid #BB945F;
 }
 
+.pointer-events-none {
+  pointer-events: none;
+}
+
 .hide {
   /* visibility: hidden;
   opacity: 0;
@@ -786,6 +786,18 @@ h2 {
   opacity: 0;
   visibility: hidden;
   /* top: -100%; */
+}
+
+.hidden {
+  display: none;
+}
+
+.hidden-form {
+  visibility: hidden;
+  display: none;
+  position: absolute;
+  top: -100%;
+  z-index: -100;
 }
 
 .favorites-hide {
@@ -1127,6 +1139,28 @@ h2 {
   background: #aa8756;
 }
 
+.user-statistics-wrapper {
+  display: flex;
+  width: 169px;
+  height: 63px;
+  justify-content: space-between;
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.2px;
+  text-transform: capitalize;
+}
+
+.visit-stat-text {
+  margin: 0;
+  padding: 0;
+  margin: -5px 0 0 0;
+}
+
 .get-card-wrapper {
   max-width: 456px;
   text-align: right;
@@ -1154,7 +1188,6 @@ h2 {
   line-height: 40px;
   letter-spacing: 0.4px;
 }
-
 
 .get-card-button {
   width: 75px;

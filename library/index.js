@@ -3,6 +3,7 @@ console.log('\n\n');
 
 // Burger handler
 
+
 (function () {
     const burgerItem = document.querySelector('.burger');
     const menu = document.querySelector('.header-nav');
@@ -43,6 +44,7 @@ console.log('\n\n');
 
 
 // Slider
+
 
 (function () {
     const sliderWrapper = document.querySelector('.slider-wrapper');
@@ -148,7 +150,8 @@ console.log('\n\n');
 
 
 
-// favorites slider
+// Favorites slider
+
 
 (function () {
     let radioBtn = document.querySelectorAll('.favorites-label');
@@ -170,30 +173,16 @@ console.log('\n\n');
 
 
 
-// before registration
-
-document.querySelector('.form-card').addEventListener('submit', function(event) {
-    event.preventDefault();
-  });
-
-
-
-// at the registration stage
-    
-  
-  
-  
-  
-  
-
-
-// profile menu
+// Profile menu
 
 
 let profileIcon = document.querySelector('.icon-profile');
 let profileMenu = document.querySelector('.profile-menu');
 const burgerItem = document.querySelector('.burger');
 let profileMenuButtons = document.querySelectorAll('.button-profile-menu');
+let btnProfileMenuMyProfile = document.querySelector('.button-profile-menu-my-profile');
+let btnProfileMenuLogOut = document.querySelector('.button-profile-menu-log-out');
+
 
 const toggleProfileMenu = () =>{
     profileMenu.classList.toggle('profile-menu-active');    
@@ -209,6 +198,91 @@ document.addEventListener('click', (e) => {
 
 profileMenuButtons.forEach((item) => item.addEventListener('click', () => profileMenu.classList.remove('profile-menu-active')));
   
+
+
+
+
+
+
+
+
+
+document.querySelector('.form-card').addEventListener('submit', function(event) {
+    event.preventDefault();
+  });
+
+
+
+
+
+
+// Before authorization ========================================================
+
+
+const delimiter = '_ʕ ᵔᴥᵔ ʔ_';
+let registeredUsers = JSON.parse(localStorage.getItem(`registeredUsers${delimiter}`)) || [];
+let authorizedUser;
+
+
+// Modal window LOGIN
+
+let btnProfileMenuLogin = document.querySelector('.button-profile-menu-login');
+const btnLogin = document.querySelector('.get-card-button-login');
+const btnRegisterModalLogin = document.querySelector('.login-info-button-register');
+const btnSubmitLoginModal = document.querySelector('.login-modal-submit-button');
+const modalLoginCloseBtn = document.querySelector('.login-modal-close');
+const modalLoginOverlay = document.querySelector('.modal-login-overlay');
+
+function loginModalOpen() {
+    const modalLogin = document.querySelector('.modal-login');
+    modalLogin.classList.add('modal-login-active');
+    document.body.classList.add("body-scroll-stop");
+}
+
+function loginModalClose() {
+    const modalLogin = document.querySelector('.modal-login');
+    modalLogin.classList.remove('modal-login-active');
+    document.body.classList.remove("body-scroll-stop");
+}
+
+btnProfileMenuLogin.addEventListener('click', (e) => loginModalOpen());
+btnLogin.addEventListener('click', (e) => loginModalOpen());
+modalLoginCloseBtn.addEventListener('click', (e) => loginModalClose());
+modalLoginOverlay.addEventListener('click', (e) => {
+    if (!e.target.closest('.login-content')) loginModalClose()});
+
+btnRegisterModalLogin.addEventListener('click', (e) => {
+    loginModalClose();
+    document.body.classList.add("body-scroll-stop");
+    setTimeout(function () {registerModalOpen()}, 100); 
+});
+
+btnSubmitLoginModal.addEventListener('submit', function(event) {
+    event.preventDefault();
+  });
+
+function checkLoginModalInputs() {
+    const emailLoginModal = document.querySelector('.login-modal-email-input');
+    const passwordLoginModal = document.querySelector('.login-modal-password-input');
+    const emailOrReadersCardLoginValue = emailLoginModal.value;
+    const passwordLoginValue = passwordLoginModal.value;
+    const conditionEmailOrReadersCardLoginValue = registeredUsers.includes(emailOrReadersCardLoginValue.toLowerCase()) || registeredUsers.some((user) => {
+        return localStorage.getItem(`${user}${delimiter}cardNumber`) === emailOrReadersCardLoginValue.toUpperCase();
+    });
+    const conditionPasswordLoginValue = registeredUsers.some((user) => {
+        return localStorage.getItem(`${user}${delimiter}password`) === passwordLoginValue;
+    });
+
+    function setInputBorderColor(condition, modalInput) {
+        condition ? modalInput.style.borderColor = 'green' : modalInput.style.borderColor = 'red';
+    }
+
+    emailLoginModal.addEventListener('input', setInputBorderColor(conditionEmailOrReadersCardLoginValue, emailLoginModal));
+    passwordLoginModal.addEventListener('input', setInputBorderColor(conditionPasswordLoginValue, passwordLoginModal));
+};
+const loginModalInputs = document.querySelectorAll('.login-modal-input');
+loginModalInputs.forEach((item) => item.addEventListener('blur', () => checkLoginModalInputs()));
+
 
 
 // Modal window REGISTER
@@ -250,8 +324,6 @@ btnSubmitRegisterModal.addEventListener('submit', function(event) {
     event.preventDefault();
   });
 
-
-
 const firstNameRegisterModal = document.querySelector('.register-modal-first-name-input');
 const lastNameRegisterModal = document.querySelector('.register-modal-last-name-input');
 const emailRegisterModal = document.querySelector('.register-modal-email-input');
@@ -259,7 +331,6 @@ const passwordRegisterModal = document.querySelector('.register-modal-password-i
 const registerModalInputs = document.querySelectorAll('.register-modal-input');
 const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
    
-
 
 function checkRegisterModalInputs() {
     const firstNameRegisterValue = firstNameRegisterModal.value;
@@ -285,17 +356,14 @@ function checkRegisterModalInputs() {
 registerModalInputs.forEach((item) => item.addEventListener('blur', () => checkRegisterModalInputs()));
 
 
-const delimiter = '_ʕ ᵔᴥᵔ ʔ_'
-let registeredUsers = JSON.parse(localStorage.getItem(`registeredUsers${delimiter}`)) || [];
-
-console.log(registeredUsers);
-
-
-window.addEventListener('load', function() {
-    setUserInitial();
-    changeProfileMenu();
+registeredUsers.forEach((user) => {
+    if (localStorage.getItem(`${user}${delimiter}authorized`) === 'true') {
+        authorizedUser = user;
+    }
 });
 
+
+// Registration stage ========================================================
 
 btnSubmitRegisterModal.addEventListener('click', (e)=>{
     e.preventDefault();
@@ -311,29 +379,76 @@ btnSubmitRegisterModal.addEventListener('click', (e)=>{
         lastNameRegisterModal.value.length > 0 &&
         EMAIL_REGEXP.test(emailRegisterModal.value) &&
         passwordRegisterModal.value.length > 7 ) {
-            registeredUsers.push(emailUser);
+            registeredUsers.push(emailUser.toLowerCase());
             localStorage.setItem(`registeredUsers${delimiter}`, JSON.stringify(registeredUsers));
             localStorage.setItem(`${emailRegisterModal.value}${delimiter}firstName`, `${firstNameRegisterModal.value.charAt(0).toUpperCase() + firstNameRegisterModal.value.slice(1)}`);
             localStorage.setItem(`${emailRegisterModal.value}${delimiter}lastName`, `${lastNameRegisterModal.value.charAt(0).toUpperCase() + lastNameRegisterModal.value.slice(1)}`);
             localStorage.setItem(`${emailRegisterModal.value}${delimiter}email`, `${emailRegisterModal.value}`);
             localStorage.setItem(`${emailRegisterModal.value}${delimiter}password`, `${passwordRegisterModal.value}`);
             localStorage.setItem(`${emailRegisterModal.value}${delimiter}cardNumber`, generateRandomHexNumber());
-            localStorage.setItem(`${emailRegisterModal.value}${delimiter}registered`, true);
+            localStorage.setItem(`${emailRegisterModal.value}${delimiter}visits`, 1);
+            localStorage.setItem(`${emailRegisterModal.value}${delimiter}books`, 0);
             localStorage.setItem(`${emailRegisterModal.value}${delimiter}authorized`, true);
-
             
-
             setUserInitial();
             changeProfileMenu();
+            changeFormLibraryCard();
             registerModalClose();
             location.reload();
         }
 });
 
+function generateRandomHexNumber() {
+    const min = 0x100000000;
+    const max = 0xFFFFFFFFF; 
+    const randomHexNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    return randomHexNumber.toString(16).toUpperCase();
+};
 
+
+
+// Authorization stage ========================================================
+
+
+btnSubmitLoginModal.addEventListener('click', (e)=>{
+    e.preventDefault();
+    checkLoginModalInputs();
+    const emailLoginModal = document.querySelector('.login-modal-email-input');
+    const passwordLoginModal = document.querySelector('.login-modal-password-input');
+    const emailOrReadersCardLoginValue = emailLoginModal.value;
+    const passwordLoginValue = passwordLoginModal.value;
+    const conditionEmailOrReadersCardLoginValue = registeredUsers.includes(emailOrReadersCardLoginValue.toLowerCase()) || registeredUsers.some((user) => {
+        return localStorage.getItem(`${user}${delimiter}cardNumber`) === emailOrReadersCardLoginValue.toUpperCase();
+    });
+    const conditionPasswordLoginValue = registeredUsers.some((user) => {
+        return localStorage.getItem(`${user}${delimiter}password`) === passwordLoginValue;
+    });
+
+    if (conditionEmailOrReadersCardLoginValue && conditionPasswordLoginValue) {
+        registeredUsers.forEach((user) => {
+            if (localStorage.getItem(`${user}${delimiter}cardNumber`) === emailOrReadersCardLoginValue.toUpperCase()) {
+                localStorage.setItem(`${user}${delimiter}authorized`, true);
+            } else if (registeredUsers.includes(emailOrReadersCardLoginValue.toLowerCase())) {
+                localStorage.setItem(`${user}${delimiter}authorized`, true);
+            };
+        });
+        
+        registerModalClose();
+        location.reload();
+    };
+});
+
+
+// After authorization ========================================================
+
+window.addEventListener('load', function() {
+    setUserInitial();
+    changeProfileMenu();
+    changeFormLibraryCard();
+
+});
 
 function setUserInitial() {
-    let authorizedUser;
     registeredUsers.forEach((user) => {
         if (localStorage.getItem(`${user}${delimiter}authorized`) === 'true') {
             authorizedUser = user;
@@ -352,17 +467,7 @@ function setUserInitial() {
     };
 };
 
-
-function generateRandomHexNumber() {
-    const min = 0x100000000;
-    const max = 0xFFFFFFFFF; 
-    const randomHexNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-    return randomHexNumber.toString(16).toUpperCase();
-};
-
-
 function changeProfileMenu() {
-    let authorizedUser;
     let profileMenu = document.querySelector('.profile-menu');
     registeredUsers.forEach((user) => {
         if (localStorage.getItem(`${user}${delimiter}authorized`) === 'true') {
@@ -381,64 +486,34 @@ function changeProfileMenu() {
         let profileMenuHex = document.querySelector('.profile-menu-text');
         profileMenuHex.classList.add('profile-menu-text-hex')
     } 
-    
-    // else {
-    //     profileMenu.innerHTML  = `
-    //     <p class="profile-menu-text">Profile</p>
-    //     <hr class="profile-menu-line">
-    //     <button class="button-profile-menu button-profile-menu-login">Log In</button>
-    //     <button class="button-profile-menu button-profile-menu-register">Register</button>
-    //     `;
-    // };
+    btnProfileMenuRegister = document.querySelector('.button-profile-menu-register');
+    btnProfileMenuMyProfile = document.querySelector('.button-profile-menu-my-profile');
+    btnProfileMenuLogOut = document.querySelector('.button-profile-menu-log-out');
+
+    btnProfileMenuLogOut.addEventListener('click', (e) => {
+        registeredUsers.forEach((user) => {
+            localStorage.setItem(`${user}${delimiter}authorized`, false);
+        });
+        location.reload();
+    });
 };
 
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Modal window LOGIN
-
-
-let btnProfileMenuLogin = document.querySelector('.button-profile-menu-login');
-const btnLogin = document.querySelector('.get-card-button-login');
-const btnRegisterModalLogin = document.querySelector('.login-info-button-register');
-const modalLoginCloseBtn = document.querySelector('.login-modal-close');
-const modalLoginOverlay = document.querySelector('.modal-login-overlay');
-
-function loginModalOpen() {
-    const modalLogin = document.querySelector('.modal-login');
-    modalLogin.classList.add('modal-login-active');
-    document.body.classList.add("body-scroll-stop");
+function changeFormLibraryCard() {
+    const formLibraryCardOut = document.querySelector('.library-cards-wrapper-btn');
+    const formLibraryCardIn = document.querySelector('.library-cards-wrapper-stats');
+    const visitStatValue = document.querySelector('.visit-stat-value');
+    const bonusesStatValue = document.querySelector('.bonuses-stat-value');
+    const booksStatValue = document.querySelector('.books-stat-value');
+    const inputFormName = document.querySelector('.input-form-name');
+    const inputFormNumberCard = document.querySelector('.input-form-number-card');
+    const userFirstName = localStorage.getItem(`${authorizedUser}${delimiter}firstName`);
+    const userLastName = localStorage.getItem(`${authorizedUser}${delimiter}lastName`);
+    if (authorizedUser) {
+        formLibraryCardOut.classList.add('hidden-form');
+        formLibraryCardIn.classList.remove('hidden-form');
+        visitStatValue.innerHTML = localStorage.getItem(`${authorizedUser}${delimiter}visits`);
+        booksStatValue.innerHTML = localStorage.getItem(`${authorizedUser}${delimiter}books`);
+        inputFormName.placeholder = `${userFirstName} ${userLastName}`;
+        inputFormNumberCard.placeholder = localStorage.getItem(`${authorizedUser}${delimiter}cardNumber`);
+    }
 }
-
-function loginModalClose() {
-    const modalLogin = document.querySelector('.modal-login');
-    modalLogin.classList.remove('modal-login-active');
-    document.body.classList.remove("body-scroll-stop");
-}
-
-btnProfileMenuLogin.addEventListener('click', (e) => loginModalOpen());
-btnLogin.addEventListener('click', (e) => loginModalOpen());
-modalLoginCloseBtn.addEventListener('click', (e) => loginModalClose());
-modalLoginOverlay.addEventListener('click', (e) => {
-    if (!e.target.closest('.login-content')) loginModalClose()});
-
-btnRegisterModalLogin.addEventListener('click', (e) => {
-    loginModalClose();
-    document.body.classList.add("body-scroll-stop");
-    setTimeout(function () {registerModalOpen()}, 100); 
-});
-
