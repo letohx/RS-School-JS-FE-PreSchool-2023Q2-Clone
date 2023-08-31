@@ -207,11 +207,78 @@ profileMenuButtons.forEach((item) => item.addEventListener('click', () => profil
 
 
 
-document.querySelector('.form-card').addEventListener('submit', function(event) {
-    event.preventDefault();
-  });
 
 
+const checkCardBtn = document.querySelector('.check-card-btn');
+
+checkCardBtn.addEventListener('click', (e)=>{
+    e.preventDefault();
+
+    const checkCardNameInput = document.querySelector('.check-card-name').value;
+    const checkCardNumberInput = document.querySelector('.check-card-number').value;
+    
+    const userEmail = registeredUsers.find((user) => {
+        const storedCardNumber = localStorage.getItem(`${user}${delimiter}cardNumber`);
+        return storedCardNumber === checkCardNumberInput.toUpperCase();
+    });
+    
+    if (userEmail) {
+        const storedName = localStorage.getItem(`${userEmail}${delimiter}firstName`);
+        const storedLastName = localStorage.getItem(`${userEmail}${delimiter}lastName`);
+        
+        if (storedName.toLowerCase() === checkCardNameInput.toLowerCase() || `${storedName} ${storedLastName}`.toLowerCase() === checkCardNameInput.toLowerCase() || `${storedLastName} ${storedName}`.toLowerCase() === checkCardNameInput.toLowerCase()) {
+            authorizedUser = userEmail;
+
+            const userFirstName = localStorage.getItem(`${authorizedUser}${delimiter}firstName`);
+            const userLastName = localStorage.getItem(`${authorizedUser}${delimiter}lastName`);
+            
+            const formCardJS = document.querySelector('.form-card-js');
+
+            formCardJS.innerHTML = `
+            <div class="form-inputs-wrapper">
+                  <p class="form-title">Brooklyn Public Library</p>
+                  <input type="text" id="name" class="input-form input-form-name pointer-events-none" placeholder="${userFirstName} ${userLastName}">
+                  <input type="text" id="number-card" class="input-form input-form-number-card pointer-events-none" placeholder="${localStorage.getItem(`${authorizedUser}${delimiter}cardNumber`)}">
+                </div>
+                <div class="user-statistics-wrapper">
+                  <div class="visits-stat">
+                    <p class="visit-stat-title visit-stat-text">visits</p>
+                    <img src="img/svg/visits-profile.svg" alt="profile icon" class="visit-stat-img">
+                    <p class="visit-stat-value visit-stat-text">${localStorage.getItem(`${authorizedUser}${delimiter}visits`)}</p>
+                  </div>
+                  <div class="bonuses-stat">
+                    <p class="bonuses-stat-title visit-stat-text">bonuses</p>
+                    <img src="img/svg/bonuses-profile.svg" alt="bonuses icon" class="bonuses-stat-img">
+                    <p class="bonuses-stat-value visit-stat-text">1240</p>
+                  </div>
+                  <div class="books-stat">
+                    <p class="books-stat-title visit-stat-text">books</p>
+                    <img src="img/svg/books-profile.svg" alt="books icon" class="books-stat-img">
+                    <p class="books-stat-value visit-stat-text">${localStorage.getItem(`${authorizedUser}${delimiter}books`)}</p>
+                  </div>
+                </div>
+                `;
+
+
+            setTimeout(() => {
+                // formCardJS.innerHTML = `
+                // <div class="form-inputs-wrapper">
+                //     <p class="form-title">Brooklyn Public Library</p>
+                //     <input type="text" id="name" class="input-form check-card-name" placeholder="Reader's name">
+                //     <input type="text" id="number-card" class="input-form check-card-number" placeholder="Card number">
+                // </div>
+                // <button type="submit" class="button submit-button check-card-btn">Check the card</button>
+                // `;
+
+                location.reload();
+            }, 10000);
+            
+            document.querySelector('.form-card').addEventListener('submit', function(event) {
+                event.preventDefault();
+            });
+        } 
+    }
+});
 
 
 
@@ -369,7 +436,7 @@ btnSubmitRegisterModal.addEventListener('click', (e)=>{
     e.preventDefault();
     checkRegisterModalInputs();
 
-    const emailUser = emailRegisterModal.value;
+    const emailUser = emailRegisterModal.value.toLowerCase();
 
     if (registeredUsers.includes(emailUser)) {
         return;
@@ -377,18 +444,18 @@ btnSubmitRegisterModal.addEventListener('click', (e)=>{
     
     if (firstNameRegisterModal.value.length > 0 &&
         lastNameRegisterModal.value.length > 0 &&
-        EMAIL_REGEXP.test(emailRegisterModal.value) &&
+        EMAIL_REGEXP.test(emailRegisterModal.value.toLowerCase()) &&
         passwordRegisterModal.value.length > 7 ) {
             registeredUsers.push(emailUser.toLowerCase());
             localStorage.setItem(`registeredUsers${delimiter}`, JSON.stringify(registeredUsers));
-            localStorage.setItem(`${emailRegisterModal.value}${delimiter}firstName`, `${firstNameRegisterModal.value.charAt(0).toUpperCase() + firstNameRegisterModal.value.slice(1)}`);
-            localStorage.setItem(`${emailRegisterModal.value}${delimiter}lastName`, `${lastNameRegisterModal.value.charAt(0).toUpperCase() + lastNameRegisterModal.value.slice(1)}`);
-            localStorage.setItem(`${emailRegisterModal.value}${delimiter}email`, `${emailRegisterModal.value}`);
-            localStorage.setItem(`${emailRegisterModal.value}${delimiter}password`, `${passwordRegisterModal.value}`);
-            localStorage.setItem(`${emailRegisterModal.value}${delimiter}cardNumber`, generateRandomHexNumber());
-            localStorage.setItem(`${emailRegisterModal.value}${delimiter}visits`, 1);
-            localStorage.setItem(`${emailRegisterModal.value}${delimiter}books`, 0);
-            localStorage.setItem(`${emailRegisterModal.value}${delimiter}authorized`, true);
+            localStorage.setItem(`${emailUser}${delimiter}firstName`, `${firstNameRegisterModal.value.charAt(0).toUpperCase() + firstNameRegisterModal.value.slice(1).toLowerCase()}`);
+            localStorage.setItem(`${emailUser}${delimiter}lastName`, `${lastNameRegisterModal.value.charAt(0).toUpperCase() + lastNameRegisterModal.value.slice(1).toLowerCase()}`);
+            localStorage.setItem(`${emailUser}${delimiter}email`, `${emailUser}`);
+            localStorage.setItem(`${emailUser}${delimiter}password`, `${passwordRegisterModal.value}`);
+            localStorage.setItem(`${emailUser}${delimiter}cardNumber`, generateCardNumber());
+            localStorage.setItem(`${emailUser}${delimiter}visits`, 1);
+            localStorage.setItem(`${emailUser}${delimiter}books`, 0);
+            localStorage.setItem(`${emailUser}${delimiter}authorized`, true);
             
             setUserInitial();
             changeProfileMenu();
@@ -403,40 +470,52 @@ function generateRandomHexNumber() {
     const max = 0xFFFFFFFFF; 
     const randomHexNumber = Math.floor(Math.random() * (max - min + 1)) + min;
     return randomHexNumber.toString(16).toUpperCase();
-};
+}
+
+function generateCardNumber() {
+    let hexNumber = generateRandomHexNumber();
+    const exists = registeredUsers.some((user) => {
+        return localStorage.getItem(`${user}${delimiter}cardNumber`) === hexNumber;
+    });
+
+    if (exists) {
+        return generateCardNumber();
+    }
+    return hexNumber;
+}
 
 
 
 // Authorization stage ========================================================
 
 
-btnSubmitLoginModal.addEventListener('click', (e)=>{
+btnSubmitLoginModal.addEventListener('click', (e) => {
     e.preventDefault();
-    checkLoginModalInputs();
-    const emailLoginModal = document.querySelector('.login-modal-email-input');
-    const passwordLoginModal = document.querySelector('.login-modal-password-input');
-    const emailOrReadersCardLoginValue = emailLoginModal.value;
-    const passwordLoginValue = passwordLoginModal.value;
-    const conditionEmailOrReadersCardLoginValue = registeredUsers.includes(emailOrReadersCardLoginValue.toLowerCase()) || registeredUsers.some((user) => {
-        return localStorage.getItem(`${user}${delimiter}cardNumber`) === emailOrReadersCardLoginValue.toUpperCase();
+    
+    const emailLoginModalInput = document.querySelector('.login-modal-email-input').value;
+    const passwordLoginModalInput = document.querySelector('.login-modal-password-input').value;
+    
+    const user = registeredUsers.find((user) => {
+        const storedCardNumber = localStorage.getItem(`${user}${delimiter}cardNumber`);
+        return user.toLowerCase() === emailLoginModalInput.toLowerCase() || storedCardNumber === emailLoginModalInput.toUpperCase();
     });
-    const conditionPasswordLoginValue = registeredUsers.some((user) => {
-        return localStorage.getItem(`${user}${delimiter}password`) === passwordLoginValue;
-    });
-
-    if (conditionEmailOrReadersCardLoginValue && conditionPasswordLoginValue) {
-        registeredUsers.forEach((user) => {
-            if (localStorage.getItem(`${user}${delimiter}cardNumber`) === emailOrReadersCardLoginValue.toUpperCase()) {
-                localStorage.setItem(`${user}${delimiter}authorized`, true);
-            } else if (registeredUsers.includes(emailOrReadersCardLoginValue.toLowerCase())) {
-                localStorage.setItem(`${user}${delimiter}authorized`, true);
-            };
-        });
+    
+    if (user) {
+        const storedPassword = localStorage.getItem(`${user}${delimiter}password`);
         
-        registerModalClose();
-        location.reload();
-    };
+        if (storedPassword === passwordLoginModalInput) {
+            localStorage.setItem(`${user}${delimiter}authorized`, true);
+
+            let visits = localStorage.getItem(`${user}${delimiter}visits`);
+            visits++;
+            localStorage.setItem(`${user}${delimiter}visits`, visits);
+
+            registerModalClose();
+            location.reload();
+        } 
+    }
 });
+
 
 
 // After authorization ========================================================
@@ -454,7 +533,7 @@ function setUserInitial() {
             authorizedUser = user;
         }
     });
-    console.log(authorizedUser);
+
     let profileIcon = document.querySelector('.icon-profile');
     if (localStorage.getItem(`${authorizedUser}${delimiter}authorized`) === 'true') {
         const userFirstName = localStorage.getItem(`${authorizedUser}${delimiter}firstName`);
@@ -499,8 +578,8 @@ function changeProfileMenu() {
 };
 
 function changeFormLibraryCard() {
-    const formLibraryCardOut = document.querySelector('.library-cards-wrapper-btn');
-    const formLibraryCardIn = document.querySelector('.library-cards-wrapper-stats');
+    const formLibraryCardLogOut = document.querySelector('.library-cards-wrapper-btn');
+    const formLibraryCardLogIn = document.querySelector('.library-cards-wrapper-stats');
     const visitStatValue = document.querySelector('.visit-stat-value');
     const bonusesStatValue = document.querySelector('.bonuses-stat-value');
     const booksStatValue = document.querySelector('.books-stat-value');
@@ -509,8 +588,8 @@ function changeFormLibraryCard() {
     const userFirstName = localStorage.getItem(`${authorizedUser}${delimiter}firstName`);
     const userLastName = localStorage.getItem(`${authorizedUser}${delimiter}lastName`);
     if (authorizedUser) {
-        formLibraryCardOut.classList.add('hidden-form');
-        formLibraryCardIn.classList.remove('hidden-form');
+        formLibraryCardLogOut.classList.add('hidden-form');
+        formLibraryCardLogIn.classList.remove('hidden-form');
         visitStatValue.innerHTML = localStorage.getItem(`${authorizedUser}${delimiter}visits`);
         booksStatValue.innerHTML = localStorage.getItem(`${authorizedUser}${delimiter}books`);
         inputFormName.placeholder = `${userFirstName} ${userLastName}`;
