@@ -273,6 +273,7 @@ h2 {
 
 .header-burger {
   position: relative;
+  cursor: pointer;
   display: none;
   width: 45px;
   height: 22px;
@@ -1746,6 +1747,270 @@ h2 {
   transform: rotate(-90deg);
   transform: scale(1.2);
 }
+
+/* modal login end*/
+
+/* modal my profile start*/
+
+.modal-my-profile {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transition: 0.2s ease-out;
+}
+
+.modal-my-profile-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-my-profile-overlay {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.448);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.my-profile-content {
+  position: relative;
+  display: flex;
+  max-width: 600px;
+  width: 100%;
+  height: 400px;
+  background: #FFF;
+  margin: 10px;
+}
+
+.left-wrapper-my-profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 5px 5px 5px;
+  width: 100%;
+  max-width: 170px;
+  background: #0C0C0E;
+}
+
+.my-profile-initials {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 15px;
+  background: #FFF;
+  color: #BB945F;
+  text-align: center;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  text-transform: capitalize;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.my-profile-name {
+  width: 120px;
+  min-height: 30px;
+  background: #FFF;
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px;
+}
+
+.right-wrapper-my-profile {
+  padding: 0 20px;
+  width: 100%;
+  max-width: 430px;
+}
+
+.my-profile-modal-title-text {
+  color: #000;
+  font-family: Forum;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.user-statistics-wrapper-big {
+  width: 100%;
+  max-width: 237px;
+  height: 81px;
+  justify-content: space-between;
+}
+
+.visit-stat-text-big {
+  color: #000;
+  text-align: center;
+  margin: 0;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.4px;
+  text-transform: capitalize;
+}
+
+.visit-stat-value-big,
+.bonuses-stat-value-big,
+.books-stat-value-big {
+  margin: 0;
+}
+
+.visits-stat-big,
+.bonuses-stat-big,
+.books-stat-big {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rented-books-wrapper {
+  height: 155px;  
+}
+
+.rented-books-title {
+  height: 42px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.rented-books-title-text {
+  color: #0C0C0E;
+  font-family: Inter;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  margin: 0;
+}
+
+.rented-books-area {
+  background: #b9b9b9;
+  width: 100%;
+  height: 110px;
+  margin-top: 5px;
+}
+
+.my-profile-modal-card-number-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 5px;
+}
+
+.my-profile-modal-card-number-text {
+  color: #0C0C0E;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  margin: 0 17px 0 0;
+}
+
+.my-profile-modal-copy-number {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.my-profile-modal-card-number-number {
+  margin: 0 16px 0 0;
+  color: #BB945F;
+  text-align: center;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.my-profile-modal-copy-number:hover,
+.my-profile-modal-copy-number:focus{
+  text-shadow: 0px 0px 10px #bb955fba;
+  transition: 0.1s;
+}
+
+.my-profile-modal-copy-number:active {
+  text-shadow: 0px 0px 5px #bb955fba;
+}
+
+.my-profile-modal-close {
+  position: absolute;
+  padding: 0;
+  margin: 10px;
+  top: 13px;
+  right: 13px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  transition: 0.2s ease-out;
+}
+
+.my-profile-modal-close:hover,
+.my-profile-modal-close:focus {
+  transform: rotate(90deg);
+}
+
+.my-profile-modal-close:active {
+  transform: rotate(-90deg);
+  transform: scale(1.2);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* modal my profile end*/
 
 
 /* Media start */
