@@ -299,6 +299,7 @@ const btnRegisterModalLogin = document.querySelector('.login-info-button-registe
 const btnSubmitLoginModal = document.querySelector('.login-modal-submit-button');
 const modalLoginCloseBtn = document.querySelector('.login-modal-close');
 const modalLoginOverlay = document.querySelector('.modal-login-overlay');
+const buttonsBuy = document.querySelectorAll('.buy-button');
 
 function loginModalOpen() {
     const modalLogin = document.querySelector('.modal-login');
@@ -327,6 +328,12 @@ btnRegisterModalLogin.addEventListener('click', (e) => {
 btnSubmitLoginModal.addEventListener('submit', function(event) {
     event.preventDefault();
   });
+
+buttonsBuy.forEach((item) => item.addEventListener('click', () => {
+    if (!authorizedUser) {
+        loginModalOpen();
+    }
+}));
 
 function checkLoginModalInputs() {
     const emailLoginModal = document.querySelector('.login-modal-email-input');
@@ -524,7 +531,7 @@ window.addEventListener('load', function() {
     setUserInitial();
     changeProfileMenu();
     changeFormLibraryCard();
-
+    changeModalMyProfile()
 });
 
 function setUserInitial() {
@@ -594,5 +601,75 @@ function changeFormLibraryCard() {
         booksStatValue.innerHTML = localStorage.getItem(`${authorizedUser}${delimiter}books`);
         inputFormName.placeholder = `${userFirstName} ${userLastName}`;
         inputFormNumberCard.placeholder = localStorage.getItem(`${authorizedUser}${delimiter}cardNumber`);
+
+
+        if (authorizedUser) {
+
+            const btnProfileGetCard = document.querySelector('.get-card-button-profile');
+        
+            const modalMyProfileCloseBtn = document.querySelector('.my-profile-modal-close');
+            const modalMyProfileOverlay = document.querySelector('.modal-my-profile-overlay');
+        
+        
+            btnProfileMenuMyProfile.addEventListener('click', (e) => myProfileModalOpen());
+            btnProfileGetCard.addEventListener('click', (e) => myProfileModalOpen());
+        
+            modalMyProfileCloseBtn.addEventListener('click', (e) => myProfileModalClose());
+            modalMyProfileOverlay.addEventListener('click', (e) => {
+                if (!e.target.closest('.my-profile-content')) {
+                    myProfileModalClose()
+                } });
+        }
     }
 }
+
+
+// Modal window MY PROFILE
+
+function myProfileModalOpen() {
+    const modalMyProfile = document.querySelector('.modal-my-profile');
+    modalMyProfile.classList.add('modal-my-profile-active');
+    profileMenu.classList.remove('profile-menu-active');
+    document.body.classList.add("body-scroll-stop");
+}
+
+function myProfileModalClose() {
+    const modalMyProfile = document.querySelector('.modal-my-profile');
+    modalMyProfile.classList.remove('modal-my-profile-active');
+    document.body.classList.remove("body-scroll-stop");
+}
+
+function changeModalMyProfile() {
+
+    const visitStatValue = document.querySelector('.visit-stat-value-big');
+    const bonusesStatValue = document.querySelector('.bonuses-stat-value');
+    const booksStatValue = document.querySelector('.books-stat-value-big');
+    const myProfileModalCardNumber = document.querySelector('.my-profile-modal-card-number-number');
+    const myProfileModalInitials = document.querySelector('.my-profile-initials');
+    const myProfileModalName = document.querySelector('.my-profile-name');
+
+    const userFirstName = localStorage.getItem(`${authorizedUser}${delimiter}firstName`);
+    const userLastName = localStorage.getItem(`${authorizedUser}${delimiter}lastName`);
+    const userInitials = `${userFirstName[0].toUpperCase()}${userLastName[0].toUpperCase()}`;
+    if (authorizedUser) {
+        visitStatValue.innerHTML = localStorage.getItem(`${authorizedUser}${delimiter}visits`);
+        booksStatValue.innerHTML = localStorage.getItem(`${authorizedUser}${delimiter}books`);
+        myProfileModalName.innerHTML = `${userFirstName} ${userLastName}`;
+        myProfileModalInitials.innerHTML = userInitials;
+        myProfileModalCardNumber.innerHTML = localStorage.getItem(`${authorizedUser}${delimiter}cardNumber`);
+    }
+}
+
+function copyToClipboardCardNumber() {
+    const cardNumber = document.querySelector(".my-profile-modal-card-number-number").textContent;
+    navigator.clipboard.writeText(cardNumber).catch(console.error);
+}
+
+const btnCopyCardNumber = document.querySelector(".my-profile-modal-copy-number");
+btnCopyCardNumber.addEventListener('click', () => copyToClipboardCardNumber());
+
+
+
+
+
+
