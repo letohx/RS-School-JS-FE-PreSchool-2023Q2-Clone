@@ -237,6 +237,7 @@ h2 {
 }
 
 .profile-menu-line {
+  border: 0;
   width: 40px;
   height: 1px;
   margin: 0 auto;
@@ -1821,6 +1822,7 @@ h2 {
 }
 
 .my-profile-name {
+  overflow: hidden;
   width: 120px;
   min-height: 30px;
   background: #FFF;
