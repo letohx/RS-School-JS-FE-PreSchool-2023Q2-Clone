@@ -202,13 +202,6 @@ profileMenuButtons.forEach((item) => item.addEventListener('click', () => profil
 
 
 
-
-
-
-
-
-
-
 const checkCardBtn = document.querySelector('.check-card-btn');
 
 checkCardBtn.addEventListener('click', (e)=>{
@@ -254,7 +247,7 @@ checkCardBtn.addEventListener('click', (e)=>{
                   <div class="books-stat">
                     <p class="books-stat-title visit-stat-text">books</p>
                     <img src="img/svg/books-profile.svg" alt="books icon" class="books-stat-img">
-                    <p class="books-stat-value visit-stat-text">${localStorage.getItem(`${authorizedUser}${delimiter}books`)}</p>
+                    <p class="books-stat-value visit-stat-text">${JSON.parse(localStorage.getItem(`${authorizedUser}${delimiter}books`)).reduce((acc, current) => acc + current, 0)}</p>
                   </div>
                 </div>
                 `;
@@ -289,6 +282,7 @@ checkCardBtn.addEventListener('click', (e)=>{
 const delimiter = '_ʕ ᵔᴥᵔ ʔ_';
 let registeredUsers = JSON.parse(localStorage.getItem(`registeredUsers${delimiter}`)) || [];
 let authorizedUser;
+let rentedBooks;
 
 
 // Modal window LOGIN
@@ -299,7 +293,7 @@ const btnRegisterModalLogin = document.querySelector('.login-info-button-registe
 const btnSubmitLoginModal = document.querySelector('.login-modal-submit-button');
 const modalLoginCloseBtn = document.querySelector('.login-modal-close');
 const modalLoginOverlay = document.querySelector('.modal-login-overlay');
-const buttonsBuy = document.querySelectorAll('.buy-button');
+let buttonsBuy = document.querySelectorAll('.buy-button');
 
 function loginModalOpen() {
     const modalLogin = document.querySelector('.modal-login');
@@ -444,6 +438,7 @@ btnSubmitRegisterModal.addEventListener('click', (e)=>{
     checkRegisterModalInputs();
 
     const emailUser = emailRegisterModal.value.toLowerCase();
+    const rentedBooks = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
     if (registeredUsers.includes(emailUser)) {
         return;
@@ -461,7 +456,7 @@ btnSubmitRegisterModal.addEventListener('click', (e)=>{
             localStorage.setItem(`${emailUser}${delimiter}password`, `${passwordRegisterModal.value}`);
             localStorage.setItem(`${emailUser}${delimiter}cardNumber`, generateCardNumber());
             localStorage.setItem(`${emailUser}${delimiter}visits`, 1);
-            localStorage.setItem(`${emailUser}${delimiter}books`, 0);
+            localStorage.setItem(`${emailUser}${delimiter}books`, JSON.stringify(rentedBooks).reduce((acc, current) => acc + current, 0));
             localStorage.setItem(`${emailUser}${delimiter}authorized`, true);
             
             setUserInitial();
@@ -516,7 +511,7 @@ btnSubmitLoginModal.addEventListener('click', (e) => {
             let visits = localStorage.getItem(`${user}${delimiter}visits`);
             visits++;
             localStorage.setItem(`${user}${delimiter}visits`, visits);
-
+        
             registerModalClose();
             location.reload();
         } 
@@ -531,7 +526,9 @@ window.addEventListener('load', function() {
     setUserInitial();
     changeProfileMenu();
     changeFormLibraryCard();
-    changeModalMyProfile()
+    changeModalMyProfile();
+    rentedBooks = JSON.parse(localStorage.getItem(`${authorizedUser}${delimiter}books`)) || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    changeButtonsBuyOwn()
 });
 
 function setUserInitial() {
@@ -598,7 +595,7 @@ function changeFormLibraryCard() {
         formLibraryCardLogOut.classList.add('hidden-form');
         formLibraryCardLogIn.classList.remove('hidden-form');
         visitStatValue.innerHTML = localStorage.getItem(`${authorizedUser}${delimiter}visits`);
-        booksStatValue.innerHTML = localStorage.getItem(`${authorizedUser}${delimiter}books`);
+        booksStatValue.innerHTML = JSON.parse(localStorage.getItem(`${authorizedUser}${delimiter}books`)).reduce((acc, current) => acc + current, 0);
         inputFormName.placeholder = `${userFirstName} ${userLastName}`;
         inputFormNumberCard.placeholder = localStorage.getItem(`${authorizedUser}${delimiter}cardNumber`);
 
@@ -653,7 +650,7 @@ function changeModalMyProfile() {
     const userInitials = `${userFirstName[0].toUpperCase()}${userLastName[0].toUpperCase()}`;
     if (authorizedUser) {
         visitStatValue.innerHTML = localStorage.getItem(`${authorizedUser}${delimiter}visits`);
-        booksStatValue.innerHTML = localStorage.getItem(`${authorizedUser}${delimiter}books`);
+        booksStatValue.innerHTML = JSON.parse(localStorage.getItem(`${authorizedUser}${delimiter}books`)).reduce((acc, current) => acc + current, 0);
         myProfileModalName.innerHTML = `${userFirstName} ${userLastName}`;
         myProfileModalInitials.innerHTML = userInitials;
         myProfileModalCardNumber.innerHTML = localStorage.getItem(`${authorizedUser}${delimiter}cardNumber`);
@@ -669,7 +666,26 @@ const btnCopyCardNumber = document.querySelector(".my-profile-modal-copy-number"
 btnCopyCardNumber.addEventListener('click', () => copyToClipboardCardNumber());
 
 
+buttonsBuy = document.querySelectorAll('.buy-button');
+buttonsBuy.forEach((item, index) => item.addEventListener('click', () => {
+    if (authorizedUser) {
+        const ownButtons = document.querySelectorAll('.own-button'); 
+        ownButtons[index].classList.remove('hide');
+        item.classList.add('hide');
+        rentedBooks[index] = 1;
+        localStorage.setItem(`${authorizedUser}${delimiter}books`, JSON.stringify(rentedBooks));
+        changeFormLibraryCard();
+        changeModalMyProfile();
+    }
+}));
 
-
-
+function changeButtonsBuyOwn() {
+    buttonsBuy.forEach((item, index) => {
+        if (authorizedUser && rentedBooks[index]) {
+            const ownButtons = document.querySelectorAll('.own-button'); 
+            ownButtons[index].classList.remove('hide');
+            item.classList.add('hide');
+        }
+    });
+}
 
