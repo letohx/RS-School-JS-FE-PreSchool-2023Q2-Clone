@@ -458,6 +458,7 @@ btnSubmitRegisterModal.addEventListener('click', (e)=>{
             localStorage.setItem(`${emailUser}${delimiter}visits`, 1);
             localStorage.setItem(`${emailUser}${delimiter}books`, JSON.stringify(rentedBooks));
             localStorage.setItem(`${emailUser}${delimiter}authorized`, true);
+            localStorage.setItem(`${emailUser}${delimiter}subscription`, false);
             
             setUserInitial();
             changeProfileMenu();
@@ -668,7 +669,7 @@ btnCopyCardNumber.addEventListener('click', () => copyToClipboardCardNumber());
 
 buttonsBuy = document.querySelectorAll('.buy-button');
 buttonsBuy.forEach((item, index) => item.addEventListener('click', () => {
-    if (authorizedUser) {
+    if (localStorage.getItem(`${authorizedUser}${delimiter}subscription`) === 'true') {
         const ownButtons = document.querySelectorAll('.own-button'); 
         ownButtons[index].classList.remove('hide');
         item.classList.add('hide');
@@ -680,12 +681,100 @@ buttonsBuy.forEach((item, index) => item.addEventListener('click', () => {
 }));
 
 function changeButtonsBuyOwn() {
-    buttonsBuy.forEach((item, index) => {
-        if (authorizedUser && rentedBooks[index]) {
-            const ownButtons = document.querySelectorAll('.own-button'); 
-            ownButtons[index].classList.remove('hide');
-            item.classList.add('hide');
-        }
-    });
+    if (localStorage.getItem(`${authorizedUser}${delimiter}subscription`) === 'true') {
+        buttonsBuy.forEach((item, index) => {
+            if (JSON.parse(localStorage.getItem(`${authorizedUser}${delimiter}books`))[index]) {
+                const ownButtons = document.querySelectorAll('.own-button'); 
+                ownButtons[index].classList.remove('hide');
+                item.classList.add('hide');
+            }
+        });
+    }
 }
+
+
+// Modal window BUY A LIBRARY CARD
+
+
+const btnSubmitBuyCardModal = document.querySelector('.buy-card-modal-submit-button');
+const modalBuyCardCloseBtn = document.querySelector('.buy-card-modal-close');
+const modalBuyCardOverlay = document.querySelector('.modal-buy-card-overlay');
+
+function buyCardModalOpen() {
+    const modalBuyCard = document.querySelector('.modal-buy-card');
+    modalBuyCard.classList.add('modal-buy-card-active');
+    document.body.classList.add("body-scroll-stop");
+}
+
+function buyCardModalClose() {
+    const modalBuyCard = document.querySelector('.modal-buy-card');
+    modalBuyCard.classList.remove('modal-buy-card-active');
+    document.body.classList.remove("body-scroll-stop");
+}
+
+
+buttonsBuy.forEach((item) => item.addEventListener('click', () => {
+    if (authorizedUser && !(localStorage.getItem(`${authorizedUser}${delimiter}subscription`) === 'true')) {
+        buyCardModalOpen()
+    }
+}));
+
+modalBuyCardCloseBtn.addEventListener('click', (e) => buyCardModalClose());
+modalBuyCardOverlay.addEventListener('click', (e) => {
+    if (!e.target.closest('.modal-buy-card-content')) buyCardModalClose()});
+
+
+btnSubmitBuyCardModal.addEventListener('submit', function(event) {
+    event.preventDefault();
+});
+
+btnSubmitBuyCardModal.addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.setItem(`${authorizedUser}${delimiter}subscription`, true);
+    buyCardModalClose();
+});
+
+
+
+
+
+
+
+// const firstNameRegisterModal = document.querySelector('.register-modal-first-name-input');
+// const lastNameRegisterModal = document.querySelector('.register-modal-last-name-input');
+// const emailRegisterModal = document.querySelector('.register-modal-email-input');
+// const passwordRegisterModal = document.querySelector('.register-modal-password-input');
+// const registerModalInputs = document.querySelectorAll('.register-modal-input');
+// const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
+   
+
+// function checkRegisterModalInputs() {
+//     const firstNameRegisterValue = firstNameRegisterModal.value;
+//     const lastNameRegisterValue = lastNameRegisterModal.value;
+//     const emailNameRegisterValue = emailRegisterModal.value;
+//     const passwordRegisterValue = passwordRegisterModal.value;
+
+//     const conditionFirstNameRegisterValue = firstNameRegisterValue.length > 0;
+//     const conditionLastNameRegisterValue = lastNameRegisterValue.length > 0;
+//     const conditionEmailRegisterValue = EMAIL_REGEXP.test(emailNameRegisterValue);
+//     //  && !(localStorage.getItem(`arrUsers${delimiter}`).includes(emailNameRegisterValue));
+//     const conditionPasswordRegisterValue = passwordRegisterValue.length > 7;
+
+//     function setInputBorderColor(condition, modalInput) {
+//         condition ? modalInput.style.borderColor = 'green' : modalInput.style.borderColor = 'red';
+//     }
+
+//     firstNameRegisterModal.addEventListener('input', setInputBorderColor(conditionFirstNameRegisterValue, firstNameRegisterModal));
+//     lastNameRegisterModal.addEventListener('input', setInputBorderColor(conditionLastNameRegisterValue, lastNameRegisterModal));
+//     emailRegisterModal.addEventListener('input', setInputBorderColor(conditionEmailRegisterValue, emailRegisterModal));
+//     passwordRegisterModal.addEventListener('input', setInputBorderColor(conditionPasswordRegisterValue, passwordRegisterModal));
+// };
+// registerModalInputs.forEach((item) => item.addEventListener('blur', () => checkRegisterModalInputs()));
+
+
+// registeredUsers.forEach((user) => {
+//     if (localStorage.getItem(`${user}${delimiter}authorized`) === 'true') {
+//         authorizedUser = user;
+//     }
+// });
 
