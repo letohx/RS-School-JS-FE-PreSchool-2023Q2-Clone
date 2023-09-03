@@ -456,7 +456,7 @@ btnSubmitRegisterModal.addEventListener('click', (e)=>{
             localStorage.setItem(`${emailUser}${delimiter}password`, `${passwordRegisterModal.value}`);
             localStorage.setItem(`${emailUser}${delimiter}cardNumber`, generateCardNumber());
             localStorage.setItem(`${emailUser}${delimiter}visits`, 1);
-            localStorage.setItem(`${emailUser}${delimiter}books`, JSON.stringify(rentedBooks).reduce((acc, current) => acc + current, 0));
+            localStorage.setItem(`${emailUser}${delimiter}books`, JSON.stringify(rentedBooks));
             localStorage.setItem(`${emailUser}${delimiter}authorized`, true);
             
             setUserInitial();
