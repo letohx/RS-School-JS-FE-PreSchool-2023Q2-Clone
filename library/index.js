@@ -230,8 +230,8 @@ checkCardBtn.addEventListener('click', (e)=>{
             formCardJS.innerHTML = `
             <div class="form-inputs-wrapper">
                   <p class="form-title">Brooklyn Public Library</p>
-                  <input type="text" id="name" class="input-form input-form-name pointer-events-none" placeholder="${userFirstName} ${userLastName}">
-                  <input type="text" id="number-card" class="input-form input-form-number-card pointer-events-none" placeholder="${localStorage.getItem(`${authorizedUser}${delimiter}cardNumber`)}">
+                  <input type="text" id="name" class="input-form input-form-name pointer-events-none" value="${userFirstName} ${userLastName}">
+                  <input type="text" id="number-card" class="input-form input-form-number-card pointer-events-none" value="${localStorage.getItem(`${authorizedUser}${delimiter}cardNumber`)}">
                 </div>
                 <div class="user-statistics-wrapper">
                   <div class="visits-stat">
@@ -596,8 +596,8 @@ function changeFormLibraryCard() {
         formLibraryCardLogIn.classList.remove('hidden-form');
         visitStatValue.innerHTML = localStorage.getItem(`${authorizedUser}${delimiter}visits`);
         booksStatValue.innerHTML = JSON.parse(localStorage.getItem(`${authorizedUser}${delimiter}books`)).reduce((acc, current) => acc + current, 0);
-        inputFormName.placeholder = `${userFirstName} ${userLastName}`;
-        inputFormNumberCard.placeholder = localStorage.getItem(`${authorizedUser}${delimiter}cardNumber`);
+        inputFormName.value = `${userFirstName} ${userLastName}`;
+        inputFormNumberCard.value = localStorage.getItem(`${authorizedUser}${delimiter}cardNumber`);
 
 
         if (authorizedUser) {
