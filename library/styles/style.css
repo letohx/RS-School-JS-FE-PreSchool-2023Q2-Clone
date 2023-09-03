@@ -1993,30 +1993,222 @@ h2 {
   transform: scale(1.2);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* modal my profile end*/
+
+/* modal buy card start*/
+
+
+.modal-buy-card {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transition: 0.2s ease-out;
+}
+
+.modal-buy-card-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-buy-card-overlay {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.448);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-buy-card-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 640px;
+  width: 100%;
+  height: 540px;
+  background: #FFF;
+  margin: 10px;
+}
+
+.top-wrapper-modal-buy-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  background: #0C0C0E;
+}
+
+.modal-buy-card-title {
+  color: #FFF;
+  text-align: center;
+  font-family: Forum;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.bottom-wrapper-modal-buy-card {
+  display: flex;
+  padding: 30px 35px 40px 35px;
+  width: 100%;
+  max-width: 640px;
+  height: 100%;
+  gap: 40px;
+}
+
+.left-wrapper-modal-buy-card{
+  max-width: 200px;
+  min-width: 135px;
+  width: 100%;
+  height: 100%;
+}
+
+.buy-card-modal-name {
+  margin: 0 0 5px;
+  color: #000;
+  font-family: Inter;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.3px;
+}
+
+.buy-card-modal-input {
+  border: 1px solid #BB945F;
+  max-width: 200px;
+  width: 100%;
+  height: 20px;
+  margin: 0 0 10px;
+  color: #6f6f6f;
+}
+
+.buy-card-modal-input-small {
+  border: 1px solid #BB945F;
+  max-width: 45px;
+  width: 100%;
+  height: 20px;
+  margin: 0 5px 10px 0;
+  color: #6f6f6f;
+}
+
+.buy-card-modal-cardholder-name {
+  margin-top: 10px;
+}
+
+.buy-card-modal-submit-button-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: end;
+  max-width: 190px;
+  width: 100%;
+}
+
+.buy-card-modal-submit-button {
+  padding: 0;
+  margin: 10px 10px 0 0 ;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 2px;
+  border: 1px solid #0C0C0E;
+  width: 75px;
+  height: 30px;
+  flex-shrink: 0;
+  color: #0C0C0E;
+  text-align: center;
+  font-family: Inter;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 1px;
+  transition: 0.2s ease-out;
+}
+
+.buy-card-modal-submit-button:hover,
+.buy-card-modal-submit-button:focus {
+  border-radius: 2px;
+  border: 1px solid #BB945F;
+  background: #BB945F;
+}
+
+.buy-card-modal-submit-button:active {
+  background: #aa8756;
+}
+
+.buy-card-modal-price {
+  margin: 10px 0 0 0;
+  color: #0C0C0E;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.right-wrapper-modal-buy-card {
+  max-width: 330px;
+  width: 100%;
+}
+
+.right-wrapper-modal-buy-card-text {
+  margin: 0;
+  color: #8E8E8E;
+  font-family: Inter;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 2px;
+}
+
+
+.buy-card-modal-close {
+  position: absolute;
+  padding: 0;
+  margin: 10px;
+  top: 13px;
+  right: 8px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  transition: 0.2s ease-out;
+}
+
+.buy-card-modal-close:hover,
+.buy-card-modal-close:focus {
+  transform: rotate(90deg);
+}
+
+.buy-card-modal-close:active {
+  transform: rotate(-90deg);
+  transform: scale(1.2);
+}
+
+
+/* modal buy card end*/
 
 
 /* Media start */
