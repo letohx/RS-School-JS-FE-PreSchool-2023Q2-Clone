@@ -219,7 +219,7 @@ checkCardBtn.addEventListener('click', (e)=>{
         const storedName = localStorage.getItem(`${userEmail}${delimiter}firstName`);
         const storedLastName = localStorage.getItem(`${userEmail}${delimiter}lastName`);
         
-        if (storedName.toLowerCase() === checkCardNameInput.toLowerCase() || `${storedName} ${storedLastName}`.toLowerCase() === checkCardNameInput.toLowerCase() || `${storedLastName} ${storedName}`.toLowerCase() === checkCardNameInput.toLowerCase()) {
+        if (storedName.toLowerCase() === checkCardNameInput.toLowerCase() || storedLastName.toLowerCase() === checkCardNameInput.toLowerCase() || `${storedName} ${storedLastName}`.toLowerCase() === checkCardNameInput.toLowerCase() || `${storedLastName} ${storedName}`.toLowerCase() === checkCardNameInput.toLowerCase()) {
             authorizedUser = userEmail;
 
             const userFirstName = localStorage.getItem(`${authorizedUser}${delimiter}firstName`);
@@ -412,10 +412,6 @@ function checkRegisterModalInputs() {
     //  && !(localStorage.getItem(`arrUsers${delimiter}`).includes(emailNameRegisterValue));
     const conditionPasswordRegisterValue = passwordRegisterValue.length > 7;
 
-    function setInputBorderColor(condition, modalInput) {
-        condition ? modalInput.style.borderColor = 'green' : modalInput.style.borderColor = 'red';
-    }
-
     firstNameRegisterModal.addEventListener('input', setInputBorderColor(conditionFirstNameRegisterValue, firstNameRegisterModal));
     lastNameRegisterModal.addEventListener('input', setInputBorderColor(conditionLastNameRegisterValue, lastNameRegisterModal));
     emailRegisterModal.addEventListener('input', setInputBorderColor(conditionEmailRegisterValue, emailRegisterModal));
@@ -423,6 +419,9 @@ function checkRegisterModalInputs() {
 };
 registerModalInputs.forEach((item) => item.addEventListener('blur', () => checkRegisterModalInputs()));
 
+function setInputBorderColor(condition, modalInput) {
+    condition ? modalInput.style.borderColor = 'green' : modalInput.style.borderColor = 'red';
+}
 
 registeredUsers.forEach((user) => {
     if (localStorage.getItem(`${user}${delimiter}authorized`) === 'true') {
@@ -735,46 +734,96 @@ btnSubmitBuyCardModal.addEventListener('click', (e) => {
 });
 
 
+(function checkBuyCardModalInputs() {
+    const inputBankCardNumber = document.querySelector('.input-bank-card-number');
+    const inputExpirationCodeMonth = document.querySelector('.expiration-code-month');
+    const inputExpirationCodeYear = document.querySelector('.expiration-code-year');
+    const inputBankCardCVC = document.querySelector('.input-bank-card-cvc');
+    const inputBuyCardCardholderName = document.querySelector('.buy-card-input-cardholder-name');
+    const inputBuyCardPostalCode = document.querySelector('.buy-card-input-postal-code');
+    const inputBuyCardCity = document.querySelector('.buy-card-input-city');
+
+    inputBankCardNumber.addEventListener('input', function () {
+        let formattedValue = inputBankCardNumber.value.replace(/[^0-9]/g, '').replace(/(\d{4})/g, '$1 ').trim();
+        inputBankCardNumber.value = formattedValue;
+        const conditionInputBankCardNumber = (formattedValue.length === 19);
+        setInputBorderColor(conditionInputBankCardNumber, inputBankCardNumber);
+    });
+
+    inputExpirationCodeMonth.addEventListener('input', function () {
+        let formattedValue = inputExpirationCodeMonth.value.replace(/[^0-9]/g, '').trim();
+        inputExpirationCodeMonth.value = formattedValue;
+        const conditionInputBankCardNumber = (formattedValue.length === 2 && formattedValue < 13);
+        setInputBorderColor(conditionInputBankCardNumber, inputExpirationCodeMonth);
+    });
+
+    inputExpirationCodeYear.addEventListener('input', function () {
+        let formattedValue = inputExpirationCodeYear.value.replace(/[^0-9]/g, '').trim();
+        inputExpirationCodeYear.value = formattedValue;
+        const conditionInputBankCardNumber = (formattedValue.length === 2);
+        setInputBorderColor(conditionInputBankCardNumber, inputExpirationCodeYear);
+    });
+
+    inputBankCardCVC.addEventListener('input', function () {
+        let formattedValue = inputBankCardCVC.value.replace(/[^0-9]/g, '').trim();
+        inputBankCardCVC.value = formattedValue;
+        const conditionInputBankCardNumber = (formattedValue.length === 3);
+        setInputBorderColor(conditionInputBankCardNumber, inputBankCardCVC);
+    });
+
+    inputBuyCardCardholderName.addEventListener('input', function () {
+        let formattedValue = inputBuyCardCardholderName.value.trim();
+        inputBuyCardCardholderName.value = formattedValue;
+        const conditionInputBankCardNumber = (formattedValue.length > 0);
+        setInputBorderColor(conditionInputBankCardNumber, inputBuyCardCardholderName);
+    });
+
+    inputBuyCardPostalCode.addEventListener('input', function () {
+        let formattedValue = inputBuyCardPostalCode.value.trim();
+        inputBuyCardPostalCode.value = formattedValue;
+        const conditionInputBankCardNumber = (formattedValue.length > 0);
+        setInputBorderColor(conditionInputBankCardNumber, inputBuyCardPostalCode);
+    });
+
+    inputBuyCardCity.addEventListener('input', function () {
+        let formattedValue = inputBuyCardCity.value.trim();
+        inputBuyCardCity.value = formattedValue;
+        const conditionInputBankCardNumber = (formattedValue.length > 0);
+        setInputBorderColor(conditionInputBankCardNumber, inputBuyCardCity);
+    });
+
+    const inputsBankCard = document.querySelectorAll('.input-bank-card');
+    inputsBankCard.forEach((input, index) => {
+        input.addEventListener('input', function () {
+            const inputValue = input.value;
+            if (inputValue.length === input.maxLength) {
+                if (index < inputsBankCard.length - 1) {
+                    inputsBankCard[index + 1].focus();
+                 }
+            }
+        });
+    });
 
 
+    const form = document.querySelector('.buy-card-modal-form');
+    const inputs = document.querySelectorAll('.buy-card-modal-input-js');
+
+    form.addEventListener('input', function () {
+        let emptyInputs = Array.from(inputs).some(input => input.value.trim() === '');
+        if (emptyInputs) {
+            btnSubmitBuyCardModal.classList.remove('buy-card-modal-submit-button-active');
+        } else {
+            btnSubmitBuyCardModal.classList.add('buy-card-modal-submit-button-active');
+        }
+    });
+
+    btnSubmitBuyCardModal.addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.setItem(`${authorizedUser}${delimiter}subscription`, true);
+        buyCardModalClose();
+    });
+
+}());
 
 
-
-// const firstNameRegisterModal = document.querySelector('.register-modal-first-name-input');
-// const lastNameRegisterModal = document.querySelector('.register-modal-last-name-input');
-// const emailRegisterModal = document.querySelector('.register-modal-email-input');
-// const passwordRegisterModal = document.querySelector('.register-modal-password-input');
-// const registerModalInputs = document.querySelectorAll('.register-modal-input');
-// const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
-   
-
-// function checkRegisterModalInputs() {
-//     const firstNameRegisterValue = firstNameRegisterModal.value;
-//     const lastNameRegisterValue = lastNameRegisterModal.value;
-//     const emailNameRegisterValue = emailRegisterModal.value;
-//     const passwordRegisterValue = passwordRegisterModal.value;
-
-//     const conditionFirstNameRegisterValue = firstNameRegisterValue.length > 0;
-//     const conditionLastNameRegisterValue = lastNameRegisterValue.length > 0;
-//     const conditionEmailRegisterValue = EMAIL_REGEXP.test(emailNameRegisterValue);
-//     //  && !(localStorage.getItem(`arrUsers${delimiter}`).includes(emailNameRegisterValue));
-//     const conditionPasswordRegisterValue = passwordRegisterValue.length > 7;
-
-//     function setInputBorderColor(condition, modalInput) {
-//         condition ? modalInput.style.borderColor = 'green' : modalInput.style.borderColor = 'red';
-//     }
-
-//     firstNameRegisterModal.addEventListener('input', setInputBorderColor(conditionFirstNameRegisterValue, firstNameRegisterModal));
-//     lastNameRegisterModal.addEventListener('input', setInputBorderColor(conditionLastNameRegisterValue, lastNameRegisterModal));
-//     emailRegisterModal.addEventListener('input', setInputBorderColor(conditionEmailRegisterValue, emailRegisterModal));
-//     passwordRegisterModal.addEventListener('input', setInputBorderColor(conditionPasswordRegisterValue, passwordRegisterModal));
-// };
-// registerModalInputs.forEach((item) => item.addEventListener('blur', () => checkRegisterModalInputs()));
-
-
-// registeredUsers.forEach((user) => {
-//     if (localStorage.getItem(`${user}${delimiter}authorized`) === 'true') {
-//         authorizedUser = user;
-//     }
-// });
 
