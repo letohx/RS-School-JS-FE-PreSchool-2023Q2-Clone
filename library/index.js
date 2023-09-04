@@ -528,7 +528,8 @@ window.addEventListener('load', function() {
     changeFormLibraryCard();
     changeModalMyProfile();
     rentedBooks = JSON.parse(localStorage.getItem(`${authorizedUser}${delimiter}books`)) || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    changeButtonsBuyOwn()
+    changeButtonsBuyOwn();
+    changeListRentedBooks();
 });
 
 function setUserInitial() {
@@ -676,6 +677,7 @@ buttonsBuy.forEach((item, index) => item.addEventListener('click', () => {
         localStorage.setItem(`${authorizedUser}${delimiter}books`, JSON.stringify(rentedBooks));
         changeFormLibraryCard();
         changeModalMyProfile();
+        changeListRentedBooks()
     }
 }));
 
@@ -685,11 +687,30 @@ function changeButtonsBuyOwn() {
             if (JSON.parse(localStorage.getItem(`${authorizedUser}${delimiter}books`))[index]) {
                 const ownButtons = document.querySelectorAll('.own-button'); 
                 ownButtons[index].classList.remove('hide');
-                item.classList.add('hide');
+                item.classList.add('hide');      
             }
         });
     }
 }
+
+function changeListRentedBooks() {
+    const listRentedBooks = document.querySelector('.rented-books-list');
+    const bookNames = document.querySelectorAll('.book-name');
+    const bookAuthors = document.querySelectorAll('.book-author');
+
+    rentedBooks = JSON.parse(localStorage.getItem(`${authorizedUser}${delimiter}books`)) || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    listRentedBooks.innerHTML = '';
+    rentedBooks.forEach((book, index) => {
+        if (book === 1) {
+            const listItem = document.createElement('li');
+            const bookName = bookNames[index].textContent.split('By ')[0].trim();
+            const bookAuthor = bookAuthors[index].textContent.split('By ')[1].trim();
+            listItem.textContent = `${bookName}, ${bookAuthor}`;
+            listRentedBooks.appendChild(listItem);
+        }
+    });
+}
+
 
 
 // Modal window BUY A LIBRARY CARD
@@ -803,7 +824,6 @@ btnSubmitBuyCardModal.addEventListener('click', (e) => {
             }
         });
     });
-
 
     const form = document.querySelector('.buy-card-modal-form');
     const inputs = document.querySelectorAll('.buy-card-modal-input-js');
