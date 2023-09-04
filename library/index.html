@@ -670,8 +670,8 @@
               <form class="form-card form-card-js">
                 <div class="form-inputs-wrapper">
                   <p class="form-title">Brooklyn Public Library</p>
-                  <input type="text" id="name" class="input-form check-card-name" placeholder="Reader's name">
-                  <input type="text" id="number-card" class="input-form check-card-number" placeholder="Card number">
+                  <input type="text" class="input-form check-card-name" placeholder="Reader's name">
+                  <input type="text" class="input-form check-card-number" placeholder="Card number">
                 </div>
                 <button type="submit" class="button submit-button check-card-btn">Check the card</button>
               </form>
@@ -692,8 +692,8 @@
               <form class="form-card">
                 <div class="form-inputs-wrapper">
                   <p class="form-title">Brooklyn Public Library</p>
-                  <input type="text" id="name" class="input-form input-form-name pointer-events-none" placeholder="Reader's name">
-                  <input type="text" id="number-card" class="input-form input-form-number-card pointer-events-none" placeholder="Card number">
+                  <input type="text" class="input-form input-form-name pointer-events-none" placeholder="Reader's name">
+                  <input type="text" class="input-form input-form-number-card pointer-events-none" placeholder="Card number">
                 </div>
                 <div class="user-statistics-wrapper">
                   <div class="visits-stat">
@@ -788,7 +788,7 @@
         <form action="" class="register-modal-form">
           <label class="register-modal-label">
             <p class="register-modal-name">First name</p>
-            <input type="text" class="register-modal-input register-modal-first-name-input" autofocus="1">
+            <input type="text" class="register-modal-input register-modal-first-name-input">
           </label>
           <label class="register-modal-label">
             <p class="register-modal-name">Last name</p>
@@ -912,28 +912,28 @@
             <form action="" class="buy-card-modal-form">          
               <label class="buy-card-modal-label">
                 <p class="buy-card-modal-name">Bank card number</p>
-                <input type="text" class="buy-card-modal-input">
+                <input type="text" class="buy-card-modal-input-js buy-card-modal-input input-bank-card-number input-bank-card" maxlength="19" inputmode="numeric" required>
               </label>
               <label class="buy-card-modal-label">
                 <p class="buy-card-modal-name">Expiration code</p>
-                <input type="text" class="buy-card-modal-input-small">
-                <input type="text" class="buy-card-modal-input-small">
+                <input type="text" class="buy-card-modal-input-js buy-card-modal-input-small expiration-code-month input-bank-card" maxlength="2" inputmode="numeric" required>
+                <input type="text" class="buy-card-modal-input-js buy-card-modal-input-small expiration-code-year input-bank-card" maxlength="2" inputmode="numeric" required>
               </label>
               <label class="buy-card-modal-label">
                 <p class="buy-card-modal-name">CVC</p>
-                <input type="password" class="buy-card-modal-input-small">
+                <input type="password" class="buy-card-modal-input-js buy-card-modal-input-small input-bank-card input-bank-card-cvc" maxlength="3" inputmode="numeric" required>
               </label>
               <label class="buy-card-modal-label">
-                <p class="buy-card-modal-name buy-card-modal-cardholder-name">Cardholder name</p>
-                <input type="text" class="buy-card-modal-input">
+                <p class="buy-card-modal-name">Cardholder name</p>
+                <input type="text" class="buy-card-modal-input-js buy-card-modal-input buy-card-input-cardholder-name" required>
               </label>
               <label class="buy-card-modal-label">
                 <p class="buy-card-modal-name">Postal code</p>
-                <input type="text" class="buy-card-modal-input">
+                <input type="text" class="buy-card-modal-input-js buy-card-modal-input buy-card-input-postal-code" required>
               </label>
               <label class="buy-card-modal-label">
                 <p class="buy-card-modal-name">City / Town</p>
-                <input type="text" class="buy-card-modal-input">
+                <input type="text" class="buy-card-modal-input-js buy-card-modal-input buy-card-input-city" required>
               </label>
 
               <div class="buy-card-modal-submit-button-wrapper">

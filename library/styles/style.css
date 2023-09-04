@@ -2118,12 +2118,16 @@ h2 {
 
 .buy-card-modal-submit-button {
   padding: 0;
-  margin: 10px 10px 0 0 ;
+  margin: 10px 10px 0 0;
   border: none;
   font: inherit;
   color: inherit;
   background-color: transparent;
-  cursor: pointer;
+
+
+  pointer-events: none;
+  cursor: not-allowed;
+
   border-radius: 2px;
   border: 1px solid #0C0C0E;
   width: 75px;
@@ -2149,6 +2153,12 @@ h2 {
 
 .buy-card-modal-submit-button:active {
   background: #aa8756;
+}
+
+.buy-card-modal-submit-button-active {
+  pointer-events: all;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
 }
 
 .buy-card-modal-price {
@@ -2428,3 +2438,4 @@ h2 {
 }
 
 /* Media end */
+
