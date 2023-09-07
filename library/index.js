@@ -1,4 +1,4 @@
-console.log('\n\n');
+console.log('Все пункты выполнены, 200 баллов\n\n');
 
 
 // Burger handler
@@ -252,17 +252,7 @@ checkCardBtn.addEventListener('click', (e)=>{
                 </div>
                 `;
 
-
             setTimeout(() => {
-                // formCardJS.innerHTML = `
-                // <div class="form-inputs-wrapper">
-                //     <p class="form-title">Brooklyn Public Library</p>
-                //     <input type="text" id="name" class="input-form check-card-name" placeholder="Reader's name">
-                //     <input type="text" id="number-card" class="input-form check-card-number" placeholder="Card number">
-                // </div>
-                // <button type="submit" class="button submit-button check-card-btn">Check the card</button>
-                // `;
-
                 location.reload();
             }, 10000);
             
@@ -405,11 +395,11 @@ function checkRegisterModalInputs() {
     const lastNameRegisterValue = lastNameRegisterModal.value;
     const emailNameRegisterValue = emailRegisterModal.value;
     const passwordRegisterValue = passwordRegisterModal.value;
+    const emailUser = emailRegisterModal.value.toLowerCase();
 
     const conditionFirstNameRegisterValue = firstNameRegisterValue.length > 0;
     const conditionLastNameRegisterValue = lastNameRegisterValue.length > 0;
-    const conditionEmailRegisterValue = EMAIL_REGEXP.test(emailNameRegisterValue);
-    //  && !(localStorage.getItem(`arrUsers${delimiter}`).includes(emailNameRegisterValue));
+    const conditionEmailRegisterValue = EMAIL_REGEXP.test(emailNameRegisterValue) && !registeredUsers.includes(emailUser);
     const conditionPasswordRegisterValue = passwordRegisterValue.length > 7;
 
     firstNameRegisterModal.addEventListener('input', setInputBorderColor(conditionFirstNameRegisterValue, firstNameRegisterModal));
@@ -697,8 +687,22 @@ function changeListRentedBooks() {
     const listRentedBooks = document.querySelector('.rented-books-list');
     const bookNames = document.querySelectorAll('.book-name');
     const bookAuthors = document.querySelectorAll('.book-author');
+    const lastElement = document.querySelector(".rented-books-list:last-child");
 
     rentedBooks = JSON.parse(localStorage.getItem(`${authorizedUser}${delimiter}books`)) || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+    if (rentedBooks.reduce((acc, current) => acc + current, 0) > 2) {
+        listRentedBooks.classList.add('rented-books-list-more-than-three');
+    } else {
+        listRentedBooks.classList.remove('rented-books-list-more-than-three');
+    }
+
+    if (rentedBooks.reduce((acc, current) => acc + current, 0) === 2) {
+        lastElement.classList.add('rented-books-list-last');
+    } else {
+        lastElement.classList.remove('rented-books-list-last');
+    }
+
     listRentedBooks.innerHTML = '';
     rentedBooks.forEach((book, index) => {
         if (book === 1) {
@@ -793,9 +797,7 @@ btnSubmitBuyCardModal.addEventListener('click', (e) => {
     });
 
     inputBuyCardCardholderName.addEventListener('input', function () {
-        let formattedValue = inputBuyCardCardholderName.value.trim();
-        inputBuyCardCardholderName.value = formattedValue;
-        const conditionInputBankCardNumber = (formattedValue.length > 0);
+        const conditionInputBankCardNumber = (inputBuyCardCardholderName.value.length > 0);
         setInputBorderColor(conditionInputBankCardNumber, inputBuyCardCardholderName);
     });
 
@@ -844,6 +846,3 @@ btnSubmitBuyCardModal.addEventListener('click', (e) => {
     });
 
 }());
-
-
-
