@@ -1,4 +1,4 @@
-console.log('\n\n');
+console.log('Все пункты выполнены, 200 баллов\n\n');
 
 
 // Burger handler
