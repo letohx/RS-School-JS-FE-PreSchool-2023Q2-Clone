@@ -65,7 +65,6 @@ body {
 }
 
 .page-wrapper-welcome {
-  /* position: static; */
   overflow-x: hidden;
   width: 100%;
   max-width: 1440px;
@@ -75,7 +74,6 @@ body {
 
 .page-wrapper-mine {
   position: relative;
-  /* overflow-x: hidden; */
   width: 100%;
   margin: 0 auto;
   background: #ffffff;
@@ -83,7 +81,6 @@ body {
 
 .page-wrapper-footer {
   position: relative;
-  /* overflow-x: hidden; */
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
@@ -231,7 +228,6 @@ h2 {
 }
 
 .profile-menu-active {
-  /* transform: none; */
   opacity: 1;
   visibility: visible;
 }
@@ -329,7 +325,6 @@ h2 {
 }
 
 .open-burger-bg {
-  /* display: none; */
   opacity: 0;
   position: absolute;
   margin: 0;
@@ -346,7 +341,6 @@ h2 {
 }
 
 .open-burger-bg-active {
-  /* display: block; */
   opacity: 1;
   transform: translate(0);
   transition: 0.2s ease-in-out;
@@ -603,14 +597,7 @@ h2 {
 .selected {
   font-weight: 700;
   pointer-events: none;
-  /* letter-spacing: -0.5px; */
 }
-
-/* .input-text:hover,
-.input-text:focus,
-.input-text:active {
-  font-weight: 700;
-} */
 
 .favorites-items-wrapper {
 	display: flex;
@@ -779,15 +766,10 @@ h2 {
 }
 
 .hide {
-  /* visibility: hidden;
-  opacity: 0;
-  display: none; */
-  /* transition: opacity 1s, visibility 1s; */
   transition: 0.5s ease-in-out;
   position: absolute;
   opacity: 0;
   visibility: hidden;
-  /* top: -100%; */
 }
 
 .hidden {
@@ -817,7 +799,6 @@ h2 {
   position: absolute;
   opacity: 0;
   visibility: hidden;
-  /* top: -100%; */
 }
 
 .buy-button:hover,
@@ -1359,7 +1340,7 @@ h2 {
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
-  line-height: 20px; /* 100% */
+  line-height: 20px;
   letter-spacing: 2px;
 }
 
@@ -1936,7 +1917,7 @@ h2 {
   margin-left: -10px; 
 }
 
-.rented-books-list :last-child {
+.rented-books-list-last {
   margin-bottom: 10px;
 }
 
@@ -1944,6 +1925,10 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   margin-top: 5px;
+}
+
+.rented-books-list-more-than-three {
+  justify-content: space-between;
 }
 
 .my-profile-modal-card-number-text {
@@ -2249,7 +2234,6 @@ h2 {
   .favorites-items-wrapper {
     flex-direction: column;
     align-content: center;
-    /* height: 2380px; */
   }
   .contacts-wrapper {
     flex-direction: column;
