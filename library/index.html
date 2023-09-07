@@ -825,11 +825,11 @@
         <form action="" class="login-modal-form">          
           <label class="login-modal-label">
             <p class="login-modal-name">E-mail or readers card</p>
-            <input type="email" class="login-modal-input login-modal-email-input">
+            <input type="email" class="login-modal-input login-modal-email-input" autocomplete="email">
           </label>
           <label class="login-modal-label"  title="Enter a password of 8 characters or more">
             <p class="login-modal-name">Password</p>
-            <input type="password" class="login-modal-input login-modal-password-input">
+            <input type="password" class="login-modal-input login-modal-password-input" autocomplete="current-password">
           </label>
           <button class="login-modal-submit-button" type="submit">Log In</button>
         </form>
@@ -917,15 +917,15 @@
               <label class="buy-card-modal-label">
                 <p class="buy-card-modal-name">Expiration code</p>
                 <input type="text" class="buy-card-modal-input-js buy-card-modal-input-small expiration-code-month input-bank-card" maxlength="2" inputmode="numeric" required>
-                <input type="text" class="buy-card-modal-input-js buy-card-modal-input-small expiration-code-year input-bank-card" maxlength="2" inputmode="numeric" required>
+                <input type="text" class="buy-card-modal-input-js buy-card-modal-input-small expiration-code-year input-bank-card" maxlength="2" inputmode="numeric" autocomplete="username" required>
               </label>
               <label class="buy-card-modal-label">
                 <p class="buy-card-modal-name">CVC</p>
-                <input type="password" class="buy-card-modal-input-js buy-card-modal-input-small input-bank-card input-bank-card-cvc" maxlength="3" inputmode="numeric" required>
+                <input type="password" class="buy-card-modal-input-js buy-card-modal-input-small input-bank-card input-bank-card-cvc" maxlength="3" inputmode="numeric" autocomplete="current-password" required>
               </label>
               <label class="buy-card-modal-label">
                 <p class="buy-card-modal-name">Cardholder name</p>
-                <input type="text" class="buy-card-modal-input-js buy-card-modal-input buy-card-input-cardholder-name" required>
+                <input type="text" class="buy-card-modal-input-js buy-card-modal-input buy-card-input-cardholder-name" autocomplete="username" required>
               </label>
               <label class="buy-card-modal-label">
                 <p class="buy-card-modal-name">Postal code</p>
