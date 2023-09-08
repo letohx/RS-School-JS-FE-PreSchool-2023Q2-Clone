@@ -2110,6 +2110,10 @@ h2 {
   color: #6f6f6f;
 }
 
+.input-bank-card-cvc {
+  margin-bottom: 20px;
+}
+
 .buy-card-modal-cardholder-name {
   margin-top: 10px;
 }
