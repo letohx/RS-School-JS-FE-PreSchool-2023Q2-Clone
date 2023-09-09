@@ -35,10 +35,10 @@ console.log('Все пункты выполнены, 200 баллов\n\n');
         document.body.classList.remove("body-scroll-stop");
     };
 
-    burgerItem.addEventListener('click', () => toggleBurger());
-    burgerBg.addEventListener('click', () => toggleBurger());
-    profileIcon.addEventListener('click', () => removeBurger());
-    burgerItems.forEach((item) => item.addEventListener('click', () => removeBurger()));
+    burgerItem.addEventListener('click', toggleBurger);
+    burgerBg.addEventListener('click', toggleBurger);
+    profileIcon.addEventListener('click', removeBurger);
+    burgerItems.forEach((item) => item.addEventListener('click', removeBurger));
 }());
 
 
@@ -542,34 +542,36 @@ function setUserInitial() {
 };
 
 function changeProfileMenu() {
-    let profileMenu = document.querySelector('.profile-menu');
-    registeredUsers.forEach((user) => {
-        if (localStorage.getItem(`${user}${delimiter}authorized`) === 'true') {
-            authorizedUser = user;
-        }
-    });
-    if (localStorage.getItem(`${authorizedUser}${delimiter}authorized`) === 'true') {
-        const cardNumber = localStorage.getItem(`${authorizedUser}${delimiter}cardNumber`);
-        profileMenu.innerHTML  = `
-        <p class="profile-menu-text">${cardNumber}</p>
-        <hr class="profile-menu-line">
-        <button class="button-profile-menu button-profile-menu-my-profile">My profile</button>
-        <button class="button-profile-menu button-profile-menu-log-out">Log Out</button>
-        `;
-
-        let profileMenuHex = document.querySelector('.profile-menu-text');
-        profileMenuHex.classList.add('profile-menu-text-hex')
-    } 
-    btnProfileMenuRegister = document.querySelector('.button-profile-menu-register');
-    btnProfileMenuMyProfile = document.querySelector('.button-profile-menu-my-profile');
-    btnProfileMenuLogOut = document.querySelector('.button-profile-menu-log-out');
-
-    btnProfileMenuLogOut.addEventListener('click', (e) => {
+    if (authorizedUser) {
+        let profileMenu = document.querySelector('.profile-menu');
         registeredUsers.forEach((user) => {
-            localStorage.setItem(`${user}${delimiter}authorized`, false);
+            if (localStorage.getItem(`${user}${delimiter}authorized`) === 'true') {
+                authorizedUser = user;
+            }
         });
-        location.reload();
-    });
+        if (localStorage.getItem(`${authorizedUser}${delimiter}authorized`) === 'true') {
+            const cardNumber = localStorage.getItem(`${authorizedUser}${delimiter}cardNumber`);
+            profileMenu.innerHTML  = `
+            <p class="profile-menu-text">${cardNumber}</p>
+            <hr class="profile-menu-line">
+            <button class="button-profile-menu button-profile-menu-my-profile">My profile</button>
+            <button class="button-profile-menu button-profile-menu-log-out">Log Out</button>
+            `;
+
+            let profileMenuHex = document.querySelector('.profile-menu-text');
+            profileMenuHex.classList.add('profile-menu-text-hex')
+        } 
+        btnProfileMenuRegister = document.querySelector('.button-profile-menu-register');
+        btnProfileMenuMyProfile = document.querySelector('.button-profile-menu-my-profile');
+        btnProfileMenuLogOut = document.querySelector('.button-profile-menu-log-out');
+
+        btnProfileMenuLogOut.addEventListener('click', (e) => {
+            registeredUsers.forEach((user) => {
+                localStorage.setItem(`${user}${delimiter}authorized`, false);
+            });
+            location.reload();
+        });
+    };
 };
 
 function changeFormLibraryCard() {
@@ -628,23 +630,24 @@ function myProfileModalClose() {
 }
 
 function changeModalMyProfile() {
-
-    const visitStatValue = document.querySelector('.visit-stat-value-big');
-    const bonusesStatValue = document.querySelector('.bonuses-stat-value');
-    const booksStatValue = document.querySelector('.books-stat-value-big');
-    const myProfileModalCardNumber = document.querySelector('.my-profile-modal-card-number-number');
-    const myProfileModalInitials = document.querySelector('.my-profile-initials');
-    const myProfileModalName = document.querySelector('.my-profile-name');
-
-    const userFirstName = localStorage.getItem(`${authorizedUser}${delimiter}firstName`);
-    const userLastName = localStorage.getItem(`${authorizedUser}${delimiter}lastName`);
-    const userInitials = `${userFirstName[0].toUpperCase()}${userLastName[0].toUpperCase()}`;
     if (authorizedUser) {
-        visitStatValue.innerHTML = localStorage.getItem(`${authorizedUser}${delimiter}visits`);
-        booksStatValue.innerHTML = JSON.parse(localStorage.getItem(`${authorizedUser}${delimiter}books`)).reduce((acc, current) => acc + current, 0);
-        myProfileModalName.innerHTML = `${userFirstName} ${userLastName}`;
-        myProfileModalInitials.innerHTML = userInitials;
-        myProfileModalCardNumber.innerHTML = localStorage.getItem(`${authorizedUser}${delimiter}cardNumber`);
+        const visitStatValue = document.querySelector('.visit-stat-value-big');
+        const bonusesStatValue = document.querySelector('.bonuses-stat-value');
+        const booksStatValue = document.querySelector('.books-stat-value-big');
+        const myProfileModalCardNumber = document.querySelector('.my-profile-modal-card-number-number');
+        const myProfileModalInitials = document.querySelector('.my-profile-initials');
+        const myProfileModalName = document.querySelector('.my-profile-name');
+    
+        const userFirstName = localStorage.getItem(`${authorizedUser}${delimiter}firstName`);
+        const userLastName = localStorage.getItem(`${authorizedUser}${delimiter}lastName`);
+        const userInitials = `${userFirstName[0].toUpperCase()}${userLastName[0].toUpperCase()}`;
+        if (authorizedUser) {
+            visitStatValue.innerHTML = localStorage.getItem(`${authorizedUser}${delimiter}visits`);
+            booksStatValue.innerHTML = JSON.parse(localStorage.getItem(`${authorizedUser}${delimiter}books`)).reduce((acc, current) => acc + current, 0);
+            myProfileModalName.innerHTML = `${userFirstName} ${userLastName}`;
+            myProfileModalInitials.innerHTML = userInitials;
+            myProfileModalCardNumber.innerHTML = localStorage.getItem(`${authorizedUser}${delimiter}cardNumber`);
+        }
     }
 }
 
@@ -758,7 +761,6 @@ btnSubmitBuyCardModal.addEventListener('click', (e) => {
     buyCardModalClose();
 });
 
-
 (function checkBuyCardModalInputs() {
     const inputBankCardNumber = document.querySelector('.input-bank-card-number');
     const inputExpirationCodeMonth = document.querySelector('.expiration-code-month');
@@ -844,5 +846,4 @@ btnSubmitBuyCardModal.addEventListener('click', (e) => {
         localStorage.setItem(`${authorizedUser}${delimiter}subscription`, true);
         buyCardModalClose();
     });
-
 }());
