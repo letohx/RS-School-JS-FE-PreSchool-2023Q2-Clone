@@ -154,20 +154,37 @@ console.log('Все пункты выполнены, 200 баллов\n\n');
 
 
 (function () {
-    let radioBtn = document.querySelectorAll('.favorites-label');
-    let favoritesItem = document.querySelectorAll('.favorites-items-wrapper');
+    const radioButtons = document.querySelectorAll('.favorites-label');
+    const favoritesItems = document.querySelectorAll('.favorites-items-wrapper');
     
-    radioBtn.forEach(function(item, index){
-        item.addEventListener('click', function(elem){
+    radioButtons.forEach(function(item, index){
+        item.addEventListener('click', function(radioBtn){
       
-          radioBtn.forEach(function(btn){ btn.classList.remove('selected')});
-          elem.currentTarget.classList.add('selected');
+            radioButtons.forEach(function(btn){ btn.classList.remove('selected')});
+
+            if (favoritesItems[index].classList.contains('favorites-hide')) {
+                setTimeout(function () {
+                    radioBtn.currentTarget.classList.add('selected');
+                }, 500); 
+            } else {
+                radioBtn.currentTarget.classList.add('selected');
+            }
+            
+            radioBtn.currentTarget.classList.add('selected');
       
-        favoritesItem.forEach(function(item){item.classList.add('favorites-hide')});
-        setTimeout(function () {
-          favoritesItem[index].classList.remove('favorites-hide');
-        }, 500); 
-      })
+            favoritesItems.forEach(function(item){item.classList.add('favorites-hide')});
+
+
+            setTimeout(function () {
+                favoritesItems.forEach((item, i) => {
+                    if (i === index) {
+                        item.classList.remove('favorites-hide');
+                    } else {
+                        item.classList.add('favorites-hide');
+                    }
+                })
+              }, 500); 
+        })
     })
 }());
 
