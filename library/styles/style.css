@@ -607,12 +607,11 @@ h2 {
 	align-items: center;
 	align-content: space-between;
   margin: 30px 0 0;
-
   position: relative;
   top: auto;
   opacity: 1;
   visibility: visible;
-  transition: opacity 1s, visibility 1s ease-in-out;
+  transition: opacity 0.5s, visibility 0.5s ease-in-out;
 }
 
 .favorites-item-wrapper {
@@ -794,11 +793,10 @@ h2 {
   align-content: space-between;
   margin: 30px 0 0;
   top: auto;
-  opacity: 1;
-  transition: 0.5s ease-in-out;
   position: absolute;
   opacity: 0;
   visibility: hidden;
+  transition: 0.5s ease-in-out;
 }
 
 .buy-button:hover,
