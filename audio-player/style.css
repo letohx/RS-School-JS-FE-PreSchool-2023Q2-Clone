@@ -1,0 +1,238 @@
+/* inter-regular - cyrillic_latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    src: url('./assets/font/inter-v13-cyrillic_latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+  /* inter-700 - cyrillic_latin */
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    src: url('./assets/font/inter-v13-cyrillic_latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #000000;
+    height: 100vh;
+    font-family: Inter;
+    /* overflow: hidden; */
+}
+
+.background-wrapper {
+    margin: 0 auto;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #1e1e25;
+    width: 100vw;
+    height: 100%;
+    z-index: -1;
+    filter: blur(8px);
+    overflow: hidden;
+}
+
+.background-img {
+    margin: 0 auto;
+    object-fit: cover;
+    width: 150vw;
+    height: 150vw;
+    opacity: 0.4;
+    animation: rotate 100s linear infinite;
+    transform: scale(1.2);
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.player-container {
+    margin: 0 auto;
+    max-width: 450px;
+    max-height: 700px;
+    height: 100vh;
+    padding: 5vh 10vw;
+    overflow: hidden;
+}
+
+.thumbnail {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    box-shadow: 0px 0px 38px #000000c4;
+}
+
+.progress-bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.progress-bar {
+    width: 100%;
+}
+
+.progress-bar-time {
+    display: flex;
+    justify-content: space-between;
+    color: rgba(240, 248, 255, 0.501);
+}
+
+.song-name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.song-artist {
+    color: rgba(240, 248, 255, 0.501);
+
+}
+
+.song-title {
+    color:aliceblue;
+    font-weight: 700;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+button {
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+.play-prev,
+.play,
+.play-next {
+    width: 50px;
+    height: 50px;
+    filter: invert(0.8);
+    transition: 0.2s;
+    background-size: 50px 50px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    opacity: .8;
+    transition: .3s;
+}
+
+.play {
+    width: 60px;
+    height: 60px;
+    background-size: 60px 60px;
+    background-image: url("./assets/png/play.png");
+}
+  
+.pause {
+    background-image: url("./assets/png/pause.png");
+}
+  
+.play-prev {
+    background-image: url("./assets/png/backward.png");
+}
+
+.play-next {
+    background-image: url("./assets/png/forward.png");
+}
+
+
+
+/* .play-pause {
+    transform: scale(1.2);
+} */
+
+.btn:hover {
+    filter: invert(1);
+}
+
+.footer {
+    margin: 20px auto;
+    max-width: 450px;
+    width: 100%;
+    max-height: 40px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    align-content: stretch; 
+    font-size: 10px;
+    filter: invert(100%);   
+    transition: 0.2s ease-in-out;
+}
+
+.github-icon-container {
+    display: flex;
+    flex: 1;
+    justify-content: flex-start;
+}
+
+.year-creation {
+    opacity: 0.6;    
+}
+
+h2 {
+    margin: 0;
+    text-align: center;
+    flex: 1;
+    justify-content: center; 
+}
+
+.rss-icon-container {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end; 
+}
+
+.github-icon {
+    max-width: 75px;
+    width: 100%;
+    opacity: 0.6;   
+    transition: 0.2s ease-in-out; 
+}
+
+.year-creation {
+    max-height: 40px;
+    object-fit: contain;
+}
+
+.rss-icon {
+    max-width: 75px;
+    width: 100%;
+    opacity: 0.6; 
+    transition: 0.2s ease-in-out;
+}
+
+.github-icon:hover,
+.rss-icon:hover {
+    opacity: 1;    
+}
