@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="background">
+    <div class="background-wrapper">
         <img src="./assets/img/lemonade.png" class="background-img" />
     </div>
-    <audio src="./assets/audio/beyonce.mp3" class="song"></audio>
-    <div class="player-conteiner">
+    <audio src="./assets/audio/beyonce.mp3" class="audio"></audio>
+    <div class="player-container">
       <img src="./assets/img/lemonade.png" class="thumbnail" />
       <div class="progress-bar-wrapper">
         <input type="range" class="progress-bar" min="0" max="" value="0"/>
@@ -25,11 +25,23 @@
         <div class="song-artist">Beyonce</div>
       </div>
       <div class="controls">
-        <img src="./assets/svg/backward.png"class="previous-song" />
-        <img src="./assets/svg/play.png" class="play-pause" />
-        <img src="./assets/svg/forward.png"class="next-song" />
+        <button class="play-prev btn"></button>
+        <button class="play btn"></button>
+        <button class="play-next btn"></button>
+
+
+        <!-- <img src="./assets/png/backward.png"class="play-prev btn" />
+        <img src="./assets/png/play.png" class="play-pause btn" />
+        <img src="./assets/png/forward.png"class="play-next btn" /> -->
+
+
       </div>
+      <footer class ="footer">
+        <div class="github-icon-container"><a target="_blank" href="https://github.com/letohx"><img class="github-icon" src="./assets/png/GitHub-Logo.png" alt="Github Icon"></a></div>
+        <div class="year-creation"><h2>2023</h2></div>
+        <div class="rss-icon-container"><a target="_blank" href="https://rs.school/js/"><img class="rss-icon" src="https://rs.school/images/rs_school_js.svg" alt="RS School Icon"></a></div>
+    </footer>
     </div>
-    <script src="index.js"></script>    
+    <script type="module" src="./js/index.js"></script>    
 </body>
 </html>
