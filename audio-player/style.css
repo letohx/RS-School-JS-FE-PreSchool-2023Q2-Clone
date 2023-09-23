@@ -115,7 +115,7 @@ body {
     position: absolute;
     background-color: #ffffff;
     border-radius: 2px;
-    transition: background-color 0.2s;
+    transition: background-color 0.5s;
     z-index: -1;
     cursor: pointer;
 }
@@ -221,10 +221,14 @@ button {
     transition: .3s;
 }
 
+.play:active {
+    transform: scale(1.05);
+}
+
 .play-prev:active,
 .play:active,
 .play-next:active {
-  transform: scale(1.05);
+    filter: invert(0.4);
 }
 
 .play {
@@ -245,12 +249,6 @@ button {
 .play-next {
     background-image: url("./assets/png/forward.png");
 }
-
-
-
-/* .play-pause {
-    transform: scale(1.2);
-} */
 
 .btn:hover {
     filter: invert(0.7);
@@ -321,4 +319,25 @@ h2 {
 .github-icon:hover,
 .rss-icon:hover {
     opacity: 1;    
+}
+
+/* Media */
+@media screen and (max-width: 670px) {
+    .song-name {
+        align-items: flex-start;
+    }
+}
+
+@media screen and (max-aspect-ratio: 1) {
+    .background-img {
+        width: 200vw;
+        height: 200vw;
+    }
+}
+
+@media screen and (max-aspect-ratio: 1/1.5) {
+    .background-img {
+        width: 250vw;
+        height: 250vw;
+    }
 }
