@@ -32,8 +32,10 @@ playBtn.addEventListener('click', playAudio);
 function toggleBtn() {
   if (!isPlay) {
     playBtn.classList.remove('pause');
+    thumbnail.classList.add('thumbnail-play');
   } else {
     playBtn.classList.add('pause');
+    thumbnail.classList.remove('thumbnail-play');
   };
 };
 
@@ -98,33 +100,3 @@ function formatTime(duration) {
   const result = ((minutes + ':' + seconds) === 'NaN:NaN') ? 'Loading...' : minutes + ':' + seconds; 
   return result;
 }
-
-
-
-// playList.forEach(el => {
-//   const li = document.createElement('li');
-//   li.classList.add('play-item');
-//   li.textContent = el.title;
-//   playListContainer.append(li);
-// });
-
-// function stylePlayItems() {
-//   if (!isPlay ) {
-//     document.querySelectorAll('.item-active').forEach(el => {
-//       el.classList.remove('item-active');
-//     });
-//   } else {
-//     document.querySelectorAll('.play-list li')[playNum].classList.add('item-active');
-//   };
-// };
-
-// const arrElem = document.querySelectorAll('.play-item');
-// const arrayElem = [];
-
-// for (let i = 0; i < playList.length; i++){
-//   arrayElem.push(arrElem[i]);
-//   arrElem[i].addEventListener('click', function(e){
-//     playNum = arrayElem.indexOf(e.target);
-//     playAudio();
-//   });
-// };
