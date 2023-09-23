@@ -10,15 +10,19 @@
     <div class="background-wrapper">
         <img src="./assets/img/lemonade.png" class="background-img" />
     </div>
-    <audio src="./assets/audio/beyonce.mp3" class="audio"></audio>
+    <audio src="./assets/audio/beyonce.mp3" class="audio" preload="auto"></audio>
     <div class="player-container">
-      <img src="./assets/img/lemonade.png" class="thumbnail" />
+      <div class="wrapper-thumbnail-progress-bar">
+        <img src="./assets/img/lemonade.png" class="thumbnail" />
       <div class="progress-bar-wrapper">
+        <div class="progress-bar-bg"></div>
+        <div class="progress-bar-before"></div>
         <input type="range" class="progress-bar" min="0" max="9000" value="0"/>
         <div class="progress-bar-time">
             <div class="current-time">0:00</div>
             <div class="duration-time">.</div>
         </div>
+      </div>
       </div>
       <div class="song-name">
         <div class="song-title">Don't Hurt Yourself</div>
@@ -38,7 +42,7 @@
       </div>
       <footer class ="footer">
         <div class="github-icon-container"><a target="_blank" href="https://github.com/letohx"><img class="github-icon" src="./assets/png/GitHub-Logo.png" alt="Github Icon"></a></div>
-        <div class="year-creation"><h2>2023</h2></div>
+        <div class="year-creation"><h2 class="year-creation-text">2023</h2></div>
         <div class="rss-icon-container"><a target="_blank" href="https://rs.school/js/"><img class="rss-icon" src="https://rs.school/images/rs_school_js.svg" alt="RS School Icon"></a></div>
     </footer>
     </div>
