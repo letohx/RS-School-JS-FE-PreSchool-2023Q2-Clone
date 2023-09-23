@@ -1,18 +1,4 @@
 const playList = [
-    {      
-      title: 'Don\'t Hurt Yourself',
-      artist: 'Beyonce',
-      src: './assets/audio/beyonce.mp3',
-      thumbnail: './assets/img/lemonade.png',
-      duration: '03:53'
-    },
-    {      
-      title: 'Rap',
-      artist: 'You',
-      src: './assets/audio/dontstartnow.mp3',
-      thumbnail: './assets/img/dontstartnow.png',
-      duration: '03:23'
-    },
     {
       title: 'Back In Black',
       artist: 'AC/DC',
@@ -21,11 +7,32 @@ const playList = [
       duration: '02:55'
     },
     {      
-        title: 'Get Low',
-        artist: 'Lil Jon',
-        src: './assets/audio/liljon.mp3',
-        thumbnail: './assets/img/liljon.jpg',
-        duration: '05:34'
+      title: 'Get Low',
+      artist: 'Lil Jon',
+      src: './assets/audio/liljon.mp3',
+      thumbnail: './assets/img/liljon.jpg',
+      duration: '05:34'
+    },
+    {      
+      title: 'Серый квадрат',
+      artist: 'Разбітае сэрца пацана',
+      src: './assets/audio/serykvadrat.mp3',
+      thumbnail: './assets/img/serykvadrat.jpg',
+      duration: '04:24'
+    },
+    {      
+      title: 'Paint The Town Red',
+      artist: 'Doja Cat',
+      src: './assets/audio/paintthetownred.mp3',
+      thumbnail: './assets/img/paintthetownred.jpg',
+      duration: '03:51'
+    },
+    {      
+      title: 'Blue (Da Ba Dee)',
+      artist: 'Eiffel 65',
+      src: './assets/audio/blue.mp3',
+      thumbnail: './assets/img/blue.jpg',
+      duration: '04:45'
     },
 ]
 export default playList;
