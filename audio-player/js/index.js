@@ -2,6 +2,7 @@ const audio = document.querySelector('audio');
 const background = document.querySelector('.background-img');
 const thumbnail = document.querySelector('.thumbnail');
 const progressBar = document.querySelector('.progress-bar');
+const progressBarBefore = document.querySelector('.progress-bar-before');
 const currentTimeBar = document.querySelector('.current-time');
 const durationTimeBar = document.querySelector('.duration-time');
 const title = document.querySelector('.song-title');
@@ -71,6 +72,7 @@ playPrevBtn.addEventListener('click', playPrev);
 function moveTrackBar() {
   const newPosition = (progressBar.value / 9000) * audio.duration;
   audio.currentTime = newPosition;
+
 }
 progressBar.addEventListener('input', moveTrackBar);
 
@@ -78,8 +80,9 @@ audio.addEventListener('timeupdate', changeTimeBar);
 
 function changeTimeBar() {
   progressBar.value = (audio.currentTime / audio.duration) * 9000;
+  progressBarBefore.style.width = `${(audio.currentTime / audio.duration) * 100}%`;
   currentTimeBar.innerHTML = formatTime(audio.currentTime);
-  durationTimeBar.innerHTML = formatTime(audio.duration) || '0:00';
+  durationTimeBar.innerHTML = formatTime(audio.duration);
 }
 durationTimeBar.innerHTML = formatTime(audio.duration) || '0:00';
 audio.addEventListener('loadedmetadata', changeTimeBar);
@@ -92,7 +95,8 @@ function formatTime(duration) {
   if (seconds < 10) {
     seconds = '0' + seconds;
   }
-  return minutes + ':' + seconds;
+  const result = ((minutes + ':' + seconds) === 'NaN:NaN') ? 'Loading...' : minutes + ':' + seconds; 
+  return result;
 }
 
 
