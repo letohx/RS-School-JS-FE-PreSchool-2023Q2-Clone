@@ -288,6 +288,7 @@ button {
     font-size: 10px;
     filter: invert(100%);   
     transition: 0.2s ease-in-out;
+    background-color: #ffffff;
 }
 
 .github-icon-container {
