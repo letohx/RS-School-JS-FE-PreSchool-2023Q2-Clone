@@ -59,11 +59,15 @@ html, body {
     color: inherit;
     background-color: rgb(255, 255, 255);
     cursor: pointer;
-    transition: transform .1s ease-in-out;
+    transition: transform .2s ease-in-out;
 }
 
 .button-close {
     transform: translateX(33px);
+}
+
+.add-button-close {
+    transform: translateX(0);
 }
 
 .button-search {
@@ -75,10 +79,15 @@ html, body {
     width: 1px;
     height: 25px;
     z-index: 2;
-    /* margin: 0 8px; */
     border: none;
     opacity: 0;
     transition: opacity .2s ease-in;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.681);
+}
+
+.add-delimiter {
+    opacity: 1;
+    box-shadow: none;
 }
 
 svg {
@@ -104,7 +113,7 @@ svg:active {
     padding: 10px 85px 10px 20px;
     border-radius: 20px;
     border: none;
-    color: rgba(56, 60, 65, 0.804);
+    color: rgba(56, 60, 65, 0.87);
     box-shadow: 0 1px 6px 0 #20212447;
     transition: .1s ease;
 }
@@ -118,7 +127,23 @@ svg:active {
     border-top: 1px solid rgb(56 60 65 / 21%);
     border-bottom: 1px solid rgb(56 60 65 / 21%);
     width: 100%;
-    height: 100%;
+}
+
+.main-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.img {
+    width: 400px;
+    border-radius: 5px;
+    margin: 10px;
+    border: 1px solid rgb(56 60 65 / 21%);
+    box-shadow: 0 1px 6px 0 #20212447;
 }
 
 .footer {
