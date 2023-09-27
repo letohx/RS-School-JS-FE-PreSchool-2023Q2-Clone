@@ -42,8 +42,8 @@ html, body {
     display: flex;
     flex-direction: row;
     align-items: center;
-
     position: absolute;
+    cursor: text;
     right: 35px;
 }
 
@@ -97,7 +97,8 @@ svg {
     transition: .2s;
 }
 
-svg:hover {
+.button-close:hover svg,
+.button-search:hover svg {
     fill: #202124;
 }
 

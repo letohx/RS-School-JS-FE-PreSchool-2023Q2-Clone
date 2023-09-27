@@ -3,6 +3,7 @@ const btnClose = document.querySelector(".button-close");
 const btnSearch = document.querySelector(".button-search");
 const delimiter = document.querySelector(".delimiter");
 const mainWrapper = document.querySelector(".main-wrapper");
+const iconsSearchWrapper = document.querySelector(".icons-search-wrapper");
 let previousSearchQuery = '';
 
 
@@ -22,6 +23,8 @@ function toggleBtnClose() {
 }
 
 inputSearch.addEventListener('input', toggleBtnClose);
+
+iconsSearchWrapper.addEventListener('click', (e) => inputSearch.focus());
 
 btnClose.addEventListener('click', (e) => {
     inputSearch.focus();
@@ -54,9 +57,11 @@ async function updateImages() {
     const url = `https://api.unsplash.com/search/photos/?orientation=squarish&query=${request}&client_id=OZrVqG5ZAwYMeLk6pRK7Q6W23rZM54vySCz2pFCibEc`;
     const res = await fetch(url);
     const data = await res.json(); 
-    showImages(data);
+    if (data.results.length > 0) {
+        showImages(data);
+    };
 }
-updateImages();
+// updateImages();
 
 function showImages (data) {
     mainWrapper.innerHTML = '';
