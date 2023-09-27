@@ -3,6 +3,11 @@ const btnClose = document.querySelector(".button-close");
 const btnSearch = document.querySelector(".button-search");
 const delimiter = document.querySelector(".delimiter");
 const mainWrapper = document.querySelector(".main-wrapper");
+const iconsSearchWrapper = document.querySelector(".icons-search-wrapper");
+const picOne = document.querySelector(".pic-1");
+const picTwo = document.querySelector(".pic-2");
+const picThree = document.querySelector(".pic-3");
+const picFour = document.querySelector(".pic-4");
 let previousSearchQuery = '';
 
 
@@ -22,6 +27,8 @@ function toggleBtnClose() {
 }
 
 inputSearch.addEventListener('input', toggleBtnClose);
+
+iconsSearchWrapper.addEventListener('click', (e) => inputSearch.focus());
 
 btnClose.addEventListener('click', (e) => {
     inputSearch.focus();
@@ -54,17 +61,27 @@ async function updateImages() {
     const url = `https://api.unsplash.com/search/photos/?orientation=squarish&query=${request}&client_id=OZrVqG5ZAwYMeLk6pRK7Q6W23rZM54vySCz2pFCibEc`;
     const res = await fetch(url);
     const data = await res.json(); 
-    showImages(data);
+    if (data.results.length > 0) {
+        showImages(data);
+        updateLogo(data);
+    };
 }
-updateImages();
+// updateImages();
 
 function showImages (data) {
     mainWrapper.innerHTML = '';
     data.results.forEach((item) => {
         const img = document.createElement('img');
         img.classList.add('img')
-        img.src = item.urls.regular;
+        img.src = item.urls.small;
         img.alt = `image`;
         mainWrapper.append(img);
     })
+}
+
+function updateLogo (data) {
+    picOne.style.backgroundImage = `url('${data.results[0].urls.thumb}')`;
+    picTwo.style.backgroundImage = `url('${data.results[1].urls.thumb}')`;
+    picThree.style.backgroundImage = `url('${data.results[2].urls.thumb}')`;
+    picFour.style.backgroundImage = `url('${data.results[3].urls.thumb}')`;
 }
