@@ -3,6 +3,7 @@ const btnClose = document.querySelector(".button-close");
 const btnSearch = document.querySelector(".button-search");
 const delimiter = document.querySelector(".delimiter");
 const mainWrapper = document.querySelector(".main-wrapper");
+let previousSearchQuery = '';
 
 
 
@@ -32,7 +33,10 @@ function search () {
     if (!inputSearch.value) {
         inputSearch.focus();
     } else {
-        getImages();
+        if (previousSearchQuery !== inputSearch.value.trim().toLowerCase()){
+            updateImages();
+            previousSearchQuery = inputSearch.value.trim().toLowerCase();
+        }
     }
 }
 
@@ -45,15 +49,14 @@ function handleEnter(event) {
 }
 inputSearch.addEventListener('keydown', handleEnter);
 
-async function getImages() {  
-    const request = inputSearch.value.trim() || `mars`;
+async function updateImages() {  
+    const request = inputSearch.value.trim() || `programming`;
     const url = `https://api.unsplash.com/search/photos/?orientation=squarish&query=${request}&client_id=OZrVqG5ZAwYMeLk6pRK7Q6W23rZM54vySCz2pFCibEc`;
     const res = await fetch(url);
     const data = await res.json(); 
-    console.log(data.results[0].urls.regular); 
     showImages(data);
 }
-getImages();
+updateImages();
 
 function showImages (data) {
     mainWrapper.innerHTML = '';
