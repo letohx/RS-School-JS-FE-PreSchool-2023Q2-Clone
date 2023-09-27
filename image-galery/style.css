@@ -1,3 +1,11 @@
+@font-face {
+    font-display: swap; 
+    font-family: 'Squada One';
+    font-style: normal;
+    font-weight: 400;
+    src: url('./src/font/squada-one-v18-latin-regular.woff2') format('woff2');
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -21,6 +29,8 @@ html, body {
 
 .header {
     width: 100%;
+    border-bottom: 1px solid rgb(56 60 65 / 21%);
+    background-color: #f5f5f7;
 }
 
 .header-wrapper {
@@ -117,6 +127,7 @@ svg:active {
     color: rgba(56, 60, 65, 0.87);
     box-shadow: 0 1px 6px 0 #20212447;
     transition: .1s ease;
+    background-color: #fff;
 }
 
 .input-search:focus {
@@ -124,10 +135,46 @@ svg:active {
     outline: none;
 }
 
+.logo-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    font-family: Squada One;
+    font-size: 25px;
+    color: rgba(56, 60, 65, 0.87);
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 40px;
+    height: 40px;
+    outline: 2px solid #256D7B;
+    border-radius: 1px;
+    gap: 1px;
+    overflow: hidden;
+}
+
+.logo-pic {
+    width: calc(50% - 1px);
+    height: 50%;
+    background-size: cover;
+    filter: grayscale(80%);
+    opacity: 0.7;
+}
+
+.logo-svg {
+    position: absolute;
+    z-index: 2;
+    fill: #256D7B;
+}
+
 .main {
-    border-top: 1px solid rgb(56 60 65 / 21%);
-    border-bottom: 1px solid rgb(56 60 65 / 21%);
     width: 100%;
+    background-color: #f5f5f7;
 }
 
 .main-wrapper {
@@ -137,25 +184,27 @@ svg:active {
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    height: 100%;
 }
 
 .img {
     width: 400px;
     border-radius: 5px;
     margin: 10px;
-    border: 1px solid rgb(56 60 65 / 21%);
-    box-shadow: 0 1px 6px 0 #20212447;
+    box-shadow: 7px 6px 20px 0px #202124;
 }
 
 .footer {
     min-height: 80px;
     width: 100%;
+    border-top: 1px solid rgb(56 60 65 / 21%);
+    background-color: #f5f5f7;
 }
 
 .footer-wrapper {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     height: 100%;
 }
@@ -167,6 +216,18 @@ svg:active {
 .github-icon {
     width: 100%;
     height: 100%;
+    filter: opacity(0.7);
+    transition: .2s;
+}
+
+.github-icon:hover {
+    filter: opacity(1);
+}
+
+.year-creation-text {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 16px;
+    color: rgba(56, 60, 65, 0.615);
 }
 
 .rss-icon-container {
@@ -176,4 +237,10 @@ svg:active {
 .rss-icon {
     width: 100%;
     height: 100%;
+    filter: opacity(0.6);
+    transition: .2s;
+}
+
+.rss-icon:hover {
+    filter: opacity(1);
 }

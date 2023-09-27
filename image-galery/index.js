@@ -4,6 +4,10 @@ const btnSearch = document.querySelector(".button-search");
 const delimiter = document.querySelector(".delimiter");
 const mainWrapper = document.querySelector(".main-wrapper");
 const iconsSearchWrapper = document.querySelector(".icons-search-wrapper");
+const picOne = document.querySelector(".pic-1");
+const picTwo = document.querySelector(".pic-2");
+const picThree = document.querySelector(".pic-3");
+const picFour = document.querySelector(".pic-4");
 let previousSearchQuery = '';
 
 
@@ -59,6 +63,7 @@ async function updateImages() {
     const data = await res.json(); 
     if (data.results.length > 0) {
         showImages(data);
+        updateLogo(data);
     };
 }
 // updateImages();
@@ -68,8 +73,15 @@ function showImages (data) {
     data.results.forEach((item) => {
         const img = document.createElement('img');
         img.classList.add('img')
-        img.src = item.urls.regular;
+        img.src = item.urls.small;
         img.alt = `image`;
         mainWrapper.append(img);
     })
+}
+
+function updateLogo (data) {
+    picOne.style.backgroundImage = `url('${data.results[0].urls.thumb}')`;
+    picTwo.style.backgroundImage = `url('${data.results[1].urls.thumb}')`;
+    picThree.style.backgroundImage = `url('${data.results[2].urls.thumb}')`;
+    picFour.style.backgroundImage = `url('${data.results[3].urls.thumb}')`;
 }
