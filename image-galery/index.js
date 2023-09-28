@@ -8,6 +8,7 @@ const picOne = document.querySelector(".pic-1");
 const picTwo = document.querySelector(".pic-2");
 const picThree = document.querySelector(".pic-3");
 const picFour = document.querySelector(".pic-4");
+const fullscreenImg = document.querySelector(".fullscreen-img");
 let previousSearchQuery = '';
 
 
@@ -56,9 +57,9 @@ function handleEnter(event) {
 }
 inputSearch.addEventListener('keydown', handleEnter);
 
-async function updateImages() {  
+async function updateImages(orientation) {  
     const request = inputSearch.value.trim() || `programming`;
-    const url = `https://api.unsplash.com/search/photos/?orientation=squarish&query=${request}&client_id=OZrVqG5ZAwYMeLk6pRK7Q6W23rZM54vySCz2pFCibEc`;
+    const url = `https://api.unsplash.com/search/photos/?orientation=squarish&query=${request}&per_page=30&client_id=OZrVqG5ZAwYMeLk6pRK7Q6W23rZM54vySCz2pFCibEc`;
     const res = await fetch(url);
     const data = await res.json(); 
     if (data.results.length > 0) {
@@ -66,18 +67,32 @@ async function updateImages() {
         updateLogo(data);
     };
 }
-// updateImages();
+updateImages();
 
 function showImages (data) {
     mainWrapper.innerHTML = '';
+    const imgWrappers = [];
+
     data.results.forEach((item) => {
-        const img = document.createElement('img');
-        img.classList.add('img')
-        img.src = item.urls.small;
-        img.alt = `image`;
-        mainWrapper.append(img);
+        const imgWrapper = document.createElement('div');
+        imgWrapper.className = 'img-wrapper';
+        imgWrapper.style.backgroundImage = `url("${item.urls.small}")`;
+        imgWrapper.style.backgroundSize = 'cover';
+        imgWrappers.push(imgWrapper);
+        mainWrapper.append(imgWrapper);
+    })
+
+    imgWrappers.forEach((item, index) => {
+        item.addEventListener('click', () => {
+            fullscreenImg.classList.add('fullscreen-img-active');
+            fullscreenImg.style.backgroundImage = `url('${data.results[index].urls.full}')`;
+        })
     })
 }
+
+fullscreenImg.addEventListener('click', () => {
+    fullscreenImg.classList.remove('fullscreen-img-active');
+})
 
 function updateLogo (data) {
     picOne.style.backgroundImage = `url('${data.results[0].urls.thumb}')`;
