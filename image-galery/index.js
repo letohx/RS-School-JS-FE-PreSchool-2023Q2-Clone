@@ -67,7 +67,7 @@ async function updateImages(orientation) {
         updateLogo(data);
     };
 }
-// updateImages();
+updateImages();
 
 function showImages (data) {
     mainWrapper.innerHTML = '';
