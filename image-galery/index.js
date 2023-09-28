@@ -58,7 +58,7 @@ function handleEnter(event) {
 inputSearch.addEventListener('keydown', handleEnter);
 
 async function updateImages(orientation) {  
-    const request = inputSearch.value.trim() || `programming`;
+    const request = inputSearch.value.trim() || `mountains`;
     const url = `https://api.unsplash.com/search/photos/?orientation=squarish&query=${request}&per_page=30&client_id=OZrVqG5ZAwYMeLk6pRK7Q6W23rZM54vySCz2pFCibEc`;
     const res = await fetch(url);
     const data = await res.json(); 
