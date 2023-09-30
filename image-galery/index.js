@@ -10,6 +10,7 @@ const picThree = document.querySelector(".pic-3");
 const picFour = document.querySelector(".pic-4");
 const fullscreenWrapper = document.querySelector(".fullscreen-wrapper");
 const fullscreenImg = document.querySelector(".fullscreen-img");
+const loading = document.querySelector(".loading");
 let previousSearchQuery = "";
 
 const addBtnClose = () => {
@@ -85,15 +86,15 @@ function showImages(data) {
 
   imgWrappers.forEach((item, index) => {
     item.addEventListener("click", () => {
+      fullscreenImg.style.backgroundImage = `url('${data.results[index].urls.full}')`;
       fullscreenWrapper.classList.add("fullscreen-wrapper-active");
       document.body.classList.add("body-scroll-stop");
-      fullscreenImg.style.backgroundImage = `url('${data.results[index].urls.full}')`;
     });
   });
 }
 
 fullscreenWrapper.addEventListener("click", () => {
-  fullscreenWrapper.classList.remove("fullscreen-wrapper-active");
+  fullscreenWrapper.classList.remove("fullscreen-wrapper-active"); 
   document.body.classList.remove("body-scroll-stop");
 });
 
