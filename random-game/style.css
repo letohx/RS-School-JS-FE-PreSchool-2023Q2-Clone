@@ -68,7 +68,22 @@ body {
     border-radius: 3px;
     font-size: 42px;
     font-weight: bold;
+}
 
+._0 {
+    background-color: #ffffff;
+}
+
+._2 {
+    background-color: #c4c3fd;
+}
+
+._4 {
+    background-color: #b6b5ea;
+}
+
+._8 {
+    background-color: #a09fcc;
 }
 
 .footer {
