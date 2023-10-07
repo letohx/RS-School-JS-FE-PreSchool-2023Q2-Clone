@@ -1,0 +1,186 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #e3e5ea;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.menu-wrapper {
+    max-width: 420px;
+    width: 100%;
+}
+
+.top-menu-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.scores-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.bottom-menu-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button {
+    width: 100px;
+    height: 40px;
+    margin: 10px;
+}
+
+.area {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-gap: 15px;
+    background-color: #aeaeae;
+    max-width: 420px;
+    width: 100%;
+    aspect-ratio: 1/1;
+    border: 15px solid #aeaeae;
+    border-radius: 6px;
+}
+
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    font-size: 42px;
+    font-weight: bold;
+}
+
+._0 {
+    background-color: #c7c7c7;
+}
+
+._2 {
+    background-color: #bfd293;
+}
+
+._4 {
+    background-color: #b4c68a;
+}
+
+._8 {
+    background-color: #a2b27d;
+}
+
+._16 {
+    background-color: #92a070;
+}
+
+._32 {
+    background-color: #7c885f;
+}
+
+._64 {
+    background-color: #9292bb;
+}
+
+._128 {
+    background-color: #8787ab;
+}
+
+._256 {
+    background-color: #77779a;
+}
+
+._512 {
+    background-color: #5e5e7a;
+}
+
+._1024 {
+    background-color: #aa7a3b;
+}
+
+._2048 {
+    background-color: #cc7d17;
+}
+
+.footer {
+    margin: 0 auto;
+    max-width: 450px;
+    width: 100%;
+    max-height: 40px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    align-content: stretch; 
+    font-size: 10px;
+    transition: 0.2s ease-in-out;
+}
+
+.github-icon-container {
+    display: flex;
+    flex: 1;
+    justify-content: flex-start;
+}
+
+.year-creation {
+    opacity: 0.6;    
+}
+
+h2 {
+    margin: 0;
+    text-align: center;
+    flex: 1;
+    justify-content: center; 
+}
+
+.rss-icon-container {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end; 
+}
+
+.github-icon {
+    max-width: 75px;
+    width: 100%;
+    opacity: 0.6;   
+    transition: 0.2s ease-in-out; 
+}
+
+.year-creation {
+    max-height: 40px;
+    object-fit: contain;
+}
+
+.year-creation-text {
+    font-size: 12px;
+}
+
+.rss-icon {
+    max-width: 75px;
+    width: 100%;
+    opacity: 0.6; 
+    transition: 0.2s ease-in-out;
+}
+
+.github-icon:hover,
+.rss-icon:hover {
+    opacity: 1;    
+}
