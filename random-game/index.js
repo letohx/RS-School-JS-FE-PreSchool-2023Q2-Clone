@@ -56,8 +56,23 @@ function moveLeft() {
     updateBoard();
 }
 
+function moveRight() {
+    area.forEach((row, rowIndex) => { 
+        area[rowIndex] = area[rowIndex].reverse();
+        area[rowIndex] = mergeCells(row);
+        area[rowIndex] = area[rowIndex].reverse();
+    });
+    updateBoard();
+}
+
 document.addEventListener("keyup", (e) => {
     if (e.code === "ArrowLeft") {
         moveLeft();
+    }
+})
+
+document.addEventListener("keyup", (e) => {
+    if (e.code === "ArrowRight") {
+        moveRight();
     }
 })
