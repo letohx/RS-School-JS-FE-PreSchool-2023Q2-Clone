@@ -1,9 +1,11 @@
 let area= [
-    [2, 2, 2, 2],
-    [2, 2, 2, 2],
-    [8, 8, 8, 8],
-    [4, 4, 8, 8]
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0]
 ];
+
+let previousMove;
 
 const updateBoard = () => {
     document.querySelector(".area").innerText = "";
@@ -18,6 +20,29 @@ const updateBoard = () => {
 }
 updateBoard();
 
+const findEmptyCells = () => [].concat(...area).includes(0);
+
+const addTwoOrFour = () => {
+    if (!findEmptyCells() || JSON.stringify(previousMove) === JSON.stringify(area)) {
+        return;
+    };
+
+    let stop = false;
+    while (!stop) {
+        let randomRow = Math.floor(Math.random() * 4)
+        let randomCol = Math.floor(Math.random() * 4)
+        let twoOrFour = (Math.random() > 0.9) ? 4 : 2;
+        
+        if (area[randomRow][randomCol] == 0) {
+            area[randomRow][randomCol] = twoOrFour;
+            updateBoard();
+            stop = true;
+        }
+    }
+}
+addTwoOrFour();
+addTwoOrFour();
+
 function updateCell(cell, rowIndex, colIndex) {
     const num = area[rowIndex][colIndex];
     cell.innerText = "";    
@@ -25,7 +50,7 @@ function updateCell(cell, rowIndex, colIndex) {
     cell.classList.add("cell");
     cell.classList.add(`${rowIndex}-${colIndex}`);
     cell.classList.add(`_${num}`);
-    cell.innerText = (num > 0) ? num : '';
+    cell.innerText = (num > 0) ? num : "";
 }
 
 const deleteZeros = (row) => row.filter(num => num != 0);
@@ -50,6 +75,7 @@ const mergeCells = (row) => {
 }
 
 function moveLeft() {
+    previousMove = area.map(row => [...row]);
     area.forEach((row, rowIndex) => {
         area[rowIndex] = mergeCells(row);
     });
@@ -57,6 +83,7 @@ function moveLeft() {
 }
 
 function moveRight() {
+    previousMove = area.map(row => [...row]);
     area.forEach((row, rowIndex) => { 
         area[rowIndex] = area[rowIndex].reverse();
         area[rowIndex] = mergeCells(row);
@@ -78,6 +105,7 @@ const rotateAreaCounterclockwise90deg = () => {
 }
 
 function moveUp() {
+    previousMove = area;
     rotateAreaCounterclockwise90deg();
     area.forEach((row, rowIndex) => { 
         area[rowIndex] = mergeCells(row);
@@ -89,6 +117,7 @@ function moveUp() {
 }
 
 function moveDown() {
+    previousMove = area;
     rotateAreaCounterclockwise90deg();
     rotateAreaCounterclockwise90deg();
     rotateAreaCounterclockwise90deg();
@@ -102,23 +131,15 @@ function moveDown() {
 document.addEventListener("keydown", (e) => {
     if (e.code === "ArrowLeft") {
         moveLeft();
-    }
-})
-
-document.addEventListener("keydown", (e) => {
-    if (e.code === "ArrowRight") {
+        addTwoOrFour();
+    } else if (e.code === "ArrowRight") {
         moveRight();
-    }
-})
-
-document.addEventListener("keydown", (e) => {
-    if (e.code === "ArrowUp") {
+        addTwoOrFour();
+    } else if (e.code === "ArrowUp") {
         moveUp();
-    }
-})
-
-document.addEventListener("keydown", (e) => {
-    if (e.code === "ArrowDown") {
+        addTwoOrFour();
+    } else if (e.code === "ArrowDown") {
         moveDown();
+        addTwoOrFour();
     }
 })
