@@ -1,3 +1,5 @@
+const buttonBack = document.querySelector(".back");
+
 let area= [
     [0, 0, 0, 0],
     [0, 0, 0, 0],
@@ -5,7 +7,7 @@ let area= [
     [0, 0, 0, 0]
 ];
 
-let previousMove;
+let previousPosition;
 
 const updateBoard = () => {
     document.querySelector(".area").innerText = "";
@@ -23,10 +25,10 @@ updateBoard();
 const findEmptyCells = () => [].concat(...area).includes(0);
 
 const addTwoOrFour = () => {
-    if (!findEmptyCells() || JSON.stringify(previousMove) === JSON.stringify(area)) {
+    if (!findEmptyCells() || JSON.stringify(previousPosition) === JSON.stringify(area)) {
         return;
     };
-
+    
     let stop = false;
     while (!stop) {
         let randomRow = Math.floor(Math.random() * 4)
@@ -75,7 +77,9 @@ const mergeCells = (row) => {
 }
 
 function moveLeft() {
-    previousMove = area.map(row => [...row]);
+    if (JSON.stringify(previousPosition) !== JSON.stringify(area)) {
+        previousPosition = area.map(row => [...row]);
+    }
     area.forEach((row, rowIndex) => {
         area[rowIndex] = mergeCells(row);
     });
@@ -83,7 +87,9 @@ function moveLeft() {
 }
 
 function moveRight() {
-    previousMove = area.map(row => [...row]);
+    if (JSON.stringify(previousPosition) !== JSON.stringify(area)) {
+        previousPosition = area.map(row => [...row]);
+    }
     area.forEach((row, rowIndex) => { 
         area[rowIndex] = area[rowIndex].reverse();
         area[rowIndex] = mergeCells(row);
@@ -105,7 +111,9 @@ const rotateAreaCounterclockwise90deg = () => {
 }
 
 function moveUp() {
-    previousMove = area;
+    if (JSON.stringify(previousPosition) !== JSON.stringify(area)) {
+        previousPosition = area;
+    }
     rotateAreaCounterclockwise90deg();
     area.forEach((row, rowIndex) => { 
         area[rowIndex] = mergeCells(row);
@@ -117,7 +125,9 @@ function moveUp() {
 }
 
 function moveDown() {
-    previousMove = area;
+    if (JSON.stringify(previousPosition) !== JSON.stringify(area)) {
+        previousPosition = area;
+    }
     rotateAreaCounterclockwise90deg();
     rotateAreaCounterclockwise90deg();
     rotateAreaCounterclockwise90deg();
@@ -142,4 +152,9 @@ document.addEventListener("keydown", (e) => {
         moveDown();
         addTwoOrFour();
     }
+})
+
+buttonBack.addEventListener("click", (e) => {
+    area = previousPosition.map(row => [...row]);
+    updateBoard();
 })
