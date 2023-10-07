@@ -65,7 +65,7 @@ function moveRight() {
     updateBoard();
 }
 
-const rotateMatrixCounterclockwise90deg = () => {
+const rotateAreaCounterclockwise90deg = () => {
     const rotatedMatrix = [];
     for (let c = 3; c > -1; c--) {
         const newRow = [];
@@ -78,13 +78,24 @@ const rotateMatrixCounterclockwise90deg = () => {
 }
 
 function moveUp() {
-    rotateMatrixCounterclockwise90deg();
+    rotateAreaCounterclockwise90deg();
     area.forEach((row, rowIndex) => { 
         area[rowIndex] = mergeCells(row);
     });
-    rotateMatrixCounterclockwise90deg();
-    rotateMatrixCounterclockwise90deg();
-    rotateMatrixCounterclockwise90deg();
+    rotateAreaCounterclockwise90deg();
+    rotateAreaCounterclockwise90deg();
+    rotateAreaCounterclockwise90deg();
+    updateBoard();
+}
+
+function moveDown() {
+    rotateAreaCounterclockwise90deg();
+    rotateAreaCounterclockwise90deg();
+    rotateAreaCounterclockwise90deg();
+    area.forEach((row, rowIndex) => { 
+        area[rowIndex] = mergeCells(row);
+    });
+    rotateAreaCounterclockwise90deg();
     updateBoard();
 }
 
@@ -103,5 +114,11 @@ document.addEventListener("keydown", (e) => {
 document.addEventListener("keydown", (e) => {
     if (e.code === "ArrowUp") {
         moveUp();
+    }
+})
+
+document.addEventListener("keydown", (e) => {
+    if (e.code === "ArrowDown") {
+        moveDown();
     }
 })
