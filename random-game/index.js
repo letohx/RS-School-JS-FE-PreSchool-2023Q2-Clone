@@ -65,14 +65,43 @@ function moveRight() {
     updateBoard();
 }
 
-document.addEventListener("keyup", (e) => {
+const rotateMatrixCounterclockwise90deg = () => {
+    const rotatedMatrix = [];
+    for (let c = 3; c > -1; c--) {
+        const newRow = [];
+        for (let r = 0; r < 4; r++) {
+            newRow.push(area[r][c]);
+        }
+        rotatedMatrix.push(newRow);
+    }
+    area = rotatedMatrix;
+}
+
+function moveUp() {
+    rotateMatrixCounterclockwise90deg();
+    area.forEach((row, rowIndex) => { 
+        area[rowIndex] = mergeCells(row);
+    });
+    rotateMatrixCounterclockwise90deg();
+    rotateMatrixCounterclockwise90deg();
+    rotateMatrixCounterclockwise90deg();
+    updateBoard();
+}
+
+document.addEventListener("keydown", (e) => {
     if (e.code === "ArrowLeft") {
         moveLeft();
     }
 })
 
-document.addEventListener("keyup", (e) => {
+document.addEventListener("keydown", (e) => {
     if (e.code === "ArrowRight") {
         moveRight();
+    }
+})
+
+document.addEventListener("keydown", (e) => {
+    if (e.code === "ArrowUp") {
+        moveUp();
     }
 })
