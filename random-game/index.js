@@ -1,8 +1,10 @@
 const buttonBack = document.querySelector(".back");
 const playingField = document.querySelector(".area");
 const currentScore = document.querySelector(".current-score");
+const bestScore = document.querySelector(".best-score");
 
-let score = 0;
+let currentScoreVariable = 0;
+let bestScoreVariable = 0
 
 let area= [
     [0, 0, 0, 0],
@@ -27,7 +29,9 @@ const updateBoard = () => {
 updateBoard();
 
 const updateScore = () => {
-    currentScore.innerText = `score: ${score}`
+    bestScoreVariable = bestScoreVariable > currentScoreVariable ? bestScoreVariable : currentScoreVariable;
+    currentScore.innerText = `score: ${currentScoreVariable}`
+    bestScore.innerText = `best: ${bestScoreVariable}`
 }
 
 const findEmptyCells = () => [].concat(...area).includes(0);
@@ -71,7 +75,7 @@ const mergeCells = (row) => {
     row.forEach((num, index) => {
         if (num === row[index + 1]) {
             row[index] *= 2;
-            score += row[index];
+            currentScoreVariable += row[index];
             row[index + 1] = 0;            
         }
     });
