@@ -166,13 +166,11 @@ let touchStartX;
 let touchStartY;
 
 playingField.addEventListener('touchstart', (e) => {
-  e.preventDefault();
   touchStartX = e.touches[0].clientX;
   touchStartY = e.touches[0].clientY;
 });
 
 playingField.addEventListener('touchend', (e) => {
-  e.preventDefault();
   if (touchStartX && touchStartY) {
     const touchEndX = e.changedTouches[0].clientX;
     const touchEndY = e.changedTouches[0].clientY;
@@ -195,5 +193,9 @@ playingField.addEventListener('touchend', (e) => {
     }
   }
 });
+
+playingField.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+})
 
 // Touch End ===========================
