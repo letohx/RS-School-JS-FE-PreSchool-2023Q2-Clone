@@ -1,4 +1,5 @@
 const buttonBack = document.querySelector(".back");
+const playingField = document.querySelector(".area");
 
 let area= [
     [0, 0, 0, 0],
@@ -10,13 +11,13 @@ let area= [
 let previousPosition;
 
 const updateBoard = () => {
-    document.querySelector(".area").innerText = "";
+    playingField.innerText = "";
 
     area.forEach((row, rowIndex) => {
         row.forEach((_, colIndex) => {
             let cell = document.createElement("div"); 
             updateCell(cell, rowIndex, colIndex);
-            document.querySelector(".area").append(cell);
+            playingField.append(cell);
         });        
     });
 }
@@ -83,6 +84,7 @@ function moveLeft() {
     area.forEach((row, rowIndex) => {
         area[rowIndex] = mergeCells(row);
     });
+    addTwoOrFour();
     updateBoard();
 }
 
@@ -95,6 +97,7 @@ function moveRight() {
         area[rowIndex] = mergeCells(row);
         area[rowIndex] = area[rowIndex].reverse();
     });
+    addTwoOrFour();
     updateBoard();
 }
 
@@ -121,6 +124,7 @@ function moveUp() {
     rotateAreaCounterclockwise90deg();
     rotateAreaCounterclockwise90deg();
     rotateAreaCounterclockwise90deg();
+    addTwoOrFour();
     updateBoard();
 }
 
@@ -135,26 +139,59 @@ function moveDown() {
         area[rowIndex] = mergeCells(row);
     });
     rotateAreaCounterclockwise90deg();
+    addTwoOrFour();
     updateBoard();
 }
-
-document.addEventListener("keydown", (e) => {
-    if (e.code === "ArrowLeft") {
-        moveLeft();
-        addTwoOrFour();
-    } else if (e.code === "ArrowRight") {
-        moveRight();
-        addTwoOrFour();
-    } else if (e.code === "ArrowUp") {
-        moveUp();
-        addTwoOrFour();
-    } else if (e.code === "ArrowDown") {
-        moveDown();
-        addTwoOrFour();
-    }
-})
 
 buttonBack.addEventListener("click", (e) => {
     area = previousPosition.map(row => [...row]);
     updateBoard();
 })
+
+document.addEventListener("keydown", (e) => {
+    if (e.code === "ArrowLeft") {
+        moveLeft();
+    } else if (e.code === "ArrowRight") {
+        moveRight();
+    } else if (e.code === "ArrowUp") {
+        moveUp();
+    } else if (e.code === "ArrowDown") {
+        moveDown();
+    }
+})
+
+// Touch Start ===========================
+
+let touchStartX;
+let touchStartY;
+
+playingField.addEventListener('touchstart', (e) => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+});
+
+playingField.addEventListener('touchend', (e) => {
+  if (touchStartX && touchStartY) {
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (deltaX < -50) {
+        moveLeft();
+      } else if (deltaX > 50) {
+        moveRight();
+      }
+    } else {
+      if (deltaY < -50) {
+        moveUp();
+      } else if (deltaY > 50) {
+        moveDown();
+      }
+    }
+  }
+});
+
+// Touch End ===========================
