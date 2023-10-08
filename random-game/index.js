@@ -1,5 +1,8 @@
 const buttonBack = document.querySelector(".back");
 const playingField = document.querySelector(".area");
+const currentScore = document.querySelector(".current-score");
+
+let score = 0;
 
 let area= [
     [0, 0, 0, 0],
@@ -22,6 +25,10 @@ const updateBoard = () => {
     });
 }
 updateBoard();
+
+const updateScore = () => {
+    currentScore.innerText = `score: ${score}`
+}
 
 const findEmptyCells = () => [].concat(...area).includes(0);
 
@@ -64,6 +71,7 @@ const mergeCells = (row) => {
     row.forEach((num, index) => {
         if (num === row[index + 1]) {
             row[index] *= 2;
+            score += row[index];
             row[index + 1] = 0;            
         }
     });
@@ -86,6 +94,7 @@ function moveLeft() {
     });
     addTwoOrFour();
     updateBoard();
+    updateScore();
 }
 
 function moveRight() {
@@ -99,6 +108,7 @@ function moveRight() {
     });
     addTwoOrFour();
     updateBoard();
+    updateScore();
 }
 
 const rotateAreaCounterclockwise90deg = () => {
@@ -126,6 +136,7 @@ function moveUp() {
     rotateAreaCounterclockwise90deg();
     addTwoOrFour();
     updateBoard();
+    updateScore();
 }
 
 function moveDown() {
@@ -141,6 +152,7 @@ function moveDown() {
     rotateAreaCounterclockwise90deg();
     addTwoOrFour();
     updateBoard();
+    updateScore();
 }
 
 buttonBack.addEventListener("click", (e) => {

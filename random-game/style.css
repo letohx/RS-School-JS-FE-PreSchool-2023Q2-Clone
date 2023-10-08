@@ -38,6 +38,10 @@ body {
     justify-content: space-between;
 }
 
+.score {
+    margin: 10px;
+}
+
 .bottom-menu-wrapper {
     display: flex;
     justify-content: space-between;
