@@ -1,19 +1,52 @@
 const buttonBack = document.querySelector(".back");
 const playingField = document.querySelector(".area");
 const currentScore = document.querySelector(".current-score");
+const bestScore = document.querySelector(".best-score");
 
-let score = 0;
-
-let area= [
+let previousPosition = [];
+let currentScoreVariable = 0;
+let bestScoreVariable;
+let topTenResults = [2,4,5,4,8,6,1,6,7,6,3,1,6,6,36,4,56,45,6];
+let area = [
     [0, 0, 0, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0]
 ];
 
-let previousPosition;
+const getLocalStorage = () => {
+    area = JSON.parse(localStorage.getItem("(づ ◕‿◕ )づ 2048 currentPosition")) || area;
+    previousPosition = JSON.parse(localStorage.getItem("(づ ◕‿◕ )づ 2048 previousPosition")) || previousPosition;
+    currentScoreVariable = JSON.parse(localStorage.getItem("(づ ◕‿◕ )づ 2048 currentScore")) || currentScoreVariable;
+    topTenResults = JSON.parse(localStorage.getItem("(づ ◕‿◕ )づ 2048 topTenResults")) || topTenResults;
+}
+getLocalStorage();
 
-const updateBoard = () => {
+const setLocalStorage = () => {
+    localStorage.setItem("(づ ◕‿◕ )づ 2048 currentPosition", JSON.stringify(area));
+    localStorage.setItem("(づ ◕‿◕ )づ 2048 previousPosition", JSON.stringify(previousPosition));
+    localStorage.setItem("(づ ◕‿◕ )づ 2048 currentScore", JSON.stringify(currentScoreVariable));
+    localStorage.setItem("(づ ◕‿◕ )づ 2048 topTenResults", JSON.stringify(topTenResults));
+}
+setLocalStorage()
+
+document.addEventListener("load", function() {
+    getLocalStorage();
+    updateBoard();
+});
+
+document.addEventListener("beforeunload", function() {
+    // topTenResults.push(currentScoreVariable);
+    // updateTopTenResults();
+    setLocalStorage();
+});
+
+function updateTopTenResults () {
+    topTenResults = topTenResults.sort((a, b) => b - a);
+    topTenResults = topTenResults.length >= 10 ? topTenResults.slice(0, 10) : topTenResults;
+}
+
+function updateBoard() {
     playingField.innerText = "";
 
     area.forEach((row, rowIndex) => {
@@ -27,8 +60,13 @@ const updateBoard = () => {
 updateBoard();
 
 const updateScore = () => {
-    currentScore.innerText = `score: ${score}`
+    updateTopTenResults();
+    bestScoreVariable = topTenResults[0] || 0;
+    bestScoreVariable = bestScoreVariable > currentScoreVariable ? bestScoreVariable : currentScoreVariable;
+    currentScore.innerText = `score: ${currentScoreVariable}`
+    bestScore.innerText = `best: ${bestScoreVariable}`
 }
+updateScore();
 
 const findEmptyCells = () => [].concat(...area).includes(0);
 
@@ -50,8 +88,24 @@ const addTwoOrFour = () => {
         }
     }
 }
-addTwoOrFour();
-addTwoOrFour();
+
+const isTheFieldEmpty = () => {
+    for (let rowIndex = 0; rowIndex < area.length; rowIndex++) {
+        for (let colIndex = 0; colIndex < area[rowIndex].length; colIndex++) {
+            if (area[rowIndex][colIndex] !== 0) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+console.log(isTheFieldEmpty())
+
+if (isTheFieldEmpty()) {
+    addTwoOrFour();
+    addTwoOrFour();
+}
 
 function updateCell(cell, rowIndex, colIndex) {
     const num = area[rowIndex][colIndex];
@@ -71,7 +125,7 @@ const mergeCells = (row) => {
     row.forEach((num, index) => {
         if (num === row[index + 1]) {
             row[index] *= 2;
-            score += row[index];
+            currentScoreVariable += row[index];
             row[index + 1] = 0;            
         }
     });
@@ -85,30 +139,32 @@ const mergeCells = (row) => {
     return row;
 }
 
+const updateGame = () => {
+    addTwoOrFour();
+    updateBoard();
+    updateTopTenResults();
+    updateScore();
+    setLocalStorage();
+}
+
 function moveLeft() {
-    if (JSON.stringify(previousPosition) !== JSON.stringify(area)) {
-        previousPosition = area.map(row => [...row]);
-    }
+    previousPosition = area.map(row => [...row]);
+
     area.forEach((row, rowIndex) => {
         area[rowIndex] = mergeCells(row);
     });
-    addTwoOrFour();
-    updateBoard();
-    updateScore();
+    updateGame();    
 }
 
 function moveRight() {
-    if (JSON.stringify(previousPosition) !== JSON.stringify(area)) {
-        previousPosition = area.map(row => [...row]);
-    }
+    previousPosition = area.map(row => [...row]);
+
     area.forEach((row, rowIndex) => { 
         area[rowIndex] = area[rowIndex].reverse();
         area[rowIndex] = mergeCells(row);
         area[rowIndex] = area[rowIndex].reverse();
     });
-    addTwoOrFour();
-    updateBoard();
-    updateScore();
+    updateGame();    
 }
 
 const rotateAreaCounterclockwise90deg = () => {
@@ -124,9 +180,8 @@ const rotateAreaCounterclockwise90deg = () => {
 }
 
 function moveUp() {
-    if (JSON.stringify(previousPosition) !== JSON.stringify(area)) {
-        previousPosition = area;
-    }
+    previousPosition = area;
+
     rotateAreaCounterclockwise90deg();
     area.forEach((row, rowIndex) => { 
         area[rowIndex] = mergeCells(row);
@@ -134,15 +189,12 @@ function moveUp() {
     rotateAreaCounterclockwise90deg();
     rotateAreaCounterclockwise90deg();
     rotateAreaCounterclockwise90deg();
-    addTwoOrFour();
-    updateBoard();
-    updateScore();
+    updateGame();    
 }
 
 function moveDown() {
-    if (JSON.stringify(previousPosition) !== JSON.stringify(area)) {
-        previousPosition = area;
-    }
+    previousPosition = area;
+
     rotateAreaCounterclockwise90deg();
     rotateAreaCounterclockwise90deg();
     rotateAreaCounterclockwise90deg();
@@ -150,9 +202,7 @@ function moveDown() {
         area[rowIndex] = mergeCells(row);
     });
     rotateAreaCounterclockwise90deg();
-    addTwoOrFour();
-    updateBoard();
-    updateScore();
+    updateGame();    
 }
 
 buttonBack.addEventListener("click", (e) => {
@@ -172,7 +222,7 @@ document.addEventListener("keydown", (e) => {
     }
 })
 
-// Touch Start ===========================
+// Touch Control Start ===========================
 
 let touchStartX;
 let touchStartY;
@@ -210,4 +260,4 @@ playingField.addEventListener('touchmove', (e) => {
     e.preventDefault();
 })
 
-// Touch End ===========================
+// Touch Control End ===========================
