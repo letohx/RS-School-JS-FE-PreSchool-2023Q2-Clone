@@ -1,12 +1,15 @@
 const buttonBack = document.querySelector(".back");
+const buttonRestart = document.querySelector(".restart");
 const playingField = document.querySelector(".area");
 const currentScore = document.querySelector(".current-score");
 const bestScore = document.querySelector(".best-score");
+const records = document.querySelector(".records");
 
-let previousPosition = [];
+let previousPosition = 0;
 let currentScoreVariable = 0;
+let previousScoreVariable = 0;
 let bestScoreVariable;
-let topTenResults = [2,4,5,4,8,6,1,6,7,6,3,1,6,6,36,4,56,45,6];
+let topTenResults = [];
 let area = [
     [0, 0, 0, 0],
     [0, 0, 0, 0],
@@ -18,6 +21,7 @@ const getLocalStorage = () => {
     area = JSON.parse(localStorage.getItem("(づ ◕‿◕ )づ 2048 currentPosition")) || area;
     previousPosition = JSON.parse(localStorage.getItem("(づ ◕‿◕ )づ 2048 previousPosition")) || previousPosition;
     currentScoreVariable = JSON.parse(localStorage.getItem("(づ ◕‿◕ )づ 2048 currentScore")) || currentScoreVariable;
+    previousScoreVariable = JSON.parse(localStorage.getItem("(づ ◕‿◕ )づ 2048 previousScore")) || previousScoreVariable;
     topTenResults = JSON.parse(localStorage.getItem("(づ ◕‿◕ )づ 2048 topTenResults")) || topTenResults;
 }
 getLocalStorage();
@@ -26,6 +30,7 @@ const setLocalStorage = () => {
     localStorage.setItem("(づ ◕‿◕ )づ 2048 currentPosition", JSON.stringify(area));
     localStorage.setItem("(づ ◕‿◕ )づ 2048 previousPosition", JSON.stringify(previousPosition));
     localStorage.setItem("(づ ◕‿◕ )づ 2048 currentScore", JSON.stringify(currentScoreVariable));
+    localStorage.setItem("(づ ◕‿◕ )づ 2048 previousScore", JSON.stringify(previousScoreVariable));
     localStorage.setItem("(づ ◕‿◕ )づ 2048 topTenResults", JSON.stringify(topTenResults));
 }
 setLocalStorage()
@@ -36,8 +41,6 @@ document.addEventListener("load", function() {
 });
 
 document.addEventListener("beforeunload", function() {
-    // topTenResults.push(currentScoreVariable);
-    // updateTopTenResults();
     setLocalStorage();
 });
 
@@ -65,6 +68,7 @@ const updateScore = () => {
     bestScoreVariable = bestScoreVariable > currentScoreVariable ? bestScoreVariable : currentScoreVariable;
     currentScore.innerText = `score: ${currentScoreVariable}`
     bestScore.innerText = `best: ${bestScoreVariable}`
+    records.innerText = `records: ${topTenResults}`
 }
 updateScore();
 
@@ -96,11 +100,10 @@ const isTheFieldEmpty = () => {
                 return false;
             }
         }
+
     }
     return true;
 }
-
-console.log(isTheFieldEmpty())
 
 if (isTheFieldEmpty()) {
     addTwoOrFour();
@@ -148,16 +151,23 @@ const updateGame = () => {
 }
 
 function moveLeft() {
+    const cachePreviousPosition = previousPosition;
     previousPosition = area.map(row => [...row]);
+    previousScoreVariable = currentScoreVariable;
 
     area.forEach((row, rowIndex) => {
         area[rowIndex] = mergeCells(row);
     });
-    updateGame();    
+    updateGame(); 
+    if (JSON.stringify(previousPosition) === JSON.stringify(area))  {
+        previousPosition = cachePreviousPosition;
+    }  
 }
 
 function moveRight() {
+    const cachePreviousPosition = previousPosition;
     previousPosition = area.map(row => [...row]);
+    previousScoreVariable = currentScoreVariable;
 
     area.forEach((row, rowIndex) => { 
         area[rowIndex] = area[rowIndex].reverse();
@@ -165,6 +175,9 @@ function moveRight() {
         area[rowIndex] = area[rowIndex].reverse();
     });
     updateGame();    
+    if (JSON.stringify(previousPosition) === JSON.stringify(area))  {
+        previousPosition = cachePreviousPosition;
+    }  
 }
 
 const rotateAreaCounterclockwise90deg = () => {
@@ -180,7 +193,9 @@ const rotateAreaCounterclockwise90deg = () => {
 }
 
 function moveUp() {
+    const cachePreviousPosition = previousPosition;
     previousPosition = area;
+    previousScoreVariable = currentScoreVariable;
 
     rotateAreaCounterclockwise90deg();
     area.forEach((row, rowIndex) => { 
@@ -190,10 +205,15 @@ function moveUp() {
     rotateAreaCounterclockwise90deg();
     rotateAreaCounterclockwise90deg();
     updateGame();    
+    if (JSON.stringify(previousPosition) === JSON.stringify(area))  {
+        previousPosition = cachePreviousPosition;
+    }  
 }
 
 function moveDown() {
+    const cachePreviousPosition = previousPosition;
     previousPosition = area;
+    previousScoreVariable = currentScoreVariable;
 
     rotateAreaCounterclockwise90deg();
     rotateAreaCounterclockwise90deg();
@@ -203,11 +223,38 @@ function moveDown() {
     });
     rotateAreaCounterclockwise90deg();
     updateGame();    
+    if (JSON.stringify(previousPosition) === JSON.stringify(area))  {
+        previousPosition = cachePreviousPosition;
+    }  
 }
 
 buttonBack.addEventListener("click", (e) => {
-    area = previousPosition.map(row => [...row]);
-    updateBoard();
+    if (previousPosition) {
+        updateBoard();
+        updateTopTenResults();
+        updateScore();
+        setLocalStorage();
+        currentScoreVariable = previousScoreVariable;
+        area = previousPosition.map(row => [...row]);
+        setLocalStorage();
+        location.reload();
+    }
+})
+
+buttonRestart.addEventListener("click", (e) => {
+    topTenResults.push(currentScoreVariable);
+    updateTopTenResults();
+    area = [
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
+    ];
+    currentScoreVariable = 0;
+    previousPosition = 0;
+    previousScoreVariable = 0;
+    setLocalStorage();
+    location.reload();
 })
 
 document.addEventListener("keydown", (e) => {
@@ -261,3 +308,5 @@ playingField.addEventListener('touchmove', (e) => {
 })
 
 // Touch Control End ===========================
+
+console.log(area);
