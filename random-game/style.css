@@ -54,6 +54,7 @@ body {
 }
 
 .area {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
@@ -64,6 +65,26 @@ body {
     aspect-ratio: 1/1;
     border: 15px solid #aeaeae;
     border-radius: 6px;
+}
+
+.game-over {
+    z-index: -420;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #43414f3f;
+    filter: blur(2px);
+    font-size: 40px;
+    transition: opacity 0.3s;
+}
+
+.game-over-active {
+    z-index: 420;
 }
 
 .cell {

@@ -59,6 +59,11 @@ function updateBoard() {
             playingField.append(cell);
         });        
     });
+
+    let gameOver = document.createElement("div"); 
+    gameOver.innerText = "GAME OVER";    
+    gameOver.classList.add("game-over");
+    playingField.append(gameOver);
 }
 updateBoard();
 
@@ -66,8 +71,8 @@ const updateScore = () => {
     updateTopTenResults();
     bestScoreVariable = topTenResults[0] || 0;
     bestScoreVariable = bestScoreVariable > currentScoreVariable ? bestScoreVariable : currentScoreVariable;
-    currentScore.innerText = `score: ${currentScoreVariable}`
-    bestScore.innerText = `best: ${bestScoreVariable}`
+    currentScore.innerText = `score: ${currentScoreVariable} $`
+    bestScore.innerText = `best: ${bestScoreVariable} $`
     records.innerText = `records: ${topTenResults}`
 }
 updateScore();
@@ -94,9 +99,9 @@ const addTwoOrFour = () => {
 }
 
 const isTheFieldEmpty = () => {
-    for (let rowIndex = 0; rowIndex < area.length; rowIndex++) {
-        for (let colIndex = 0; colIndex < area[rowIndex].length; colIndex++) {
-            if (area[rowIndex][colIndex] !== 0) {
+    for (let r = 0; r < 4; r++) {
+        for (let c = 0; c < 4; c++) {
+            if (area[r][c] !== 0) {
                 return false;
             }
         }
@@ -108,6 +113,32 @@ const isTheFieldEmpty = () => {
 if (isTheFieldEmpty()) {
     addTwoOrFour();
     addTwoOrFour();
+}
+
+function checkGameOver() {
+    if (findEmptyCells()) return false;
+    
+    for (let r = 0; r <= 3; r++) {
+        for (let c = 0; c <= 3; c++) {
+            if (r < 3) {
+                if (area[r][c] === area[r + 1][c]) return false;
+            }
+            if (c < 3) {
+                if (area[r][c] === area[r][c + 1]) return false;
+            }
+        }
+    }
+    return true;
+}
+
+function toggleGameOver() {
+    const gameOver = document.querySelector(".game-over");
+
+    if (checkGameOver()) {
+        gameOver.classList.add("game-over-active");
+    } else {
+        gameOver.classList.remove("game-over-active");
+    }
 }
 
 function updateCell(cell, rowIndex, colIndex) {
@@ -152,6 +183,8 @@ const updateGame = () => {
 
 function moveLeft() {
     const cachePreviousPosition = previousPosition;
+    const cachePreviousScore = previousScoreVariable;
+    previousPosition  = previousPosition;
     previousPosition = area.map(row => [...row]);
     previousScoreVariable = currentScoreVariable;
 
@@ -161,11 +194,14 @@ function moveLeft() {
     updateGame(); 
     if (JSON.stringify(previousPosition) === JSON.stringify(area))  {
         previousPosition = cachePreviousPosition;
+        previousScoreVariable = cachePreviousScore;
     }  
+    toggleGameOver();
 }
 
 function moveRight() {
     const cachePreviousPosition = previousPosition;
+    const cachePreviousScore = previousScoreVariable;
     previousPosition = area.map(row => [...row]);
     previousScoreVariable = currentScoreVariable;
 
@@ -177,7 +213,9 @@ function moveRight() {
     updateGame();    
     if (JSON.stringify(previousPosition) === JSON.stringify(area))  {
         previousPosition = cachePreviousPosition;
+        previousScoreVariable = cachePreviousScore;
     }  
+    toggleGameOver();
 }
 
 const rotateAreaCounterclockwise90deg = () => {
@@ -194,6 +232,7 @@ const rotateAreaCounterclockwise90deg = () => {
 
 function moveUp() {
     const cachePreviousPosition = previousPosition;
+    const cachePreviousScore = previousScoreVariable;
     previousPosition = area;
     previousScoreVariable = currentScoreVariable;
 
@@ -207,11 +246,14 @@ function moveUp() {
     updateGame();    
     if (JSON.stringify(previousPosition) === JSON.stringify(area))  {
         previousPosition = cachePreviousPosition;
+        previousScoreVariable = cachePreviousScore;
     }  
+    toggleGameOver();
 }
 
 function moveDown() {
     const cachePreviousPosition = previousPosition;
+    const cachePreviousScore = previousScoreVariable;
     previousPosition = area;
     previousScoreVariable = currentScoreVariable;
 
@@ -225,7 +267,9 @@ function moveDown() {
     updateGame();    
     if (JSON.stringify(previousPosition) === JSON.stringify(area))  {
         previousPosition = cachePreviousPosition;
+        previousScoreVariable = cachePreviousScore;
     }  
+    toggleGameOver();
 }
 
 buttonBack.addEventListener("click", (e) => {
@@ -238,11 +282,16 @@ buttonBack.addEventListener("click", (e) => {
         area = previousPosition.map(row => [...row]);
         setLocalStorage();
         location.reload();
+        if (!checkGameOver()) {
+            toggleGameOver();
+        }
     }
 })
 
 buttonRestart.addEventListener("click", (e) => {
-    topTenResults.push(currentScoreVariable);
+    if (currentScoreVariable) {
+        topTenResults.push(currentScoreVariable);
+    }
     updateTopTenResults();
     area = [
         [0, 0, 0, 0],
@@ -308,5 +357,3 @@ playingField.addEventListener('touchmove', (e) => {
 })
 
 // Touch Control End ===========================
-
-console.log(area);
