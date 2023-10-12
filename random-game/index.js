@@ -5,12 +5,19 @@ const currentScore = document.querySelector(".current-score");
 const bestScore = document.querySelector(".best-score");
 const records = document.querySelector(".records");
 const gameOverScore = document.querySelector(".game-over-score");
+const carImg = document.querySelector(".car-img");
 
 let previousPosition = 0;
 let currentScoreVariable = 0;
 let previousScoreVariable = 0;
 let bestScoreVariable;
 let topTenResults = [];
+// let area = [
+//     [4, 8, 16, 0],
+//     [256, 128, 64, 32],
+//     [512, 1024, 2048, 4096],
+//     [65536, 32768, 16384, 8192]
+// ];
 let area = [
     [0, 0, 0, 0],
     [0, 0, 0, 0],
@@ -60,6 +67,7 @@ function updateBoard() {
             playingField.append(cell);
         });        
     });
+    updateCarImg();
 }
 updateBoard();
 
@@ -69,10 +77,28 @@ const updateScore = () => {
     bestScoreVariable = bestScoreVariable > currentScoreVariable ? bestScoreVariable : currentScoreVariable;
     currentScore.innerText = `score: ${currentScoreVariable} $`;
     bestScore.innerText = `best: ${bestScoreVariable} $`;
-    records.innerText = `records: ${topTenResults}`;
-    gameOverScore.innerText = `score: ${currentScoreVariable} $`;  
+    gameOverScore.innerText = `score: ${currentScoreVariable} $`;
+
+    records.innerText = "";
+    topTenResults.forEach((item) => {
+        let record = document.createElement("div"); 
+        record.innerText = `${item} $`;  
+        records.append(record);  
+    })
 }
 updateScore();
+
+function updateCarImg() {
+    let maxNum = 2;
+
+    area.forEach((row, rowIndex) => {
+        row.forEach((_, colIndex) => {
+            const num = area[rowIndex][colIndex];
+            maxNum = (num > maxNum) ? num : maxNum;
+        });        
+    });
+    carImg.style.backgroundImage = `url('./src/jpg/${maxNum}.jpg')`;
+}
 
 const findEmptyCells = () => [].concat(...area).includes(0);
 
@@ -189,9 +215,11 @@ function moveLeft() {
         area[rowIndex] = mergeCells(row);
     });
     updateGame(); 
+    toggleButtonBack();
     if (JSON.stringify(previousPosition) === JSON.stringify(area))  {
         previousPosition = cachePreviousPosition;
         previousScoreVariable = cachePreviousScore;
+        buttonBack.classList.remove("back-inactive");
     }  
     toggleGameOver();
 }
@@ -207,10 +235,12 @@ function moveRight() {
         area[rowIndex] = mergeCells(row);
         area[rowIndex] = area[rowIndex].reverse();
     });
-    updateGame();    
+    updateGame();   
+    toggleButtonBack(); 
     if (JSON.stringify(previousPosition) === JSON.stringify(area))  {
         previousPosition = cachePreviousPosition;
         previousScoreVariable = cachePreviousScore;
+        buttonBack.classList.remove("back-inactive");
     }  
     toggleGameOver();
 }
@@ -240,10 +270,12 @@ function moveUp() {
     rotateAreaCounterclockwise90deg();
     rotateAreaCounterclockwise90deg();
     rotateAreaCounterclockwise90deg();
-    updateGame();    
+    updateGame();   
+    toggleButtonBack(); 
     if (JSON.stringify(previousPosition) === JSON.stringify(area))  {
         previousPosition = cachePreviousPosition;
         previousScoreVariable = cachePreviousScore;
+        buttonBack.classList.remove("back-inactive");
     }  
     toggleGameOver();
 }
@@ -261,13 +293,24 @@ function moveDown() {
         area[rowIndex] = mergeCells(row);
     });
     rotateAreaCounterclockwise90deg();
-    updateGame();    
+    updateGame();   
+    toggleButtonBack(); 
     if (JSON.stringify(previousPosition) === JSON.stringify(area))  {
         previousPosition = cachePreviousPosition;
         previousScoreVariable = cachePreviousScore;
+        buttonBack.classList.remove("back-inactive");
     }  
     toggleGameOver();
 }
+
+function toggleButtonBack() {
+    if (JSON.stringify(previousPosition) === JSON.stringify(area)) {
+        buttonBack.classList.add("back-inactive");
+    } else {
+        buttonBack.classList.remove("back-inactive");
+    }
+}
+buttonBack.classList.add("back-inactive");
 
 buttonBack.addEventListener("click", (e) => {
     if (previousPosition) {
@@ -304,6 +347,7 @@ buttonRestart.addEventListener("click", (e) => {
 })
 
 document.addEventListener("keydown", (e) => {
+    e.preventDefault();
     if (e.code === "ArrowLeft") {
         moveLeft();
     } else if (e.code === "ArrowRight") {
