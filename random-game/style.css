@@ -53,8 +53,16 @@ body {
     margin: 10px;
 }
 
-.area {
+.area-wrapper {
     position: relative;
+    max-width: 420px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.area {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
@@ -68,8 +76,12 @@ body {
 }
 
 .game-over {
+    border-radius: 6px;
+    backdrop-filter: blur(2px);
+    visibility: hidden;
     z-index: -420;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     position: absolute;
@@ -77,14 +89,21 @@ body {
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: #43414f3f;
-    filter: blur(2px);
+    background-color: #43414f82;
     font-size: 40px;
-    transition: opacity 0.3s;
+    transition: 0.3s;
+    color: white;
 }
 
 .game-over-active {
+    visibility: visible;
     z-index: 420;
+    transition: 0.3s;
+}
+
+.game-over-score {
+    margin-top: 30px;
+    text-align: center;
 }
 
 .cell {
