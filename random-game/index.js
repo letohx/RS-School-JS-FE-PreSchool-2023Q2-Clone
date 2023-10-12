@@ -310,9 +310,13 @@ function toggleButtonBack() {
         buttonBack.classList.remove("back-inactive");
     }
 }
-buttonBack.classList.add("back-inactive");
+buttonBack.classList.remove("back-inactive");
+if (JSON.parse(localStorage.getItem("(づ ◕‿◕ )づ 2048 previousPosition")) === JSON.parse(localStorage.getItem("(づ ◕‿◕ )づ 2048 previousPosition"))) {
+    buttonBack.classList.add("back-inactive");
+}
 
 buttonBack.addEventListener("click", (e) => {
+    buttonBack.classList.add("back-inactive");
     if (previousPosition) {
         updateBoard();
         updateTopTenResults();
@@ -321,11 +325,12 @@ buttonBack.addEventListener("click", (e) => {
         currentScoreVariable = previousScoreVariable;
         area = previousPosition.map(row => [...row]);
         setLocalStorage();
-        location.reload();
+        updateBoard();
         if (!checkGameOver()) {
             toggleGameOver();
         }
     }
+    buttonBack.classList.add("back-inactive");
 })
 
 buttonRestart.addEventListener("click", (e) => {

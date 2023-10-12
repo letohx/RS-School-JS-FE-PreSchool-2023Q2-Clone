@@ -88,19 +88,9 @@ button {
     font-size: 18px;
 }
 
-.button:focus {
-  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
-  transform: translateY(2px);
-}
-
 .button:hover {
   box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
   transform: translateY(-2px);
-}
-
-.button:active {
-  box-shadow: #D6D6E7 0 3px 7px inset;
-  transform: translateY(2px);
 }
   
 .back-inactive {
@@ -293,20 +283,30 @@ button {
 }
 
 .car-img {
-    width: 200px;
-    height: 80px;
-    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    min-height: 190px;
+    margin: 40px 0 30px;
     background-image: url(./src/jpg/2.jpg);
     background-color: #000000;
     background-position: center bottom;
     background-repeat: no-repeat;
     background-size: contain;
-    border-radius: 5px;
+    overflow: hidden;
+    border-radius: 12px;
     box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.497) 0 7px 13px -3px;
 }
 
+.mercedes-logo {
+    margin: 15px;
+    width: 40px;
+}
+
 .records-wrapper {
-    margin: 20px;
+    color: rgb(209, 208, 203);
+    margin: 10px;
     width: auto;
 }
 
