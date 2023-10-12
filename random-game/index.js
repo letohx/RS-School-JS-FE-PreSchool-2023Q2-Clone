@@ -4,6 +4,7 @@ const playingField = document.querySelector(".area");
 const currentScore = document.querySelector(".current-score");
 const bestScore = document.querySelector(".best-score");
 const records = document.querySelector(".records");
+const gameOverScore = document.querySelector(".game-over-score");
 
 let previousPosition = 0;
 let currentScoreVariable = 0;
@@ -59,11 +60,6 @@ function updateBoard() {
             playingField.append(cell);
         });        
     });
-
-    let gameOver = document.createElement("div"); 
-    gameOver.innerText = "GAME OVER";    
-    gameOver.classList.add("game-over");
-    playingField.append(gameOver);
 }
 updateBoard();
 
@@ -71,9 +67,10 @@ const updateScore = () => {
     updateTopTenResults();
     bestScoreVariable = topTenResults[0] || 0;
     bestScoreVariable = bestScoreVariable > currentScoreVariable ? bestScoreVariable : currentScoreVariable;
-    currentScore.innerText = `score: ${currentScoreVariable} $`
-    bestScore.innerText = `best: ${bestScoreVariable} $`
-    records.innerText = `records: ${topTenResults}`
+    currentScore.innerText = `score: ${currentScoreVariable} $`;
+    bestScore.innerText = `best: ${bestScoreVariable} $`;
+    records.innerText = `records: ${topTenResults}`;
+    gameOverScore.innerText = `score: ${currentScoreVariable} $`;  
 }
 updateScore();
 
