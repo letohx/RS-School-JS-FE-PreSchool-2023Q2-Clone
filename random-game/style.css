@@ -64,6 +64,7 @@ body {
 }
 
 .scores-wrapper {
+    color: #656565;
     font-family: 'Montserrat';
     font-weight: bold;
     display: flex;
@@ -79,6 +80,16 @@ body {
 .bottom-menu-wrapper {
     display: flex;
     justify-content: space-between;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: .2s;
+}
+
+a:hover {
+    color: #202020d4; 
 }
 
 button {
@@ -124,27 +135,29 @@ button {
 }
 
 .button:active {
-  box-shadow: #D6D6E7 0 3px 7px inset;
-  transform: translateY(2px);
+    box-shadow: #D6D6E7 0 3px 7px inset;
+    transform: translateY(2px);
 }
 
 .button:hover {
-  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
-  transform: translateY(-2px);
+    box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    transform: translateY(-2px);
 }
   
 .back-inactive {
-  box-shadow: #D6D6E7 0 3px 7px inset;
-  pointer-events: none;
-  transform: translateY(2px);
-  transition: .15s;
+    box-shadow: #D6D6E7 0 3px 7px inset;
+    pointer-events: none;
+    transform: translateY(2px);
+    transition: .15s;
 }
 
 .game-wrapper {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
+    transition: flex-direction 0.5s ease;
 }
 
 .game-wrapper-reverse {
@@ -152,7 +165,6 @@ button {
 }
 
 .area-wrapper {
-    position: relative;
     max-width: 420px;
     width: 100%;
     display: flex;
@@ -347,6 +359,7 @@ button {
     background-repeat: no-repeat;
     background-size: contain;
     overflow: hidden;
+    cursor: pointer;
     opacity: 0.9;
     border-radius: 12px;
     box-shadow: rgb(45 35 66 / 59%) 0 -11px 12px, rgb(45 35 66 / 69%) 0 7px 28px -9px;
