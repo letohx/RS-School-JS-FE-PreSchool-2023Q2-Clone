@@ -1,5 +1,6 @@
 const buttonBack = document.querySelector(".back");
 const buttonRestart = document.querySelector(".restart");
+const gameWrapper = document.querySelector(".game-wrapper");
 const playingField = document.querySelector(".area");
 const currentScore = document.querySelector(".current-score");
 const bestScore = document.querySelector(".best-score");
@@ -382,6 +383,10 @@ buttonRestart.addEventListener("click", (e) => {
     previousScoreVariable = 0;
     setLocalStorage();
     location.reload();
+})
+
+carImg.addEventListener("click", () => {
+    gameWrapper.classList.toggle("game-wrapper-reverse");
 })
 
 document.addEventListener("keydown", (e) => {
