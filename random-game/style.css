@@ -1,3 +1,19 @@
+@font-face {
+    font-display: swap;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    src: url('./src/fonts/montserrat-v26-latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap; 
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 800;
+    src: url('./src/fonts/montserrat-v26-latin-800.woff2') format('woff2'); 
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -33,13 +49,26 @@ body {
 }
 
 .top-menu-wrapper {
+    color: #3d3d3dd4;
+    font-family: 'Montserrat';
+    font-weight: normal;
     display: flex;
     justify-content: space-between;
 }
 
+.title-game {
+    margin: 3px 20px;
+    font-family: 'Montserrat';
+    font-size: 40px;
+    font-weight: bold;
+}
+
 .scores-wrapper {
+    font-family: 'Montserrat';
+    font-weight: bold;
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
 }
 
 .score {
@@ -61,7 +90,7 @@ button {
 }
 
 .button {
-    width: 100px;
+    width: 130px;
     height: 40px;
     margin: 10px;
     align-items: center;
@@ -69,10 +98,11 @@ button {
     border-radius: 4px;
     box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
     box-sizing: border-box;
-    color: #36395A;
+    color: #3d3d3dd4;
     cursor: pointer;
     display: inline-flex;
-    font-family: "JetBrains Mono",monospace;
+    font-family: 'Montserrat';
+    font-weight: bold;
     height: 48px;
     justify-content: center;
     line-height: 1;
@@ -131,7 +161,7 @@ button {
     border-radius: 6px;
     color: rgba(236, 237, 242, 0.926);
     text-shadow: 0 0 2px #000000;
-    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px;
+    box-shadow: rgb(45 35 66 / 59%) 0 2px 7px, rgb(45 35 66 / 69%) 0 7px 13px -3px;
 }
 
 .game-over {
@@ -304,8 +334,9 @@ button {
     background-repeat: no-repeat;
     background-size: contain;
     overflow: hidden;
+    opacity: 0.9;
     border-radius: 12px;
-    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.497) 0 7px 13px -3px;
+    box-shadow: rgb(45 35 66 / 59%) 0 -11px 12px, rgb(45 35 66 / 69%) 0 7px 28px -9px;
 }
 
 .mercedes-logo {
