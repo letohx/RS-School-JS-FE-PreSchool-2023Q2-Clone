@@ -159,6 +159,7 @@ function toggleGameOver() {
 
     if (checkGameOver()) {
         gameOver.classList.add("game-over-active");
+        playGameOverSound()
     } else {
         gameOver.classList.remove("game-over-active");
     }
@@ -204,7 +205,23 @@ const updateGame = () => {
     setLocalStorage();
 }
 
+function playMotionSound() {
+    const randomIndex = Math.floor(Math.random() * 10) + 1;
+    const audio = new Audio(`./src/audio/move${randomIndex}.mp3`);
+    audio.play();
+}
+
+function playGameOverSound() {
+    const randomIndex = Math.floor(Math.random() * 2) + 1;
+    const audio = new Audio(`./src/audio/game-over${randomIndex}.mp3`);
+    audio.play();
+}
+
 function moveLeft() {
+    toggleGameOver();
+    if (checkGameOver()) {
+        return;
+    }
     const cachePreviousPosition = previousPosition;
     const cachePreviousScore = previousScoreVariable;
     previousPosition  = previousPosition;
@@ -214,17 +231,23 @@ function moveLeft() {
     area.forEach((row, rowIndex) => {
         area[rowIndex] = mergeCells(row);
     });
+    
     updateGame(); 
     toggleButtonBack();
     if (JSON.stringify(previousPosition) === JSON.stringify(area))  {
         previousPosition = cachePreviousPosition;
         previousScoreVariable = cachePreviousScore;
         buttonBack.classList.remove("back-inactive");
-    }  
-    toggleGameOver();
+    } else {
+        playMotionSound();
+    }
 }
 
 function moveRight() {
+    toggleGameOver();
+    if (checkGameOver()) {
+        return;
+    }
     const cachePreviousPosition = previousPosition;
     const cachePreviousScore = previousScoreVariable;
     previousPosition = area.map(row => [...row]);
@@ -241,8 +264,9 @@ function moveRight() {
         previousPosition = cachePreviousPosition;
         previousScoreVariable = cachePreviousScore;
         buttonBack.classList.remove("back-inactive");
-    }  
-    toggleGameOver();
+    } else {
+        playMotionSound();
+    }
 }
 
 const rotateAreaCounterclockwise90deg = () => {
@@ -258,6 +282,10 @@ const rotateAreaCounterclockwise90deg = () => {
 }
 
 function moveUp() {
+    toggleGameOver();
+    if (checkGameOver()) {
+        return;
+    }
     const cachePreviousPosition = previousPosition;
     const cachePreviousScore = previousScoreVariable;
     previousPosition = area;
@@ -276,11 +304,16 @@ function moveUp() {
         previousPosition = cachePreviousPosition;
         previousScoreVariable = cachePreviousScore;
         buttonBack.classList.remove("back-inactive");
+    } else {
+        playMotionSound();
     }  
-    toggleGameOver();
 }
 
 function moveDown() {
+    toggleGameOver();
+    if (checkGameOver()) {
+        return;
+    }
     const cachePreviousPosition = previousPosition;
     const cachePreviousScore = previousScoreVariable;
     previousPosition = area;
@@ -299,8 +332,9 @@ function moveDown() {
         previousPosition = cachePreviousPosition;
         previousScoreVariable = cachePreviousScore;
         buttonBack.classList.remove("back-inactive");
+    } else {
+        playMotionSound();
     }  
-    toggleGameOver();
 }
 
 function toggleButtonBack() {
@@ -316,7 +350,6 @@ if (JSON.parse(localStorage.getItem("(づ ◕‿◕ )づ 2048 previousPosition")
 }
 
 buttonBack.addEventListener("click", (e) => {
-    buttonBack.classList.add("back-inactive");
     if (previousPosition) {
         updateBoard();
         updateTopTenResults();
