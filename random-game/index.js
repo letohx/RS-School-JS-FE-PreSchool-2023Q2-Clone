@@ -1,3 +1,4 @@
+const titleGame = document.querySelector(".title-game-text");
 const buttonBack = document.querySelector(".back");
 const buttonRestart = document.querySelector(".restart");
 const gameWrapper = document.querySelector(".game-wrapper");
@@ -498,6 +499,9 @@ mercedesLogo.addEventListener("touchend", (event) => {
       ];
       addTwoOrFour();
       updateBoard();
+      titleGame.innerText = "131072";
+      const audio = new Audio(`./src/audio/cheat.mp3`);
+      audio.play();
   }
 });
 
