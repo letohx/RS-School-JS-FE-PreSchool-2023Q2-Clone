@@ -501,6 +501,29 @@ mercedesLogo.addEventListener("touchend", (event) => {
   }
 });
 
+// easter egg clear local storage 
+
+let localStorageStartX = 0;
+let localStorageStartY = 0;
+
+buttonRestart.addEventListener("touchstart", (event) => {
+  localStorageStartX = event.touches[0].clientX;
+  localStorageStartY = event.touches[0].clientY;
+});
+
+buttonRestart.addEventListener("touchend", (event) => {
+  const localStorageEndX = event.changedTouches[0].clientX;
+  const localStorageEndY = event.changedTouches[0].clientY;
+
+  const deltaX = localStorageEndX - localStorageStartX;
+  const deltaY = localStorageEndY - localStorageStartY;
+
+  if (deltaX <= -200 && deltaY >= 420) {
+    localStorage.clear();
+    location. reload();
+  }
+});
+
 console.log(
   "60 из 60 баллов\n- Вёрстка +10 реализован интерфейс игры +5\n- В футере приложения есть ссылка на гитхаб автора приложения, год создания приложения, логотип курса со ссылкой на курс +5\n- Логика игры. Ходы, перемещения фигур, другие действия игрока подчиняются определённым свойственным игре правилам +10\n- Реализовано завершение игры при достижении игровой цели +10\n- По окончанию игры выводится её результат, например, количество ходов, время игры, набранные баллы, выигрыш или поражение и т.д +10\n- Есть таблица результатов, в которой сохраняются результаты 10 игр с наибольшим счетом (лучшим временем и т.п.) или просто 10 последних игр (хранится в local storage) +10\n- Анимации или звуки, или настройки игры. Баллы начисляются за любой из перечисленных пунктов +10\n- Очень высокое качество оформления приложения и/или дополнительный не предусмотренный в задании функционал, улучшающий качество приложения +10\nвысокое качество оформления приложения предполагает собственное оригинальное оформление равное или отличающееся в лучшую сторону по сравнению с демо",
 );
